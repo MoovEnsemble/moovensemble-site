@@ -2,67 +2,51 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Moov'Ensemble - Animation Intro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moov'Ensemble - Bienvenue</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       background: #f4f4f4;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      text-align: center;
+      padding: 80px 20px;
     }
-    .logo-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
+    img {
+      width: 200px;
+      margin-bottom: 30px;
     }
-    .bouclier, .coeur, .silhouette1, .silhouette2 {
-      position: absolute;
-      opacity: 0;
-      transition: all 0.5s ease-in-out;
+    h1 {
+      color: #333;
+      font-size: 2.5em;
     }
-    .bouclier {
-      animation: fadeIn 1s forwards;
+    p {
+      font-size: 1.2em;
+      color: #666;
+      margin: 20px 0;
     }
-    .coeur {
-      animation: fadeInHeart 1s 1s forwards, beat 0.6s 1s 2;
+    a.button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
     }
-    .silhouette1 {
-      animation: runIn1 1s 2s forwards;
-    }
-    .silhouette2 {
-      animation: runIn2 1s 2s forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    @keyframes fadeInHeart {
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-    }
-    @keyframes runIn1 {
-      from { left: -100px; opacity: 0; }
-      to { left: 40px; opacity: 1; }
-    }
-    @keyframes runIn2 {
-      from { right: -100px; opacity: 0; }
-      to { right: 40px; opacity: 1; }
+    a.button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
-  <div class="logo-container">
-    <img src="bouclier.png" class="bouclier" style="top: 0; left: 0; width: 100%;" />
-    <img src="coeur.png" class="coeur" style="top: 90px; left: 100px; width: 100px;" />
-    <img src="silhouette1.png" class="silhouette1" style="bottom: 20px; left: 0; width: 60px;" />
-    <img src="silhouette2.png" class="silhouette2" style="bottom: 20px; right: 0; width: 60px;" />
-  </div>
+
+  <img src="logo.png" alt="Logo Moov'Ensemble">
+  <h1>Bienvenue chez Moov'Ensemble</h1>
+  <p>Notre site est actuellement en construction.<br>
+     Nous préparons une belle plateforme dédiée au sport, 
+     à la santé et au mouvement pour tous !</p>
+  <a class="button" href="mailto:moovensemble@gmail.com">Contactez-nous</a>
+
 </body>
 </html>
