@@ -2,51 +2,52 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moov'Ensemble - Bienvenue</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moov'Ensemble - Animation Logo</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      text-align: center;
-      padding: 80px 20px;
+      margin: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    img {
-      width: 200px;
-      margin-bottom: 30px;
+    .logo-part {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
-    h1 {
-      color: #333;
-      font-size: 2.5em;
+    .visible {
+      opacity: 1;
     }
-    p {
-      font-size: 1.2em;
-      color: #666;
-      margin: 20px 0;
+    .logo {
+      position: relative;
+      width: 300px;
+      height: 300px;
     }
-    a.button {
-      display: inline-block;
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a.button:hover {
-      background-color: #45a049;
+    .centered {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-
-  <img src="logo.png" alt="Logo Moov'Ensemble">
-  <h1>Bienvenue chez Moov'Ensemble</h1>
-  <p>Notre site est actuellement en construction.<br>
-     Nous préparons une belle plateforme dédiée au sport, 
-     à la santé et au mouvement pour tous !</p>
-  <a class="button" href="mailto:moovensemble@gmail.com">Contactez-nous</a>
-
+  <div class="logo">
+    <img id="bouclier" class="logo-part centered" src="bouclier.svg" />
+    <img id="coeur" class="logo-part centered" src="coeur.svg" />
+    <img id="silhouette1" class="logo-part centered" src="silhouette1.svg" />
+    <img id="silhouette2" class="logo-part centered" src="silhouette2.svg" />
+  </div>
+  <script>
+    window.onload = () => {
+      setTimeout(() => document.getElementById("bouclier").classList.add("visible"), 500);
+      setTimeout(() => document.getElementById("coeur").classList.add("visible"), 1500);
+      setTimeout(() => document.getElementById("silhouette1").classList.add("visible"), 2500);
+      setTimeout(() => document.getElementById("silhouette2").classList.add("visible"), 3000);
+    };
+  </script>
 </body>
 </html>
