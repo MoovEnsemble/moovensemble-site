@@ -3,61 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moov'Ensemble</title>
+  <title>Moov'Ensemble - Bienvenue</title>
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background-color: #f3f3f3; }
-    header { display: flex; justify-content: flex-start; align-items: center; padding: 10px 20px; background-color: #003366; color: white; }
-    nav { display: flex; gap: 20px; }
-    .dropdown { position: relative; }
-    .dropdown-button { background: none; border: none; color: white; font-size: 16px; cursor: pointer; }
-    .dropdown-content { display: none; position: absolute; background-color: white; color: black; min-width: 200px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; }
-    .dropdown-content a { padding: 12px 16px; display: block; text-decoration: none; color: black; }
-    .dropdown:hover .dropdown-content { display: block; }
-    .vignettes { display: flex; justify-content: space-around; margin-top: 40px; padding: 0 20px; }
-    .vignette { text-align: center; width: 30%; cursor: pointer; }
-    .vignette img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    .vignette-title { margin-top: 10px; font-size: 18px; font-weight: bold; color: #003366; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    img {
+      width: 200px;
+      margin-bottom: 30px;
+    }
+    h1 {
+      color: #333;
+      font-size: 2.5em;
+    }
+    p {
+      font-size: 1.2em;
+      color: #666;
+      margin: 20px 0;
+    }
+    a.button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a.button:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="dropdown">
-        <button class="dropdown-button">Moov'Ensemble</button>
-        <div class="dropdown-content">
-          <a href="qui-sommes-nous.html">Qui sommes-nous ?</a>
-          <a href="journees-sportives.html">Journées Sportives / Camps</a>
-          <a href="prevention-sante.html">Prévention / Santé</a>
-          <a href="se-defendre.html">Se défendre</a>
-          <a href="galerie-archives.html">Galerie / Archives</a>
-          <a href="formulaire-contact.html">Formulaire de contact</a>
-          <a href="fiche-inscription.html">Fiche d'inscription</a>
-          <a href="charte.html">Charte</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropdown-button">Activités</button>
-        <div class="dropdown-content">
-          <a href="activites-enfants.html">Activités Enfants</a>
-          <a href="activites-ados.html">Activités Ados / Adultes</a>
-          <a href="activites-seniors.html">Activités Seniors</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <section class="vignettes">
-    <div class="vignette" onclick="location.href='activites-enfants.html'">
-      <img src="activites_enfants.jpeg" alt="Activités Enfants">
-      <div class="vignette-title">Activités Enfants</div>
-    </div>
-    <div class="vignette" onclick="location.href='activites-ados.html'">
-      <img src="activites_adultes.jpeg" alt="Activités Ados / Adultes">
-      <div class="vignette-title">Activités Ados / Adultes</div>
-    </div>
-    <div class="vignette" onclick="location.href='activites-seniors.html'">
-      <img src="activites_seniors.jpeg" alt="Activités Seniors">
-      <div class="vignette-title">Activités Seniors</div>
-    </div>
-  </section>
+
+  <img src="logo.png" alt="Logo Moov'Ensemble">
+  <h1>Bienvenue chez Moov'Ensemble</h1>
+  <p>Notre site est actuellement en construction.<br>
+     Nous préparons une belle plateforme dédiée au sport, 
+     à la santé et au mouvement pour tous !</p>
+  <a class="button" href="mailto:moovensemble@gmail.com">Contactez-nous</a>
+
 </body>
 </html>
