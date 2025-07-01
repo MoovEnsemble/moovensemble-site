@@ -67,12 +67,60 @@ img.logo {
   text-align: center;
   margin-top: 40px;
 }
+
+.navbar {
+  background-color: #003366;
+  overflow: hidden;
+  display: flex;
+  padding: 0;
+  align-items: center;
+}
+.menu {
+  position: relative;
+}
+.dropbtn {
+  background-color: #003366;
+  color: white;
+  padding: 14px 18px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+.menu:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #003366;
+  padding: 10px 12px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+.contact-right {
+  margin-left: auto;
+  padding: 14px 18px;
+}
+.contact-right a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
 </style>
 </head>
 <body>
   
 <div class="navbar">
-  <div class="dropdown">
+  <div class="menu">
     <button class="dropbtn">Moov’Ensemble</button>
     <div class="dropdown-content">
       <a href="qui-sommes-nous.html">Qui sommes-nous ?</a>
@@ -85,7 +133,7 @@ img.logo {
       <a href="charte.html">Charte</a>
     </div>
   </div>
-  <div class="dropdown">
+  <div class="menu">
     <button class="dropbtn">Activités</button>
     <div class="dropdown-content">
       <a href="activites-enfants.html">Activités Enfants</a>
@@ -93,7 +141,7 @@ img.logo {
       <a href="activites-seniors.html">Activités Seniors</a>
     </div>
   </div>
-  <div class="right-contact">
+  <div class="contact-right">
     <a href="formulaire-contact.html">Contactez-nous</a>
   </div>
 </div>
