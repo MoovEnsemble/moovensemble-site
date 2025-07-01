@@ -1,53 +1,171 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Contactez-nous – Moov'Ensemble</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – Moov'Ensemble</title>
   <style>
-    body {
-      background-color: white;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      text-align: center;
+    
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #003366;
+}
+img.logo {
+  display: block;
+  margin: 20px auto;
+  width: 250px;
+}
+.navbar {
+  overflow: hidden;
+  background-color: #003366;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 20px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+.dropbtn {
+  background-color: #003366;
+  color: white;
+  padding: 14px 16px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #003366;
+  padding: 10px 12px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.right-contact {
+  margin-left: auto;
+}
+.right-contact a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+    .contact-container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 0 20px;
+      text-align: left;
     }
-    header img {
-      max-width: 200px;
-      margin-top: 20px;
+    form input, form textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
     }
-    form {
-      margin-top: 20px;
+    form button {
+      background-color: #003366;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
     }
-    input, textarea {
-      margin: 10px;
-      padding: 8px;
-      width: 300px;
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
     }
-    footer {
-      margin-top: 40px;
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .checkbox input {
+      width: auto;
+      margin-right: 10px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Logo Moov'Ensemble">
-  </header>
+  <img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
+  
+<div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn">Moov’Ensemble</button>
+    <div class="dropdown-content">
+      <a href="qui-sommes-nous.html">Qui sommes-nous ?</a>
+      <a href="journees-sportives.html">Journées Sportives / Camps</a>
+      <a href="prevention.html">Prévention / Santé</a>
+      <a href="autodefense.html">Se défendre</a>
+      <a href="galerie.html">Galerie / Archives</a>
+      <a href="formulaire-contact.html">Formulaire de contact</a>
+      <a href="fiche-inscription.html">Fiche d'inscription</a>
+      <a href="charte.html">Charte</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Activités</button>
+    <div class="dropdown-content">
+      <a href="activites-enfants.html">Activités Enfants</a>
+      <a href="activites-adultes.html">Activités Ados / Adultes</a>
+      <a href="activites-seniors.html">Activités Seniors</a>
+    </div>
+  </div>
+  <div class="right-contact">
+    <a href="formulaire-contact.html">Contactez-nous</a>
+  </div>
+</div>
 
-  <h1>Formulaire de contact</h1>
 
-  <form action="https://formspree.io/f/xpzvlnav" method="POST">
-    <input type="text" name="name" placeholder="Prénom et nom" required><br>
-    <input type="email" name="_replyto" placeholder="Email" required><br>
-    <input type="text" name="subject" placeholder="Sujet"><br>
-    <textarea name="message" placeholder="Message" required></textarea><br>
-    <label><input type="checkbox" required> Je ne suis pas un robot</label><br>
-    <button type="submit">Envoyer</button>
-  </form>
+  <div class="contact-container">
+    <h1>Formulaire de contact</h1>
+    <form action="https://formspree.io/f/xpzvlnav" method="POST">
+      <label for="name">Prénom et nom *</label>
+      <input type="text" id="name" name="name" required>
 
-  <p><a href="FORMULAIRE_D_INSCRIPTION.pdf" target="_blank">📄 Télécharger la fiche d’inscription</a></p>
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="_replyto" required>
 
-  <footer>
-    <a href="index.html">🏠 Retour à l’accueil</a>
-  </footer>
+      <label for="subject">Sujet</label>
+      <input type="text" id="subject" name="subject">
+
+      <label for="message">Message *</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <div class="checkbox">
+        <input type="checkbox" id="robot" name="robot" required>
+        <label for="robot" style="margin: 0;">Je ne suis pas un robot</label>
+      </div>
+
+      <button type="submit">Envoyer</button>
+    </form>
+
+    <p style="margin-top: 20px;">
+      📄 <a href="FORMULAIRE_D_INSCRIPTION.pdf" target="_blank">Télécharger la fiche d’inscription (PDF)</a>
+    </p>
+  </div>
+
+  <div class="footer"><a href="index.html">🏠 Retour à l’accueil</a></div>
 </body>
 </html>
