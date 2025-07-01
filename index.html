@@ -1,71 +1,79 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Moov'Ensemble</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Moov'Ensemble</title>
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background-color: #FFFAF3; }
-    header { display: flex; justify-content: flex-start; align-items: center; padding: 10px 20px; background-color: #003366; color: white; }
-    nav { display: flex; gap: 20px; }
-    .dropdown { position: relative; }
-    .dropdown-button { background: none; border: none; color: white; font-size: 16px; cursor: pointer; }
-    .dropdown-content { display: none; position: absolute; background-color: white; color: black; min-width: 200px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; }
-    .dropdown-content a { padding: 12px 16px; display: block; text-decoration: none; color: black; }
-    .dropdown:hover .dropdown-content { display: block; }
-    .logo { text-align: center; margin-top: 30px; }
-    .logo img { max-width: 300px; height: auto; }
-    .vignettes { display: flex; justify-content: space-around; margin-top: 40px; padding: 0 20px 40px; }
-    .vignette { text-align: center; width: 30%; cursor: pointer; }
-    .vignette img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    .vignette-title { margin-top: 10px; font-size: 18px; font-weight: bold; color: #003366; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #FFFFFF;
+      padding: 30px;
+      text-align: center;
+    }
+    .top-right {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+    .top-right a {
+      text-decoration: none;
+      color: #003366;
+      font-weight: bold;
+    }
+    .logo {
+      max-width: 300px;
+      margin: 30px auto;
+    }
+    .activities {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .activities a {
+      text-decoration: none;
+      color: black;
+      text-align: center;
+    }
+    .activities img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="dropdown">
-        <button class="dropdown-button">Moov'Ensemble</button>
-        <div class="dropdown-content">
-          <a href="qui-sommes-nous.html">Qui sommes-nous ?</a>
-          <a href="journees-sportives.html">Journées Sportives / Camps</a>
-          <a href="prevention-sante.html">Prévention / Santé</a>
-          <a href="se-defendre.html">Se défendre</a>
-          <a href="galerie-archives.html">Galerie / Archives</a>
-          <a href="formulaire-contact.html">Formulaire de contact</a>
-          <a href="fiche-inscription.html">Fiche d'inscription</a>
-          <a href="charte.html">Charte</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropdown-button">Activités</button>
-        <div class="dropdown-content">
-          <a href="activites-enfants.html">Activités Enfants</a>
-          <a href="activites-ados.html">Activités Ados / Adultes</a>
-          <a href="activites-seniors.html">Activités Seniors</a>
-        </div>
-      </div>
-    </nav>
-  </header>
 
-  <div class="logo">
-    <img src="logo.png" alt="Logo Moov'Ensemble">
-  </div>
+<div class="top-right">
+  <a href="formulaire-contact.html">Contactez-nous</a>
+</div>
 
-  <section class="vignettes">
-    <div class="vignette" onclick="location.href='activites-enfants.html'">
-      <img src="activites_enfants.jpeg" alt="Activités Enfants">
-      <div class="vignette-title">Activités Enfants</div>
-    </div>
-    <div class="vignette" onclick="location.href='activites-ados.html'">
-      <img src="activites_adultes.jpeg" alt="Activités Ados / Adultes">
-      <div class="vignette-title">Activités Ados / Adultes</div>
-    </div>
-    <div class="vignette" onclick="location.href='activites-seniors.html'">
-      <img src="activites_seniors.jpeg" alt="Activités Seniors">
-      <div class="vignette-title">Activités Seniors</div>
-    </div>
-  </section>
+<img src="logo.png" alt="Logo Moov'Ensemble" class="logo">
+
+<div class="activities">
+  <a href="activites-enfants.html">
+    <img src="Activites_enfants.jpeg" alt="Activités Enfants">
+    <p>Activités Enfants</p>
+  </a>
+  <a href="activites-adultes.html">
+    <img src="Activites_adultes.jpeg" alt="Activités Ados/Adultes">
+    <p>Activités Ados/Adultes</p>
+  </a>
+  <a href="activites-seniors.html">
+    <img src="Activites_seniors.jpg" alt="Activités Seniors">
+    <p>Activités Seniors</p>
+  </a>
+</div>
+
+<div class="footer">
+  <p><a href="index.html">🏠 Retour à l’accueil</a></p>
+</div>
+
 </body>
 </html>
