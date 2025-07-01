@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact – Moov'Ensemble</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire de contact – Moov’Ensemble</title>
   <style>
     
 body {
@@ -91,11 +91,6 @@ img.logo {
       border-radius: 4px;
       cursor: pointer;
     }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
     .checkbox {
       display: flex;
       align-items: center;
@@ -139,21 +134,21 @@ img.logo {
   <img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
   <div class="contact-container">
     <h1>Formulaire de contact</h1>
-    <form action="https://formspree.io/f/xbjnednz" method="POST">
+    <form action="mailto:moovensemble@gmail.com" method="POST" enctype="text/plain">
       <label for="name">Prénom et nom *</label>
-      <input type="text" id="name" name="name" required>
+      <input type="text" id="name" name="Prénom et nom" required>
 
       <label for="email">Email *</label>
-      <input type="email" id="email" name="_replyto" required>
+      <input type="email" id="email" name="Email" required>
 
       <label for="subject">Sujet</label>
-      <input type="text" id="subject" name="subject">
+      <input type="text" id="subject" name="Sujet">
 
       <label for="message">Message *</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
+      <textarea id="message" name="Message" rows="5" required></textarea>
 
       <div class="checkbox">
-        <input type="checkbox" id="robot" name="robot" required>
+        <input type="checkbox" id="robot" required>
         <label for="robot" style="margin: 0;">Je ne suis pas un robot</label>
       </div>
 
@@ -164,7 +159,6 @@ img.logo {
       📄 <a href="FORMULAIRE_D_INSCRIPTION.pdf" target="_blank">Télécharger la fiche d’inscription (PDF)</a>
     </p>
   </div>
-
   <div class="footer"><a href="index.html">🏠 Retour à l’accueil</a></div>
 </body>
 </html>
