@@ -1,79 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil - Moov'Ensemble</title>
+  <title>Moov'Ensemble – Accueil</title>
   <style>
     body {
-      margin: 0;
+      background-color: white;
       font-family: Arial, sans-serif;
-      background-color: #FFFFFF;
-      padding: 30px;
       text-align: center;
     }
-    .top-right {
-      position: absolute;
-      top: 20px;
-      right: 30px;
+    header img {
+      max-width: 200px;
+      margin-top: 20px;
     }
-    .top-right a {
-      text-decoration: none;
-      color: #003366;
-      font-weight: bold;
+    nav {
+      text-align: left;
+      margin: 20px;
     }
-    .logo {
-      max-width: 300px;
-      margin: 30px auto;
-    }
-    .activities {
+    .vignettes {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 40px;
+      margin-top: 30px;
     }
-    .activities a {
-      text-decoration: none;
-      color: black;
-      text-align: center;
+    .vignette {
+      margin: 0 15px;
     }
-    .activities img {
-      width: 200px;
+    .vignette img {
+      max-width: 250px;
       height: auto;
-      border-radius: 10px;
     }
-    .footer {
-      text-align: center;
-      margin-top: 50px;
+    footer {
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="logo.png" alt="Logo Moov'Ensemble">
+  </header>
 
-<div class="top-right">
-  <a href="formulaire-contact.html">Contactez-nous</a>
-</div>
+  <nav>
+    <a href="qui-sommes-nous.html">Qui sommes-nous</a> |
+    <a href="formulaire-contact.html">Contactez-nous</a>
+  </nav>
 
-<img src="logo.png" alt="Logo Moov'Ensemble" class="logo">
+  <div class="vignettes">
+    <div class="vignette">
+      <a href="#"><img src="Activites_enfants.jpeg" alt="Activités Enfants"><br>Activités Enfants</a>
+    </div>
+    <div class="vignette">
+      <a href="#"><img src="Activites_adultes.jpeg" alt="Activités Ados/Adultes"><br>Activités Ados / Adultes</a>
+    </div>
+    <div class="vignette">
+      <a href="#"><img src="Activites_seniors.jpg" alt="Activités Seniors"><br>Activités Seniors</a>
+    </div>
+  </div>
 
-<div class="activities">
-  <a href="activites-enfants.html">
-    <img src="Activites_enfants.jpeg" alt="Activités Enfants">
-    <p>Activités Enfants</p>
-  </a>
-  <a href="activites-adultes.html">
-    <img src="Activites_adultes.jpeg" alt="Activités Ados/Adultes">
-    <p>Activités Ados/Adultes</p>
-  </a>
-  <a href="activites-seniors.html">
-    <img src="Activites_seniors.jpg" alt="Activités Seniors">
-    <p>Activités Seniors</p>
-  </a>
-</div>
-
-<div class="footer">
-  <p><a href="index.html">🏠 Retour à l’accueil</a></p>
-</div>
-
+  <footer>
+    <a href="formulaire-contact.html">Formulaire de contact</a>
+  </footer>
 </body>
 </html>
