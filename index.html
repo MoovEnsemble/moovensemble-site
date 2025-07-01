@@ -140,8 +140,8 @@ img.logo {
   
 <div class="navbar">
   <div class="menu">
-    <button class="dropbtn">Moov’Ensemble</button>
-    <div class="dropdown-content">
+    <button class="dropbtn" onclick="toggleDropdown('moovDropdown')">Moov’Ensemble</button>
+    <div class="dropdown-content" id="moovDropdown">
       <a href="qui-sommes-nous.html">Qui sommes-nous ?</a>
       <a href="journees-sportives.html">Journées Sportives / Camps</a>
       <a href="prevention.html">Prévention / Santé</a>
@@ -153,8 +153,8 @@ img.logo {
     </div>
   </div>
   <div class="menu">
-    <button class="dropbtn">Activités</button>
-    <div class="dropdown-content">
+    <button class="dropbtn" onclick="toggleDropdown('activitesDropdown')">Activités</button>
+    <div class="dropdown-content" id="activitesDropdown">
       <a href="activites-enfants.html">Activités Enfants</a>
       <a href="activites-adultes.html">Activités Ados / Adultes</a>
       <a href="activites-seniors.html">Activités Seniors</a>
@@ -164,6 +164,26 @@ img.logo {
     <a href="formulaire-contact.html">Contactez-nous</a>
   </div>
 </div>
+
+<script>
+function toggleDropdown(id) {
+  var el = document.getElementById(id);
+  var wasVisible = el.style.display === "block";
+  document.querySelectorAll('.dropdown-content').forEach(function(menu) {
+    menu.style.display = "none";
+  });
+  el.style.display = wasVisible ? "none" : "block";
+}
+
+// Fermer le menu si on clique ailleurs
+document.addEventListener("click", function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    document.querySelectorAll('.dropdown-content').forEach(function(menu) {
+      menu.style.display = "none";
+    });
+  }
+});
+</script>
 
   <img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
   <div class="vignettes">
