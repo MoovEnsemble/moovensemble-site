@@ -1,20 +1,107 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fiche Inscription</title>
+  <meta charset="UTF-8">
+  <title>Fiche d'inscription – Moov'Ensemble</title>
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background-color: #FFFFFF; padding: 30px; line-height: 1.6; color: #003366; text-align: center; }
-  </style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #003366;
+}
+img.logo {
+  display: block;
+  margin: 20px auto;
+  width: 250px;
+}
+.navbar {
+  overflow: hidden;
+  background-color: #003366;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 20px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+.dropbtn {
+  background-color: #003366;
+  color: white;
+  padding: 14px 16px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #003366;
+  padding: 10px 12px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.right-contact {
+  margin-left: auto;
+}
+.right-contact a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.footer {
+  text-align: center;
+  margin-top: 40px;
+}
+</style>
 </head>
 <body>
   
-<div class="logo" style="text-align:center;margin:30px 0;">
-  <img src="logo.png" alt="Logo Moov'Ensemble" style="max-width:300px;">
+<div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn">Moov’Ensemble</button>
+    <div class="dropdown-content">
+      <a href="qui-sommes-nous.html">Qui sommes-nous ?</a>
+      <a href="journees-sportives.html">Journées Sportives / Camps</a>
+      <a href="prevention.html">Prévention / Santé</a>
+      <a href="autodefense.html">Se défendre</a>
+      <a href="galerie.html">Galerie / Archives</a>
+      <a href="formulaire-contact.html">Formulaire de contact</a>
+      <a href="fiche-inscription.html">Fiche d'inscription</a>
+      <a href="charte.html">Charte</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Activités</button>
+    <div class="dropdown-content">
+      <a href="activites-enfants.html">Activités Enfants</a>
+      <a href="activites-adultes.html">Activités Ados / Adultes</a>
+      <a href="activites-seniors.html">Activités Seniors</a>
+    </div>
+  </div>
+  <div class="right-contact">
+    <a href="formulaire-contact.html">Contactez-nous</a>
+  </div>
 </div>
 
-  <h1>Cette page est en construction 🛠️</h1>
-  <p>Elle sera disponible très bientôt. Merci de votre patience !</p>
+  <img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
+  <div class="footer">
+    <h1>Fiche d'inscription</h1>
+    <p>🚧 Cette page est actuellement en construction. Revenez bientôt !</p>
+    <a href="index.html">🏠 Retour à l’accueil</a>
+  </div>
 </body>
 </html>
