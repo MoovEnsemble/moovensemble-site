@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Formulaire Netlify</title>
+</head>
+<body>
+  <h1>Formulaire de test pour Netlify</h1>
+  <form name="contact" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="contact">
+    <p>
+      <label>Nom : <input type="text" name="name" required></label>
+    </p>
+    <p>
+      <label>Email : <input type="email" name="email" required></label>
+    </p>
+    <p>
+      <label>Message : <textarea name="message" required></textarea></label>
+    </p>
+    <p>
+      <button type="submit">Envoyer</button>
+    </p>
+  </form>
+</body>
+</html>
