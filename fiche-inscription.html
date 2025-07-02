@@ -5,74 +5,28 @@
   <title>Fiche d'inscription – Moov'Ensemble</title>
   <style>
 body {
-  margin: 0;
-  padding: 0;
   font-family: Arial, sans-serif;
   background-color: white;
-  color: #003366;
+  margin: 0;
+  padding: 0;
 }
-img.logo {
+.logo {
   display: block;
-  margin: 20px auto;
-  width: 250px;
-}
-.navbar {
-  overflow: hidden;
-  background-color: #003366;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 20px;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-  margin-right: 20px;
-}
-.dropbtn {
-  background-color: #003366;
-  color: white;
-  padding: 14px 16px;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 180px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-.dropdown-content a {
-  color: #003366;
-  padding: 10px 12px;
-  text-decoration: none;
-  display: block;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.right-contact {
-  margin-left: auto;
-}
-.right-contact a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+  margin: 20px auto 10px;
+  width: 200px;
 }
 .footer {
   text-align: center;
-  margin-top: 40px;
+  margin: 40px auto;
+  color: #333;
 }
-
 .navbar {
   background-color: #003366;
   overflow: hidden;
   display: flex;
   padding: 0;
   align-items: center;
+  flex-wrap: wrap;
 }
 .menu {
   position: relative;
@@ -85,8 +39,8 @@ img.logo {
   border: none;
   cursor: pointer;
 }
-.menu:hover .dropdown-content {
-  display: block;
+.menu:hover .dropbtn {
+  background-color: #005599;
 }
 .dropdown-content {
   display: none;
@@ -147,17 +101,19 @@ img.logo {
 
 <script>
 function toggleDropdown(id) {
-  var el = document.getElementById(id);
-  var wasVisible = el.style.display === "block";
-  document.querySelectorAll('.dropdown-content').forEach(function(menu) {
-    menu.style.display = "none";
+  var dropdowns = document.querySelectorAll(".dropdown-content");
+  dropdowns.forEach(function(dd) {
+    if (dd.id !== id) dd.style.display = "none";
   });
-  el.style.display = wasVisible ? "none" : "block";
+  var el = document.getElementById(id);
+  if (el.style.display === "block") {
+    el.style.display = "none";
+  } else {
+    el.style.display = "block";
+  }
 }
-
-// Fermer le menu si on clique ailleurs
-document.addEventListener("click", function(event) {
-  if (!event.target.matches('.dropbtn')) {
+document.addEventListener("click", function(e) {
+  if (!e.target.matches('.dropbtn')) {
     document.querySelectorAll('.dropdown-content').forEach(function(menu) {
       menu.style.display = "none";
     });
