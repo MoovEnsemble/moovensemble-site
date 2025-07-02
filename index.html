@@ -2,7 +2,6 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accueil – Moov’Ensemble</title>
   <style>
 body {
@@ -30,7 +29,7 @@ body {
   flex-wrap: wrap;
 }
 .menu {
-  position: relative;
+  margin: 0;
 }
 .dropbtn {
   background-color: #003366;
@@ -39,26 +38,11 @@ body {
   font-size: 14px;
   border: none;
   cursor: pointer;
-}
-.menu:hover .dropbtn {
-  background-color: #005599;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 180px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-  z-index: 1;
-}
-.dropdown-content a {
-  color: #003366;
-  padding: 10px 12px;
   text-decoration: none;
   display: block;
 }
-.dropdown-content a:hover {
-  background-color: #ddd;
+.dropbtn:hover {
+  background-color: #005599;
 }
 .contact-right {
   margin-left: auto;
@@ -75,51 +59,21 @@ body {
   
 <div class="navbar">
   <div class="menu">
-    <button class="dropbtn" onclick="toggleDropdown('moovDropdown')">Moov’Ensemble</button>
-    <div class="dropdown-content" id="moovDropdown">
-      <a href="qui-sommes-nous.html">Qui sommes-nous ?</a>
-      <a href="prevention.html">Prévention / Santé</a>
-      <a href="journees-sportives.html">Journées Sportives / Camps</a>
-      <a href="galerie.html">News / Galerie</a>
-    </div>
+    <a class="dropbtn" href="qui-sommes-nous.html">Qui sommes-nous ?</a>
   </div>
   <div class="menu">
-    <button class="dropbtn" onclick="toggleDropdown('activitesDropdown')">Activités</button>
-    <div class="dropdown-content" id="activitesDropdown">
-      <a href="activites-enfants.html">Activités Kids</a>
-      <a href="activites-adultes.html">Activités Ados / Adultes</a>
-      <a href="activites-seniors.html">Activités Seniors</a>
-    </div>
+    <a class="dropbtn" href="journees-sportives.html">Camps / Journées Sportives</a>
+  </div>
+  <div class="menu">
+    <a class="dropbtn" href="prevention.html">Prévention / Santé</a>
   </div>
   <div class="contact-right">
     <a href="formulaire-contact.html">Contactez-nous</a>
   </div>
 </div>
 
-<script>
-function toggleDropdown(id) {
-  var dropdowns = document.querySelectorAll(".dropdown-content");
-  dropdowns.forEach(function(dd) {
-    if (dd.id !== id) dd.style.display = "none";
-  });
-  var el = document.getElementById(id);
-  if (el.style.display === "block") {
-    el.style.display = "none";
-  } else {
-    el.style.display = "block";
-  }
-}
-document.addEventListener("click", function(e) {
-  if (!e.target.matches('.dropbtn')) {
-    document.querySelectorAll('.dropdown-content').forEach(function(menu) {
-      menu.style.display = "none";
-    });
-  }
-});
-</script>
-
   <img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
-  <div class="vignettes" style="display: flex; justify-content: center; gap: 30px; margin-top: 40px;">
+  <div style="display: flex; justify-content: center; gap: 30px; margin-top: 40px;">
     <a href="activites-enfants.html"><img src="Activites_enfants.jpeg" width="260"><br>Activités Enfants</a>
     <a href="activites-adultes.html"><img src="Activites_adultes.jpeg" width="260"><br>Activités Ados / Adultes</a>
     <a href="activites-seniors.html"><img src="Activites_seniors.jpg" width="260"><br>Activités Seniors</a>
