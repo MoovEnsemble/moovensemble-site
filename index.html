@@ -15,11 +15,6 @@ body {
   margin: 20px auto;
   width: 200px;
 }
-.footer {
-  text-align: center;
-  margin: 40px auto;
-  color: #333;
-}
 .navbar {
   background-color: #003366;
   overflow: hidden;
@@ -53,6 +48,17 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
+.vignettes {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+.vignettes img {
+  width: 400px;
+  height: 260px;
+  object-fit: cover;
+}
 </style>
 </head>
 <body>
@@ -73,13 +79,10 @@ body {
 </div>
 
   <img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
-  <div style="display: flex; justify-content: center; gap: 30px; margin-top: 40px;">
-    <a href="activites-enfants.html"><img src="Activites_enfants.jpeg" width="260"><br>Activités Enfants</a>
-    <a href="activites-adultes.html"><img src="Activites_adultes.jpeg" width="260"><br>Activités Ados / Adultes</a>
-    <a href="activites-seniors.html"><img src="Activites_seniors.jpg" width="260"><br>Activités Seniors</a>
-  </div>
-  <div class="footer">
-    <a href="index.html">🏠 Retour à l’accueil</a>
+  <div class="vignettes">
+    <a href="activites-enfants.html"><img src="Activites_enfants.jpeg" alt="Activités Enfants"></a>
+    <a href="activites-adultes.html"><img src="Activites_adultes.jpeg" alt="Activités Ados / Adultes"></a>
+    <a href="activites-seniors.html"><img src="Activites_seniors.jpg" alt="Activités Seniors"></a>
   </div>
 </body>
 </html>
