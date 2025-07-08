@@ -10,3 +10,5 @@ main { max-width: 800px; margin: auto; text-align: center; }
 .navbar { background-color: #003366; color: white; padding: 10px; text-align: center; }
 .navbar a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
 .navbar a:hover { text-decoration: underline; }
+section { margin-bottom: 40px; }
+img { max-width: 100%; margin: 10px 0; }
