@@ -1,0 +1,12 @@
+
+body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #fff; }
+header, footer { text-align: center; margin-bottom: 20px; }
+main { max-width: 800px; margin: auto; }
+section { margin-bottom: 40px; }
+img { max-width: 100%; margin: 10px 0; }
+footer a, div a { margin: 0 10px; color: #007BFF; text-decoration: none; }
+footer a:hover, div a:hover { text-decoration: underline; }
+.logo { height: 150px; }
+.navbar { background-color: #003366; color: white; padding: 10px; text-align: center; }
+.navbar a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
+.navbar a:hover { text-decoration: underline; }
