@@ -141,3 +141,8 @@ footer a:hover {
 .nav-list li a:hover {
   text-decoration: underline;
 }
+.encadrant-photo {
+  width: 120px;
+  height: auto;
+  margin-top: 10px;
+}
