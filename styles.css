@@ -1,84 +1,119 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: white;
   margin: 0;
   padding: 0;
+  line-height: 1.6;
+  background-color: #fff;
+  color: #333;
 }
 
-.logo {
+header {
+  background-color: #0074c7;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+header .logo {
+  height: 80px;
   display: block;
-  margin: 20px auto;
-  height: 120px;
+  margin: 0 auto 10px auto;
 }
 
-/* Barre de navigation */
-.navbar {
-  background-color: #003366;
-  overflow: hidden;
+nav ul {
+  list-style: none;
+  padding: 0;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin: 0;
 }
 
-.navbar a {
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
   color: white;
-  padding: 14px 18px;
   text-decoration: none;
-  display: block;
   font-weight: bold;
 }
 
-.navbar a:hover {
-  background-color: #005599;
+nav ul li a:hover,
+nav ul li a.active {
+  text-decoration: underline;
 }
 
-.vignettes {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.vignettes img {
-  width: 400px;
-  height: 260px;
-  object-fit: cover;
-}
-
-.activites-ados-adultes,
-.activites-enfants {
-  display: flex;
-  gap: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
+main {
+  max-width: 1200px;
+  margin: 20px auto;
   padding: 20px;
 }
 
-.moov-ados, .moov-adultes,
-.moov-kids, .capoeira-kids {
-  flex: 1;
-  padding: 10px;
-}
-
-.moov-ados img, .moov-adultes img,
-.moov-kids img, .capoeira-kids img {
-  max-width: 95%;
-  margin-top: 10px;
-}
-
-/* Titres */
 h1 {
-  color: #003366;
   text-align: center;
+  color: #0074c7;
   text-decoration: underline;
 }
 
 h2 {
-  color: #003366;
+  color: #0074c7;
 }
 
-.encadrant-photo {
-  width: 120px;
+footer {
+  text-align: center;
+  margin: 40px 0;
+}
+
+footer a {
+  color: #0074c7;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Colonnes pour activités ados/adultes et enfants */
+.columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Images des pages */
+.column img,
+.senior-image,
+.senior-image-single {
+  max-width: 100%;
   height: auto;
-  margin-top: 10px;
+  display: block;
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+.senior-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.senior-image {
+  max-width: 45%;
+  height: auto;
+}
+
+.senior-image-single {
+  display: block;
+  margin: 30px auto;
+  max-width: 50%;
+  height: auto;
 }
