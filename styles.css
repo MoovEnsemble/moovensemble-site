@@ -48,3 +48,8 @@ footer a:hover, div a:hover { text-decoration: underline; }
   text-decoration: none;
   font-weight: bold;
 }
+.logo {
+  display: block;
+  margin: 20px auto;
+  height: 120px;
+}
