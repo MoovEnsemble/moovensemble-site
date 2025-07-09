@@ -10,3 +10,41 @@ footer a:hover, div a:hover { text-decoration: underline; }
 .navbar { background-color: #003366; color: white; padding: 10px; text-align: center; }
 .navbar a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
 .navbar a:hover { text-decoration: underline; }
+.navbar {
+  background-color: #003366;
+  overflow: hidden;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.menu {
+  margin: 0;
+}
+
+.dropbtn {
+  background-color: #003366;
+  color: white;
+  padding: 14px 18px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.dropbtn:hover {
+  background-color: #005599;
+}
+
+.contact-right {
+  margin-left: auto;
+  padding: 14px 18px;
+}
+
+.contact-right a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
