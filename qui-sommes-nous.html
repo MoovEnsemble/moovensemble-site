@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Qui sommes-nous ? – Moov'Ensemble</title>
   <style>
-    
 body {
   font-family: Arial, sans-serif;
   background-color: white;
@@ -49,17 +48,46 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
-
-    .main {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 0 20px;
-      text-align: left;
-    }
+.main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+  text-align: left;
+}
+.accordion-section {
+  margin-top: 40px;
+}
+.accordion-button {
+  background-color: #eee;
+  color: #003366;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.accordion-button:hover {
+  background-color: #ddd;
+}
+.accordion-panel {
+  padding: 0 15px;
+  display: none;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  border-left: 2px solid #003366;
+  border-right: 2px solid #003366;
+  border-bottom: 2px solid #003366;
+}
+.accordion-panel ul {
+  padding-left: 20px;
+}
   </style>
 </head>
 <body>
-  
+
 <div class="navbar">
   <div class="menu">
     <a class="dropbtn" href="qui-sommes-nous.html">Qui sommes-nous ?</a>
@@ -75,40 +103,112 @@ body {
   </div>
 </div>
 
-  <img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
-  <div class="main">
-    <h1>Qui sommes-nous ?</h1>
+<img src="logo.png" class="logo" alt="Logo Moov'Ensemble">
+<div class="main">
+  <h1>Qui sommes-nous ?</h1>
 
-    <h2>Notre vision</h2>
-    <p>Chez Moov’Ensemble, nous croyons que le mouvement est un droit fondamental. Nous avons créé cette association pour permettre à chacun — enfants, adultes et seniors — de retrouver plaisir, santé et confiance en soi à travers des activités sportives accessibles et bienveillantes.</p>
-    <p>Nous promouvons la mobilité, l’inclusion sociale et l’autonomie, dans un cadre où chaque corps, chaque parcours, chaque énergie est respecté.</p>
+  <h2>Notre vision</h2>
+  <p>Chez Moov’Ensemble, nous croyons que le mouvement est un droit fondamental...</p>
 
-    <h2>Notre histoire</h2>
-    <p>Moov’Ensemble est née d’un parcours personnel.<br>
-    Après avoir moi-même connu les difficultés liées à la sédentarité et au surpoids, j’ai entamé un chemin de transformation, guidée par le sport. Mon expérience, partagée dans une émission de la RTS (<a href="https://www.rts.ch/play/tv/mise-au-point/video/covibesite-covid-et-kilos?urn=urn:rts:video:12809912" target="_blank">voir ici</a>), m’a convaincue que le sport est un levier puissant de reconstruction.</p>
-    <p>Aujourd’hui, je souhaite transmettre ce que j’ai appris et vécu à toutes celles et ceux qui, comme moi, ont besoin d’une alternative aux écrans, à l’isolement ou à l’inaccessibilité financière.</p>
+  <h2>Notre histoire</h2>
+  <p>Moov’Ensemble est née d’un parcours personnel...</p>
 
-    <h2>Nos engagements</h2>
-    <ul>
-      <li>Tarifs accessibles pour les familles à petit budget</li>
-      <li>Activités adaptées à chaque âge : enfants, ados, adultes, seniors</li>
-      <li>Cours de qualité encadrés par des moniteurs Jeunesse & Sport</li>
-      <li>Bienveillance, respect, entraide et inclusion</li>
-      <li>Prévention et autodéfense pour tous</li>
-    </ul>
+  <h2>Nos engagements</h2>
+  <ul>
+    <li>Tarifs accessibles pour les familles à petit budget</li>
+    <li>Activités adaptées à chaque âge</li>
+    <li>Cours de qualité encadrés par des moniteurs Jeunesse & Sport</li>
+    <li>Bienveillance, respect, entraide et inclusion</li>
+    <li>Prévention et autodéfense pour tous</li>
+  </ul>
 
-    <h2>Le comité</h2>
-    <p><strong>Ana Sofia Azevedo Almeida</strong> – Présidente<br>
-    Monitrice J+S, coach certifiée, fondatrice de Moov’Ensemble, engagée dans la prévention santé</p>
-    <p><strong>Alex Fernandes Dos Santos</strong> – Trésorier<br>
-    Passionné d’arts martiaux, engagé dans la transmission et la protection</p>
-    <p><strong>Nora Herizi</strong> – Secrétaire<br>
-    Sensible aux enjeux d’inclusion sociale, coordonne et structure avec cœur</p>
+  <h2>Le comité</h2>
+  <p><strong>Ana Sofia Azevedo Almeida</strong> – Présidente...</p>
+  <p><strong>Alex Fernandes Dos Santos</strong> – Trésorier...</p>
+  <p><strong>Nora Herizi</strong> – Secrétaire...</p>
 
-    <h2>📸 Galerie (à venir !)</h2>
-    <p>Nous vous partagerons bientôt quelques images de nos activités en action. Restez connectés !</p>
+  <h2>📸 Galerie (à venir !)</h2>
+  <p>Nous vous partagerons bientôt quelques images...</p>
 
-    <p><a href="index.html">🏠 Retour à l’accueil</a></p>
+  <h2>📜 Charte éthique et de conduite</h2>
+  <div class="accordion-section">
+    <button class="accordion-button">🌟 Nos valeurs</button>
+    <div class="accordion-panel">
+      <ul>
+        <li>Respect de soi, des autres, et du cadre proposé</li>
+        <li>Inclusion : chacun a sa place, sans distinction d’âge, d’origine, de genre ou de situation</li>
+        <li>Bienveillance et esprit d’équipe</li>
+        <li>Non-violence : physique, verbale ou psychologique</li>
+        <li>Engagement : sérieux, présence, régularité</li>
+        <li>Plaisir du mouvement, à tout âge</li>
+      </ul>
+    </div>
+
+    <button class="accordion-button">🤝 Pour tous les membres</button>
+    <div class="accordion-panel">
+      <ul>
+        <li>Attitude positive et respectueuse</li>
+        <li>Refus de toute forme d’exclusion ou discrimination</li>
+        <li>Respect des lieux et du matériel</li>
+      </ul>
+    </div>
+
+    <button class="accordion-button">🛡️ Sécurité & cadre sain</button>
+    <div class="accordion-panel">
+      <ul>
+        <li>Zéro tolérance face au harcèlement ou comportements déplacés</li>
+        <li>Interdiction totale des drogues, alcool, tabac, vapoteuses</li>
+        <li>Environnement encadré et sécurisé pour tous</li>
+      </ul>
+    </div>
+
+    <button class="accordion-button">👩‍🏫 Engagement des intervenant·e·s</button>
+    <div class="accordion-panel">
+      <ul>
+        <li>Professionnalisme et vigilance</li>
+        <li>Adaptation aux capacités des participant·e·s</li>
+        <li>Respect de la distance éducative</li>
+      </ul>
+    </div>
+
+    <button class="accordion-button">🙋 Engagement des élèves & familles</button>
+    <div class="accordion-panel">
+      <ul>
+        <li>Respect, ponctualité et implication</li>
+        <li>Signaler toute situation de malaise</li>
+        <li>Les familles soutiennent nos valeurs</li>
+      </ul>
+    </div>
+
+    <button class="accordion-button">📌 Fonctionnement</button>
+    <div class="accordion-panel">
+      <p>Cette charte est affichée et consultable en ligne.<br>
+      Toute inscription implique son acceptation.<br>
+      En cas de non-respect : rappel, suspension ou exclusion.</p>
+    </div>
+
+    <button class="accordion-button">❤️ Moov’Ensemble, c’est…</button>
+    <div class="accordion-panel">
+      <ul>
+        <li>…un espace pour bouger, apprendre, s’exprimer et grandir</li>
+        <li>…un cadre où chaque énergie a sa place</li>
+        <li>…un engagement commun pour le respect et la santé</li>
+      </ul>
+    </div>
   </div>
+
+  <p><a href="index.html">🏠 Retour à l’accueil</a></p>
+</div>
+
+<script>
+  const accButtons = document.querySelectorAll(".accordion-button");
+  accButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const panel = btn.nextElementSibling;
+      panel.style.display = (panel.style.display === "block") ? "none" : "block";
+    });
+  });
+</script>
+
 </body>
 </html>
