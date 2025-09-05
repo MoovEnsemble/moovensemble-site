@@ -5,7 +5,7 @@
   <title>Bouger, se renforcer, se protéger</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* --- Barre de menus --- */
+    /* --- Barre de menus (fond bleu uniquement) --- */
     .navbar{
       display:flex;
       gap:12px;
@@ -19,37 +19,50 @@
       padding:8px 10px;
     }
 
-    /* --- Logo entre la barre et le contenu --- */
+    /* --- Logo (fond blanc comme le reste) --- */
+    header{
+      background:white;
+      text-align:center;
+      padding:16px 0;
+    }
     header .logo{
       display:block;
-      margin:16px auto 24px;     /* espace sous la barre + avant le titre */
-      width:min(40vw, 240px);    /* taille raisonnable et responsive */
+      margin:16px auto 24px;
+      width:min(40vw, 240px);
       height:auto;
     }
 
     /* --- Mise en page générale --- */
-    body{ margin:0; font-family: Arial, sans-serif; }
+    body{ margin:0; font-family: Arial, sans-serif; background:white; }
     main{ padding:0 16px 24px; }
     h1{ margin-top:0; text-align:center; }
 
-    /* --- Images 2 par 2, par section --- */
-    .moov-ados img,
-    .moov-adultes img{
-      width:calc(50% - 12px);  /* deux colonnes */
-      max-width:100%;
+    /* --- Images côte à côte par section --- */
+    .moov-ados,
+    .moov-adultes{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .moov-ados .images,
+    .moov-adultes .images{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .moov-ados .images img,
+    .moov-adultes .images img{
+      flex:1 1 45%;
+      max-width:45%;
       height:auto;
-      display:inline-block;
-      vertical-align:top;
-      margin:6px;              /* espace entre les deux */
-      box-sizing:border-box;
     }
 
     /* Sur mobile : repasser en 1 colonne */
     @media (max-width:700px){
-      .moov-ados img,
-      .moov-adultes img{
-        width:100%;
-        margin:0 0 12px 0;
+      .moov-ados .images img,
+      .moov-adultes .images img{
+        max-width:100%;
       }
     }
 
@@ -72,8 +85,6 @@
     <a href="prevention.html">Prévention / Santé</a>
     <a href="formulaire-contact.html">Contactez-nous</a>
   </div>
-  <!-- Laisse ce chemin tel quel si ton logo est à la racine du site.
-       Si tu l'as déplacé dans /images, remplace par: images/MoovEnsemble_logo_fond_blanc.png -->
   <a href="index.html"><img src="MoovEnsemble_logo_fond_blanc.png" alt="Logo Moov'Ensemble" class="logo"></a>
 </header>
 
@@ -87,10 +98,10 @@
       <p>À l’adolescence, il n’est pas toujours facile de trouver du temps pour soi. Entre les cours, les devoirs, les écrans et la vie sociale, l’activité physique passe souvent au second plan. Pourtant, cette période est cruciale pour le développement physique et psychologique.</p>
       <p>Le cours Moov’ Ados répond aux besoins spécifiques de cette tranche d’âge (10–20 ans) en leur proposant un entraînement complet et ludique, basé sur les principes Jeunesse & Sport : mobilité, agilité, coordination, force fonctionnelle et esprit d’équipe. Ce programme aide à canaliser leur énergie, améliorer leur posture et leur endurance, tout en contribuant à leur santé mentale et à leur estime de soi.</p>
       <p>La seconde partie du cours est consacrée à la self-défense, adaptée aux adolescents. Elle leur permet d’apprendre à réagir dans des situations potentiellement dangereuses, à poser des limites et à s’affirmer face aux autres. Ce travail leur apporte confiance en eux, assurance dans leur posture et les aide à mieux faire face aux pressions de la société.</p>
-      <!-- Garde ces chemins si tes images sont dans /images ;
-           sinon, si elles sont à la racine, retire "images/" -->
-      <img src="images/MoovAdos_Sport.png" alt="Moov Ados Sport">
-      <img src="images/MoovAdos_Defense.png" alt="Moov Ados Défense">
+      <div class="images">
+        <img src="images/MoovAdos_Sport.png" alt="Moov Ados Sport">
+        <img src="images/MoovAdos_Defense.png" alt="Moov Ados Défense">
+      </div>
     </section>
 
     <section class="moov-adultes">
@@ -98,8 +109,10 @@
       <p>Pour beaucoup d’adultes, la routine quotidienne laisse peu de place à la santé physique et mentale. Entre un emploi souvent sédentaire et des responsabilités familiales, il est facile d’oublier de s’occuper de soi. Pourtant, bouger régulièrement est essentiel pour prévenir les maladies cardiovasculaires, le stress, la prise de poids et les douleurs musculo-squelettiques.</p>
       <p>Le cours Moov’ Adultes est conçu pour répondre à ces enjeux. Dans une ambiance conviviale et motivante, nous proposons un entraînement complet : mobilité, renforcement musculaire, amélioration de la condition physique générale et travail d’endurance. Ce moment devient une parenthèse dans le quotidien pour se recentrer sur son corps, sa santé et son bien-être.</p>
       <p>La seconde partie du cours est dédiée à la self-défense, spécifiquement pensée pour les adultes et en particulier pour les femmes, majoritaires dans nos groupes. Selon des études, connaître même quelques techniques simples de défense permettrait de réduire de moitié le risque d’agression et d’augmenter considérablement la confiance en soi.</p>
-      <img src="images/MoovAdultes_Sport.png" alt="Moov Adultes Sport">
-      <img src="images/MoovAdultes_Defense.png" alt="Moov Adultes Défense">
+      <div class="images">
+        <img src="images/MoovAdultes_Sport.png" alt="Moov Adultes Sport">
+        <img src="images/MoovAdultes_Defense.png" alt="Moov Adultes Défense">
+      </div>
     </section>
 
   </div>
