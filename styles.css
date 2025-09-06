@@ -14,6 +14,13 @@ header {
   text-align: center;
 }
 
+.logo {
+  display:block;
+  margin:16px auto 24px;
+  width:min(40vw, 240px);
+  height:auto;
+}
+
 header .logo {
   height: 150px; /* ou 250px, selon la taille que tu veux */
   display: block;
@@ -148,6 +155,7 @@ footer a:hover {
   height: auto;
   margin-top: 10px;
 }
+
 
 
 
