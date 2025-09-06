@@ -15,11 +15,10 @@ header {
 }
 
 header .logo {
-  height: 20vh; /* 20% de la hauteur de l’écran */
+  height: 150px; /* ou 250px, selon la taille que tu veux */
   display: block;
   margin: 0 auto 10px auto;
 }
-
 
 
 
@@ -149,6 +148,7 @@ footer a:hover {
   height: auto;
   margin-top: 10px;
 }
+
 
 
 
