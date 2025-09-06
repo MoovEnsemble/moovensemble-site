@@ -15,7 +15,7 @@ header {
 }
 
 header .logo {
-  height: 80px;
+  height: 150px;
   display: block;
   margin: 0 auto 10px auto;
 }
@@ -146,3 +146,4 @@ footer a:hover {
   height: auto;
   margin-top: 10px;
 }
+
