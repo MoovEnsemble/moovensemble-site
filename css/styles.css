@@ -245,7 +245,7 @@ body {
     background-color: #0C2C55;
     color: white;
     padding: 50px 30px 20px 30px;
-    margin-top: 50px;
+    margin-top: -50px;
 }
 
 .footer-section h6 {
@@ -253,6 +253,7 @@ body {
     font-weight: bold;
     margin-bottom: 20px;
     position: relative;
+    /*margin-top: ;*/  /* Augmente cette valeur si nécessaire */
 }
 
 .footer-section h6::after {
@@ -310,4 +311,395 @@ body {
     border-top: 1px solid #444;
     padding-top: 20px;
     margin-bottom: 0;
+}
+
+
+/*Qui sommes nous?*/
+
+.main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px 100px 20px;  /* top right bottom left */
+  text-align: left;
+}
+main h1{
+    color: #0C2C55;
+}
+.main h2{
+    color: #0C2C55;
+}
+.main h3{
+    color: #0C2C55;
+}
+.main h4{
+    color: #0C2C55;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+.main p{
+    text-align: justify;
+}
+main a{
+    font-weight: bold;
+}
+
+/*Accordion*/
+:root{
+  --primary: #227093;
+  --secondary: #0C2C55/*#ff5252 ancienne couleur*/;
+  --background: #eee;
+  --highlight: #ffda79;
+  /* Theme color */
+  --theme: var(--primary);
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/*body {
+  display: grid;
+  place-content: center;
+  place-items: start;
+  grid-template-columns: repeat(auto-fit, min(100%, 30rem));
+  gap: 1rem;
+  min-height: 100vh;
+  margin: 0;
+  padding: 1rem;
+  color: var(--primary);
+  background: var(--background);
+}*/
+
+/* Core styles/functionality */
+.tab {
+  position: relative;
+}
+.tab input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.tab__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.35s;
+}
+.tab input:checked ~ .tab__content {
+  max-height: 10rem;
+}
+
+/* Visual styles */
+.accordion {
+  color: var(--theme);
+  border: 2px solid;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.tab__label,
+.tab__close {
+  display: flex;
+  color: white;
+  background: var(--theme);
+  cursor: pointer;
+}
+.tab__label {
+  justify-content: space-between;
+  padding: 1rem;
+}
+.tab__label::after {
+  content: "\276F";
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  transform: rotate(90deg);
+  transition: all 0.35s;
+}
+.tab input:checked + .tab__label::after {
+  transform: rotate(270deg);
+}
+.tab__content p {
+  margin: 0;
+  padding: 1rem;
+}
+.tab__close {
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
+.accordion--radio {
+  --theme: var(--secondary);
+}
+
+/* Arrow animation */
+.tab input:not(:checked) + .tab__label:hover::after {
+  animation: bounce .5s infinite;
+}
+@keyframes bounce {
+  25% {
+    transform: rotate(90deg) translate(.25rem);
+  }
+  75% {
+    transform: rotate(90deg) translate(-.25rem);
+  }
+}
+
+
+/*Activités enfants*/
+/*Team*/
+.bg-soft {
+    background-color: #f8f9fa;
+}
+
+.team-card {
+    border: none;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05);
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 32px -1px rgba(0, 0, 0, 0.1);
+}
+
+.team-image {
+    height: 320px;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: all 0.5s ease;
+}
+
+.team-card:hover .team-image {
+    filter: grayscale(0%);
+}
+
+.role-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background-color: #e9ecef;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    color: #0d6efd;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.member-social {
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.team-card:hover .member-social {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-link {
+    color: #495057;
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    color: #0d6efd;
+}
+
+/*Carousel images*/
+.carousel-item img {
+    height: 350px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    object-position: center;
+}
+
+/*Carousel adultes - hauteur différente*/
+#carouselAdultes .carousel-item img {
+    height: 450px !important;
+    object-position: top;  /* Ajoute cette ligne */
+}
+/*Carousel Ladies - hauteur différente*/
+#carouselLadies .carousel-item img {
+    height: 450px !important;
+    object-position: top;  /* Ajoute cette ligne */
+}
+/*Carousel Seniors - hauteur différente*/
+#carouselSeniors .carousel-item img {
+    height: 450px !important;
+    object-position: top;  /* Ajoute cette ligne */
+}
+
+/*Activités colonnes*/
+.col-md-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+.col-md-6 p {
+    text-align: justify;
+}
+
+.col-md-6 .carousel {
+    margin-top: auto;  /* Pousse le carousel vers le bas */
+}
+
+/*main h2.page-subtitle {
+    text-align: center;
+    margin-bottom: 75px;
+    margin-top: -50px;
+    color: #0C2C55;
+}*/
+
+/*===========================================
+  CONTACT FORM SIMPLE STYLES
+===========================================*/
+
+.contact-section-simple {
+    padding: 20px 20px 100px 20px;
+    background-color: #f5f5f5;
+    min-height: calc(100vh - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.contact-card {
+    background: white;
+    border-radius: 20px;
+    padding: 50px 60px;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+}
+
+.contact-card h1 {
+    text-align: center;
+    color: #0C2C55;
+    font-weight: 700;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+}
+
+/* Champ caché anti-spam */
+.hidden-field {
+    display: none !important;
+}
+
+/* Champs du formulaire */
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: #0C2C55;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(12, 44, 85, 0.08);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #bbb;
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* Ligne avec 2 champs côte à côte */
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-field {
+    flex: 1;
+}
+
+/* Bouton Submit */
+.btn-submit-simple {
+    width: 100%;
+    padding: 18px 30px;
+    background: #0C2C55;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-submit-simple:hover {
+    background: #0C2C55;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-submit-simple span {
+    transition: transform 0.3s ease;
+}
+
+.btn-submit-simple:hover span {
+    transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .contact-card {
+        padding: 30px 25px;
+        border-radius: 15px;
+    }
+
+    .contact-card h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
 }

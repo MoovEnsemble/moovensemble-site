@@ -4,8 +4,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activités enfants</title>
+     <!--Bootstrap-->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+     <!--CSS-->
+     <link rel="stylesheet" href="../css/styles.css">
+     <!--Icône Instagram-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <!--Responsive-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    
+  <!--Header-->
+<nav class="navbar navbar-expand-lg size">
+    <div class="container-fluid">
+        <!-- Logo à gauche -->
+        <a class="navbar-brand nav-link" href="../index.html">
+            Moov’Ensemble</a>
+        
+        <!-- Bouton hamburger (mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Menu -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="camps-journees.html">Camps / Journées Sportives</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="prevention-sante.html">Prévention / Santé</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link contact-link" href="contact.html">Contactez-nous</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  
+<!--Logo-->
+<div class="logo-img container">
+    <img src="../assets/images/logo.png" alt="Logo association">
+</div>  
+
+<main>
+<h1>Activités enfants</h1>
+<!--Activités et carousel pour photo-->
+<section class="container my-5">
+    <div class="row">
+        <!--Colonne Moov'Kids-->
+        <div class="col-md-6">
+            <h3>Moov'Kids</h3>
+            <p>
+                 Activité ludique et sportive pour développer la mobilité, la coordination et la confiance des enfants, par des jeux sportifs adaptés à leur âge.
+                 On bouge, on rit, on apprend à travailler en équipe, basé sur les principes Jeunesse & Sport Allround.
+            </p>
+            <p>
+                 Nous luttons contre la sédentarité, le surpoids, et offrons une alternative saine aux écrans pour favoriser la santé et l’épanouissement des enfants.
+                 Nous proposons des exercices variés qui aident à améliorer la posture, l’équilibre et la souplesse des plus jeunes.
+                 Ces moments sportifs sont aussi des occasions pour apprendre la discipline, la coopération et le respect des autres.
+            </p>
+            <p>
+                 Les cours sont adaptés pour les 5–12 ans, et si le nombre le permet, nous scindons les groupes en 5–8 et 9–12 ans afin de respecter les rythmes de chacun.
+                 À Moov’ Kids, chaque enfant est encouragé à donner le meilleur de lui-même tout en s’amusant et en se sentant valorisé.
+            </p>
+            
+            <!--Carousel Kids-->
+            <div id="carouselKids" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../assets/images/MOOVK1.jpg" class="d-block w-100 rounded" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../assets/images/MOOVK2.jpg" class="d-block w-100 rounded" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselKids" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselKids" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!--Colonne Moov'Capoeira-->
+        <div class="col-md-6">
+            <h3>Moov'Capoeira</h3>
+            <p>
+                 La capoeira est un art martial brésilien unique qui combine combat, danse, musique et chant.
+                 Les enfants apprennent non seulement des techniques de mouvement, mais développent aussi leur coordination, leur rythme et leur confiance en eux dans un cadre ludique et sans contact violent.
+            </p>
+            <p>
+                 Grâce à ses racines culturelles, la capoeira est une discipline très riche : elle intègre des instruments, des chants traditionnels et des jeux d’expression corporelle.
+                 Pour les enfants, c’est une porte ouverte vers une meilleure compréhension d’eux-mêmes, de leurs émotions et de leur créativité.
+            </p>
+            <p>
+            
+            <!--Carousel Capoeira-->
+            <div id="carouselCapo" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../assets/images/capo1.jpg" class="d-block w-100 rounded" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../assets/images/capo2.jpg" class="d-block w-100 rounded" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../assets/images/CAPO5.jpg" class="d-block w-100 rounded" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCapo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselCapo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Team-->
+<section class="py-5 bg-soft">
+    <div class="container py-5">
+        <!-- Section Header -->
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-6">
+                <div class="section-subtitle"><h2>Nos Professeurs</h2></div>
+                <h4 class="section-title">Meet the Experts</h4>
+                <p class="text-muted">Working together to create exceptional experiences</p>
+            </div>
+        </div>
+
+        <!-- Team Members -->
+        <div class="row g-4 justify-content-center">
+            <!-- Team Member 1 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="team-card h-100">
+                    <img src="../assets/images/MOOVK_PROF.jpg" alt="Team member" class="team-image w-100">
+                    <div class="p-4">
+                        <span class="role-tag">Monitrice J+S multisports</span>
+                        <h5>Ana Sofia Azevedo</h5>
+                            <p>Diplômée Jeunesse & Sport, coach certifiée et ancienne personne en surpoids,
+                            Ana a surmonté elle-même les défis de la sédentarité. Elle est passionnée par la prévention santé et dévouée à transmettre son expérience aux plus jeunes pour leur donner goût au mouvement.</p>
+                        <div class="member-social d-flex">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="team-card h-100">
+                    <img src="../assets/images/CAPO_PROF.jpg" alt="Team member" class="team-image w-100">
+                    <div class="p-4">
+                        <span class="role-tag">Moniteur de capoeira depuis 2011</span>
+                        <h5>Talison Batista</h5>
+                        <p class="text-muted mb-4">Talison a découvert la capoeira dès l’âge de 8 ans grâce à un projet social au Brésil.  
+                            Il enseigne depuis plus de 15 ans aux enfants, adolescents et adultes, convaincu que la capoeira est un outil d’inclusion sociale et d’épanouissement.  
+                            Son approche bienveillante aide les enfants à se dépasser et à découvrir leurs forces intérieures.
+                        </p>
+                        <div class="member-social d-flex">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">Dribbble</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Pour augmenter des profs-->
+            <!-- Team Member 3 -->
+            <!--<div class="col-lg-3 col-md-6">
+                <div class="team-card h-100">
+                    <img src="https://randomuser.me/api/portraits/women/34.jpg" alt="Team member" class="team-image w-100">
+                    <div class="p-4">
+                        <span class="role-tag">Tech Lead</span>
+                        <h5>Sarah Johnson</h5>
+                        <p class="text-muted mb-4">Building robust solutions with cutting-edge technology.</p>
+                        <div class="member-social d-flex">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+            <!-- Team Member 4 -->
+            <!--<div class="col-lg-3 col-md-6">
+                <div class="team-card h-100">
+                    <img src="https://randomuser.me/api/portraits/men/14.jpg" alt="Team member" class="team-image w-100">
+                    <div class="p-4">
+                        <span class="role-tag">Strategy</span>
+                        <h5>David Kim</h5>
+                        <p class="text-muted mb-4">Driving growth through strategic planning and market analysis.</p>
+                        <div class="member-social d-flex">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</section>
+</main>
+
+<!--Footer-->
+<footer class="footer-section">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Colonne 1 : Contact -->
+            <div class="col-md-4">
+                <h6>Moov'Ensemble</h6>
+                <p>📍 Adresse à compléter</p>
+                <p>📧 contact@moovensemble.ch</p>
+                <p>📱 +41 XX XXX XX XX</p>
+            </div>
+            
+            <!-- Colonne 2 : Liens rapides -->
+            <div class="col-md-4">
+                <h6>Liens rapides</h6>
+                <ul>
+                    <li><a href="pages/qui-sommes-nous.html">Qui sommes-nous</a></li>
+                    <li><a href="pages/camps-journees.html">Camps / Journées</a></li>
+                    <li><a href="pages/inscription.html">Inscription</a></li>
+                    <li><a href="pages/contact.html">Contactez-nous</a></li>
+                </ul>
+            </div>
+            
+            <!-- Colonne 3 : Réseaux sociaux -->
+            <div class="col-md-4">
+                <h6>Suivez-nous</h6>
+                <a href="https://www.instagram.com/moovensemble" target="_blank" class="social-link">
+                    <i class="fa-brands fa-instagram"></i> @moovensemble
+                </a>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="copyright">© 2025 Moov'Ensemble - Tous droits réservés</p>
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>    
 </body>
 </html>
