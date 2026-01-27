@@ -703,3 +703,333 @@ main a{
         gap: 0;
     }
 }
+
+
+
+/* Option 3 - Boîte info centrée */
+.download-info-box {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.download-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.download-info-box h4 {
+    margin: 0 0 10px 0;
+    color: #0C2C55;
+    font-size: 18px;
+}
+
+.download-info-box p {
+    margin: 0 0 15px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.btn-download-box {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #0C2C55;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-download-box:hover {
+    background-color: #1a4a8a;
+    color: white;
+}
+
+
+/* Fond gris pour la page contact uniquement */
+.bg-contact {
+    background-color: #f5f5f5;
+}
+
+
+
+
+
+.section-construction {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 1.5rem 8rem;
+  
+  /* Subtil dégradé gris → très léger, du blanc vers un gris très clair */
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 50%, #ebedf0 100%);
+  
+  margin: 2rem auto;
+  max-width: 900px;
+  border-radius: 16px;               /* garde un léger arrondi pour la douceur */
+  /* border et box-shadow supprimés pour plus de clean */
+  
+  color: #1e293b;
+}
+
+.section-construction__barrier {
+  width: 140px;
+  height: auto;
+  margin-bottom: 2.5rem;
+  opacity: 0.92;
+}
+
+.section-construction__title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0 0 1.2rem;
+  color: #0C2C55;
+}
+
+.section-construction__text {
+  font-size: 1.22rem;
+  line-height: 1.65;
+  max-width: 720px;
+  margin: 0 auto 2.8rem;
+  color: #334155;
+}
+
+.section-construction__btn {
+  display: inline-block;
+  padding: 1rem 2.4rem;
+  background-color: #0C2C55;
+  color: white;
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 12px rgba(12, 44, 85, 0.20);
+}
+
+.section-construction__btn:hover {
+  background-color: #0a2549;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(12, 44, 85, 0.28);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .section-construction {
+    padding: 4rem 1rem 6rem;
+  }
+  .section-construction__title {
+    font-size: 2rem;
+  }
+  .section-construction__barrier {
+    width: 110px;
+  }
+}
+
+/* ==========================================================================
+   FIN Bloc "Section en construction" – Moov'Ensemble style (couleur #0C2C55)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Événements 
+   ========================================================================== */
+.events-section {
+  padding: 4rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.events-section h1 {
+  color: #0C2C55;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.intro {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  color: #475569;
+}
+
+.event-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(12, 44, 85, 0.12);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(12, 44, 85, 0.18);
+}
+
+.event-card__content {
+  padding: 2rem;
+}
+
+.event-card__title {
+  color: #0C2C55;
+  margin: 0 0 1rem;
+  font-size: 1.9rem;
+}
+
+.event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+.event-date, .event-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: #0C2C55;
+  color: white;
+  padding: 0.9rem 2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #0a2549;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .events-section {
+    padding: 6rem 2rem;
+  }
+}
+
+/* ==========================================================================
+   Galerie – Moov'Ensemble
+   ========================================================================== */
+
+.gallery-section {
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-section h1 {
+  color: #0C2C55;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2.8rem;
+}
+
+.intro {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #475569;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.event-gallery {
+  margin-bottom: 5rem;
+}
+
+.event-gallery h2 {
+  color: #0C2C55;
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.event-date {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.8rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gallery-item img,
+.video-wrapper iframe {
+  width: 100%;
+  height: 260px;                /* hauteur fixe, ajuste à l'œil */
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;       /* ratio 16:9 pour vidéos */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(12, 44, 85, 0.78);
+  color: white;
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.gallery-item:hover .gallery-caption {
+  background: rgba(12, 44, 85, 0.92);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gallery-section {
+    padding: 3rem 1rem;
+  }
+  .event-gallery h2 {
+    font-size: 1.9rem;
+  }
+}

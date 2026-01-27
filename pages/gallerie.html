@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallérie</title>
+    <!--Bootstrap-->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+     <!--CSS-->
+     <link rel="stylesheet" href="../css/styles.css">
+     <!--Icône Instagram-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <!--Responsive-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <!--Header-->
+<nav class="navbar navbar-expand-lg size">
+    <div class="container-fluid">
+        <!-- Logo à gauche -->
+        <a class="navbar-brand nav-link" href="../index.html">
+            Moov’Ensemble</a>
+        
+        <!-- Bouton hamburger (mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Menu -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="evenements.html">Événements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gallerie.html">Gallérie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="prevention-sante.html">Prévention / Santé</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link contact-link" href="contact.html">Contactez-nous</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  
+<!--Logo-->
+<div class="logo-img container">
+    <img src="../assets/images/logo/logo_sans_fond.png" alt="Logo association">
+</div> 
+    
+<main class="main">
+    <section class="gallery-section">
+      <h1>Galerie Moov'Ensemble</h1>
+      <p class="intro">Souvenirs de nos camps, journées sportives, ateliers et moments partagés !</p>
+
+      <!-- Événement le plus récent en haut -->
+      <section class="event-gallery">
+        <h2>Moov'Capoeira – Pass Vacances Février 2025</h2>
+        <p class="event-date">15–20 février 2025 – Genève</p>
+
+        <div class="gallery-grid">
+          <!-- Photo exemple -->
+          <div class="gallery-item">
+            <img 
+              src="../assets/images/contenu/2025/Capoeira/pass vacances juillet 2025/capoeira-enfants-1.jpg" 
+              alt="Groupe en action lors du Pass Vacances" 
+              loading="lazy">
+            <div class="gallery-caption">Échauffement collectif</div>
+          </div>
+
+          <!-- Vidéo embed YouTube -->
+          <div class="gallery-item video-item">
+            <div class="video-wrapper">
+              <iframe 
+                src="../assets/videos/2025/Capoeira -pass vacances (juillet 2025)/video-pass-vacances.mp4" 
+                title="Vidéo Pass Vacances Capoeira 2025" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="gallery-caption">Moment fort de la semaine</div>
+          </div>
+
+          <!-- Autre photo -->
+          <div class="gallery-item">
+            <img 
+              src="../assets/images/contenu/2025/Capoeira/pass vacances juillet 2025/capoeira-enfants-2.jpg" 
+              alt="Photo de groupe finale" 
+              loading="lazy">
+            <div class="gallery-caption">Sourire collectif à la fin !</div>
+          </div>
+
+          <!-- Ajoute autant d'items que tu veux ici -->
+        </div>
+      </section>
+
+      <!-- Événement précédent -->
+      <section class="event-gallery">
+        <h2>Moov'Kids – Journée Découverte Octobre 2024</h2>
+        <p class="event-date">12 octobre 2024 – Lausanne</p>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img 
+              src="assets/images/contenu/2024/kids/journee-octobre/jeu-01.jpg" 
+              alt="Enfants en activité" 
+              loading="lazy">
+            <div class="gallery-caption">Jeux collectifs</div>
+          </div>
+
+          <!-- Ajoute d'autres photos ou vidéos ici -->
+        </div>
+      </section>
+
+      <!-- Ajoute d'autres <section class="event-gallery"> au fur et à mesure que tu archives des événements passés -->
+
+      <!-- Message si la galerie est vide au tout début -->
+      <!-- <div class="no-content">Aucune photo ou vidéo pour le moment… Bientôt les premiers souvenirs !</div> -->
+
+    </section>
+</main>
+
+<!--Footer-->
+<footer class="footer-section">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Colonne 1 : Contact -->
+            <div class="col-md-4">
+                <h6>Moov'Ensemble</h6>
+                <p>📍 Adresse à compléter</p>
+                <p>📧 contact@moovensemble.ch</p>
+                <p>📱 +41 XX XXX XX XX</p>
+            </div>
+            
+            <!-- Colonne 2 : Liens rapides -->
+            <div class="col-md-4">
+                <h6>Liens rapides</h6>
+                <ul>
+                    <li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>
+                    <li><a href="evenements.html">Événements</a></li>
+                    <li><a href="gallerie.html">Gallérie</a></li>
+                    <li><a href="prevention-sante.html">Prévention / Santé</a></li>
+                    <li><a href="contact.html">Contactez-nous</a></li>
+                </ul>
+            </div>
+            
+            <!-- Colonne 3 : Réseaux sociaux -->
+            <div class="col-md-4">
+                <h6>Suivez-nous</h6>
+                <a href="https://www.instagram.com/moovensemble" target="_blank" class="social-link">
+                    <i class="fa-brands fa-instagram"></i> @moovensemble
+                </a>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="copyright">© 2025 Moov'Ensemble - Tous droits réservés</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
+</body>
+</html>
