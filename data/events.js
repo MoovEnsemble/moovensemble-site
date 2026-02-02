@@ -46,7 +46,7 @@ export const eventsData = [
     id: "seniors-atelier-2024",
     title: "Moov'Seniors – Atelier Équilibre",
     date: "5 novembre 2024",
-    endDate: "2024-11-05",
+    endDate: "2026-11-05",
     location: "Genève",
     description: "Exercices doux pour améliorer l'équilibre et la mobilité.",
     link: "contact.html#inscription",

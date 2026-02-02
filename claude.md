@@ -81,8 +81,6 @@ Ajouter un z-index élevé sur .schedule-event:hover pour garantir que le cours 
 Est-ce que ça te convient comme approche ?
 
 vas-y fais ces changements
-(no content)
-
 Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\css\styles.css (lines 1107-1191)
 Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\css\styles.css
 Added 1 line
@@ -189,6 +187,62 @@ Edit failed
 Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\data\events.js
 Write c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\data\events.js
 57 lines
+// data/events.js
+// Tous les événements du site
+// Tu modifies UNIQUEMENT ici quand tu veux ajouter/changer un événement
+//
+// COMMENT ÇA MARCHE :
+// - endDate : date de fin au format "YYYY-MM-DD" (ex: "2025-02-20")
+//   → Si endDate >= aujourd'hui → affiché sur "Événements"
+//   → Si endDate < aujourd'hui → affiché sur "Galerie"
+// - status : OPTIONNEL - pour forcer manuellement "future" ou "past"
+//   → Si tu mets status: "future", il reste en Événements même si la date est passée
+//   → Si tu mets status: "past", il va en Galerie même si la date n'est pas passée
+
+export const eventsData = [
+  {
+    id: "capoeira-pass-vacances-2025",
+    title: "Moov'Capoeira – Pass Vacances",
+    date: "15–20 février 2025",           // Texte affiché
+    endDate: "2025-02-20",                // Pour calcul auto (YYYY-MM-DD)
+    location: "Genève",
+    description:
+      "Sensibilisation à l'inclusion sociale à travers la capoeira. Ouvert aux enfants et ados.",
+    link: "contact.html#inscription",
+    // Photos et vidéos (pour la galerie)
+    galleryImages: [
+      "../assets/images/contenu/2025/capoeira/pass vacances juillet 2025/capoeira-enfants-1.jpg",
+      "../assets/images/contenu/2025/capoeira/pass vacances juillet 2025/capoeira-enfants-2.jpg",
+    ],
+    galleryVideos: [
+      "../assets/videos/2025/Capoeira-pass-vacances-(juillet-2025)/video-pass-vacances.mp4",
+    ],
+  },
+  {
+    id: "kids-journee-decouverte-2024",
+    title: "Moov'Kids – Journée Découverte",
+    date: "12 octobre 2024",
+    endDate: "2024-10-12",
+    location: "Lausanne",
+    description:
+      "Activités ludiques et sportives pour les 6-12 ans. Places limitées !",
+    link: "contact.html#inscription",
+    galleryImages: [
+      // Ajoute tes photos ici quand tu les as
+    ],
+  },
+  {
+    id: "seniors-atelier-2024",
+    title: "Moov'Seniors – Atelier Équilibre",
+    date: "5 novembre 2024",
+    endDate: "2024-11-05",
+    location: "Genève",
+    description: "Exercices doux pour améliorer l'équilibre et la mobilité.",
+    link: "contact.html#inscription",
+    galleryImages: [],
+  },
+  // ← Ajoute ici d'autres événements (copie-colle un bloc ci-dessus)
+];
 Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\evenements.html (lines 115-149)
 Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html (lines 116-180)
 Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\evenements.html
@@ -232,3 +286,325 @@ Comment utiliser maintenant :
   // status: "future",          // Optionnel - pour forcer
 }
 Rafraîchis les pages pour tester. Les événements de 2024 devraient être automatiquement en galerie, et celui de février 2025 aussi (car passé).
+
+petite question Claude. Pour les photos et vidéos je les mets directement, après que l'évènement est fini, dans galleryImages et videos sans problème non?
+Oui, exactement ! Tu mets les chemins directement dans galleryImages et galleryVideos :
+
+
+{
+  id: "capoeira-pass-vacances-2025",
+  title: "Moov'Capoeira – Pass Vacances",
+  date: "15–20 février 2025",
+  endDate: "2025-02-20",
+  location: "Genève",
+  description: "...",
+  link: "contact.html#inscription",
+  
+  // Ajoute tes photos ici (autant que tu veux)
+  galleryImages: [
+    "../assets/images/contenu/2025/capoeira/photo1.jpg",
+    "../assets/images/contenu/2025/capoeira/photo2.jpg",
+    "../assets/images/contenu/2025/capoeira/photo3.jpg",
+  ],
+  
+  // Ajoute tes vidéos ici
+  galleryVideos: [
+    "../assets/videos/2025/capoeira/video1.mp4",
+  ],
+},
+À retenir :
+
+Le chemin commence par ../ car les pages sont dans le dossier pages/
+Tu peux mettre autant de photos/vidéos que tu veux
+Si tu n'as pas encore les médias, laisse les tableaux vides [] → le message "Photos et vidéos arrivent bientôt !" s'affichera automatiquement
+J'ai une question, de presentation pour la partie gallerie. Comme dans la photo, je ne trouve pas que ce soit beau a voir, et dépendant de l'évènement, il y aura plus ou moins de photos. Est-ce qu'il y a une possibilité de le faire comme un carousel? Ou on click sur une image, et elle s'agrandit, puis on peut changer de photo ou video. Regarde, j'ai trouvé cette exemple en html: Avant de faire quoi que ce soit, dis moi tes idées ou ce que tu pense de cette exemple: <!-- Carousel wrapper -->
+<div
+  id="carouselVideoExample"
+  data-mdb-carousel-init class="carousel slide carousel-fade"
+  data-mdb-ride="carousel"
+>
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button data-mdb-button-init
+      type="button"
+      data-mdb-target="#carouselVideoExample"
+      data-mdb-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button data-mdb-button-init
+      type="button"
+      data-mdb-target="#carouselVideoExample"
+      data-mdb-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+    <button data-mdb-button-init
+      type="button"
+      data-mdb-target="#carouselVideoExample"
+      data-mdb-slide-to="2"
+      aria-label="Slide 3"
+    ></button>
+  </div>
+
+  <!-- Inner -->
+  <div class="carousel-inner">
+    <!-- Single item -->
+    <div class="carousel-item active">
+      <video class="img-fluid" autoplay loop muted>
+        <source src="https://mdbcdn.b-cdn.net/img/video/Tropical.mp4" type="video/mp4" />
+      </video>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>
+          Nulla vitae elit libero, a pharetra augue mollis interdum.
+        </p>
+      </div>
+    </div>
+
+    <!-- Single item -->
+    <div class="carousel-item">
+      <video class="img-fluid" autoplay loop muted>
+        <source src="https://mdbcdn.b-cdn.net/img/video/forest.mp4" type="video/mp4" />
+      </video>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+      </div>
+    </div>
+
+    <!-- Single item -->
+    <div class="carousel-item">
+      <video class="img-fluid" autoplay loop muted>
+        <source
+          src="https://mdbcdn.b-cdn.net/img/video/Agua-natural.mp4"
+          type="video/mp4"
+        />
+      </video>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>
+          Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Inner -->
+
+  <!-- Controls -->
+  <button data-mdb-button-init
+    class="carousel-control-prev"
+    type="button"
+    data-mdb-target="#carouselVideoExample"
+    data-mdb-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button data-mdb-button-init
+    class="carousel-control-next"
+    type="button"
+    data-mdb-target="#carouselVideoExample"
+    data-mdb-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<!-- Carousel wrapper -->
+Bonne idée ! L'exemple que tu as trouvé utilise MDB (Material Design Bootstrap) - c'est une librairie payante/premium. Mais on peut faire la même chose avec Bootstrap standard que tu utilises déjà.
+
+Voici mes réflexions sur les deux approches possibles :
+
+Option 1 : Carousel simple (comme ton exemple)
+
+Les photos/vidéos défilent une par une
+Flèches gauche/droite + indicateurs en bas
+✅ Simple à implémenter avec Bootstrap
+❌ On ne voit qu'un média à la fois, pas de vue d'ensemble
+Option 2 : Lightbox (clic pour agrandir) ⭐ Recommandé
+
+Les miniatures restent en grille (comme maintenant)
+Quand on clique sur une image → elle s'ouvre en grand (plein écran ou modal)
+Flèches pour naviguer entre les médias
+✅ Meilleure UX : on voit la grille ET on peut agrandir
+✅ Plus moderne et intuitif
+Nécessite une petite librairie JS (ex: GLightbox - gratuite et légère)
+Ce que je te conseille :
+
+L'Option 2 (Lightbox) est plus adaptée pour une galerie :
+
+L'utilisateur voit toutes les miniatures
+Il clique sur celle qui l'intéresse
+Elle s'agrandit avec navigation gauche/droite
+Il ferme et revient à la grille
+C'est ce qu'utilisent la plupart des sites de photos (Instagram, Google Photos, etc.)
+
+Tu veux que je fasse quelle option ?
+
+Alors, explique moi comment tu ajouterais l'option 2, elle a l'air bien. Explique moi avant qu'on edite les fichiers, ce qu'on va ajouter et ou please
+Voici comment je vais implémenter la Lightbox :
+
+Ce qu'on va utiliser : GLightbox
+Une librairie légère (15kb), gratuite, qui supporte images + vidéos. Pas besoin de télécharger quoi que ce soit - on utilise un CDN.
+
+Ce qu'on va modifier :
+1. pages/gallerie.html
+Dans le <head> - Ajouter le CSS de GLightbox :
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+Avant </body> - Ajouter le JS de GLightbox :
+
+
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+Dans le script existant - Modifier les images/vidéos pour qu'elles soient cliquables :
+
+Envelopper chaque image dans un <a href="..."> qui pointe vers l'image en grand
+Ajouter la classe glightbox et un attribut data-gallery="eventId" pour grouper par événement
+Initialiser GLightbox à la fin du script
+Résultat attendu :
+Affichage : La grille reste identique (miniatures)
+Au clic : L'image/vidéo s'ouvre en plein écran avec un fond sombre
+Navigation : Flèches gauche/droite pour passer au média suivant/précédent (dans le même événement)
+Fermeture : Clic sur le X ou en dehors de l'image
+Fichiers touchés :
+Fichier	Modifications
+pages/gallerie.html	Ajouter CDN CSS + JS, modifier le template des images/vidéos, initialiser GLightbox
+C'est tout - un seul fichier à modifier. Pas de changement dans events.js ni dans styles.css.
+
+Tu veux que j'y aille ?
+
+Vas-y
+Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+<thinking> Maintenant je vais modifier le fichier pour ajouter GLightbox. Je vais faire les modifications suivantes :
+Ajouter le CSS de GLightbox dans le <head>
+Ajouter le JS de GLightbox avant </body>
+Modifier le template des images pour les envelopper dans des liens <a> avec la classe glightbox
+Modifier le template des vidéos pour les rendre cliquables aussi
+Initialiser GLightbox à la fin du script
+Let me make these edits.
+</thinking>
+
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+Added 2 lines
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+Added 2 lines
+Maintenant je modifie le template des images pour les rendre cliquables :
+
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+Added 2 lines
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+Added 4 lines
+Maintenant j'ajoute l'initialisation de GLightbox à la fin du script :
+
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+Added 13 lines
+Maintenant j'ajoute un peu de CSS pour le bouton play sur les vidéos :
+
+Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\css\styles.css (lines 1046-1075)
+Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\css\styles.css (lines 1036-1050)
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\css\styles.css
+Added 44 lines
+C'est fait ! Voici ce que j'ai ajouté :
+
+Dans gallerie.html :
+
+CSS GLightbox dans le <head>
+JS GLightbox avant les scripts
+Images cliquables - chaque image est maintenant dans un lien <a class="glightbox"> avec data-gallery pour les grouper par événement
+Vidéos cliquables - même chose, avec un overlay "play" pour indiquer qu'on peut cliquer
+Initialisation GLightbox à la fin du script
+Dans styles.css :
+
+Style pour le bouton play sur les vidéos
+Effet hover sur les images (léger zoom)
+Comment ça fonctionne maintenant :
+
+Tu vois la grille de miniatures (comme avant)
+Tu cliques sur une image → elle s'ouvre en grand avec fond sombre
+Flèches gauche/droite pour naviguer entre les médias du même événement
+Clic sur X ou en dehors pour fermer
+Rafraîchis la page galerie pour tester !
+
+Super, mais j'ai un petit soucis avec la presentation quand on ouvre galerie.html. Je reprends cette présentation. A savoir que peut-être on aura beaucoup plus de photos et vidéos, je voudrais pas que la page soit trop chargée. Comment on peut faire? Un click pour tout ouvrir? Ou faire une photo avec le carousel inclus pour passer de photo en photo et videos avec une option pour agrandir? Quelles sont tes idées? Dis moi comme avant, avant d'éditer please
+Tu as raison, avec beaucoup de médias la page va devenir très longue et lourde. Voici mes idées :
+
+Option 1 : "Voir plus" avec limite initiale
+Afficher seulement 3-4 photos par défaut
+Bouton "Voir toutes les photos (12)" qui déplie le reste
+✅ Simple à implémenter
+✅ Page légère au chargement
+❌ Toujours une grille, pas très compact
+Option 2 : Une seule image "couverture" + lightbox ⭐ Recommandé
+Afficher 1 seule image principale (la première) en grand
+Badge qui indique "+5 photos" / "+2 vidéos"
+Au clic → ouvre la lightbox avec navigation entre tous les médias
+✅ Très compact et propre
+✅ Fonctionne bien avec beaucoup d'événements
+✅ On garde la lightbox qu'on vient d'ajouter
+Exemple visuel :
+
+
+┌─────────────────────────────┐
+│                             │
+│    [Image principale]       │
+│                             │
+│         +5 📷  +1 🎬        │
+└─────────────────────────────┘
+Option 3 : Mini-carousel horizontal
+Une rangée de miniatures scrollable horizontalement
+Au clic → lightbox
+✅ Compact
+❌ Moins intuitif sur desktop
+Ma recommandation : Option 2
+Pourquoi :
+
+Ultra compact - 1 image par événement au lieu de 10
+Scalable - Que tu aies 2 ou 50 photos, ça prend le même espace
+On réutilise GLightbox - Déjà en place, pas besoin de nouvelle librairie
+UX moderne - C'est ce que font Instagram, Facebook, Google Photos
+Ce que je vais modifier :
+
+Le template dans gallerie.html pour n'afficher qu'une image
+Ajouter un badge compteur de médias
+Garder tous les liens glightbox (mais cachés) pour la navigation
+Tu veux l'option 2 ?
+
+Vas-y avec l'option 2
+Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\pages\gallerie.html
+Removed 2 lines
+Maintenant j'ajoute le CSS pour le style de la couverture :
+
+Read c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\css\styles.css (lines 1071-1100)
+Edit c:\Users\Maintenant Prêt\Desktop\Full Stack\Personal Projects\MoovEnsemble\MoovEnsemble-V2\css\styles.css
+Added 103 lines
+C'est fait ! Voici ce qui a changé :
+
+Nouvelle présentation :
+
+1 seule image "couverture" par événement (la première photo, ou la première vidéo si pas de photo)
+Badge compteur en haut à droite : "📷 2" et "🎬 1" pour indiquer le nombre de médias
+Overlay "Voir la galerie" qui apparaît au survol
+Navigation lightbox - Au clic, tu navigues entre TOUS les médias de l'événement
+Avantages :
+
+Page beaucoup plus légère visuellement
+Que tu aies 2 ou 50 photos, ça prend le même espace
+L'utilisateur sait combien de médias sont disponibles grâce au badge
+Rafraîchis la page galerie pour voir le résultat !
+
+Oooooh, c'est trop bien. Merci beaucoup!!!
+De rien ! 🎉 Content que ça te plaise !
+
+La galerie est maintenant beaucoup plus propre et professionnelle. Récapitulatif de ce qu'on a fait aujourd'hui :
+
+✅ Tooltip planning - S'affiche au-dessus et reste visible au survol
+✅ Titre planning - Couleur corrigée + fond uniforme
+✅ Événements automatiques - Basés sur endDate, plus besoin de changer status manuellement
+✅ Galerie lightbox - Clic pour agrandir + navigation entre les médias
+✅ Présentation compacte - 1 image couverture avec badge compteur
+N'hésite pas si tu as d'autres ajustements à faire sur le site !

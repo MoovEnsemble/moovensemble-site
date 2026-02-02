@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../css/styles.css">
     <!-- Font Awesome pour icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 </head>
 <body>
 
@@ -31,6 +33,9 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cours-planing.html">Cours & Horaires</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="evenements.html">Évènements</a>
@@ -84,6 +89,7 @@
                 <h6>Liens rapides</h6>
                 <ul>
                     <li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>
+                    <li><a href="cours-planing.html">Cours & Horaires</a></li>
                     <li><a href="evenements.html">Évènements</a></li>
                     <li><a href="gallerie.html">Galerie</a></li>
                     <li><a href="prevention-sante.html">Prévention / Santé</a></li>
@@ -112,6 +118,8 @@
 <!-- Scripts -->
 <script src="../js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- GLightbox JS -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
 <!-- Script dynamique pour charger les galeries depuis data/events.js -->
 <script type="module">
@@ -143,50 +151,67 @@
     `;
   } else {
     pastEvents.forEach(event => {
+      const images = event.galleryImages || [];
+      const videos = event.galleryVideos || [];
+      const totalMedia = images.length + videos.length;
+      const hasMedia = totalMedia > 0;
+      const firstImage = images[0];
+      const firstVideo = videos[0];
+
       const section = document.createElement('section');
       section.className = 'event-gallery mb-5';
       section.innerHTML = `
         <h2>${event.title}</h2>
         <p class="event-date mb-4">${event.date} – ${event.location}</p>
 
-        ${event.galleryImages && event.galleryImages.length > 0 ? `
-        <h3 class="gallery-subtitle mb-3">Photos</h3>
-        <div class="gallery-grid row g-3 mb-4">
-          ${event.galleryImages.map(img => `
-  <div class="gallery-item col-md-6 col-lg-4">
-    <img
-      src="${img}"
-      alt="${event.title}"
-      loading="lazy"
-      class="img-fluid rounded shadow-sm">
-    <div class="gallery-caption text-center p-3 bg-dark bg-opacity-75 text-white">
-      ${event.title}
-    </div>
-  </div>
-`).join('')}
-        </div>
-        ` : ''}
+        ${hasMedia ? `
+        <div class="gallery-cover-wrapper">
+          <!-- Image principale cliquable -->
+          <a href="${firstImage || firstVideo}" class="glightbox gallery-cover-link" data-gallery="gallery-${event.id}" data-glightbox="title: ${event.title}">
+            ${firstImage ? `
+            <img src="${firstImage}" alt="${event.title}" class="gallery-cover-img">
+            ` : `
+            <video src="${firstVideo}" class="gallery-cover-img" muted preload="metadata"></video>
+            <div class="video-play-overlay">
+              <i class="fa-solid fa-play"></i>
+            </div>
+            `}
+            <!-- Badge compteur -->
+            <div class="gallery-media-count">
+              ${images.length > 0 ? `<span><i class="fa-solid fa-camera"></i> ${images.length}</span>` : ''}
+              ${videos.length > 0 ? `<span><i class="fa-solid fa-video"></i> ${videos.length}</span>` : ''}
+            </div>
+            <div class="gallery-cover-overlay">
+              <span>Voir la galerie</span>
+            </div>
+          </a>
 
-        ${event.galleryVideos && event.galleryVideos.length > 0 ? `
-        <h3 class="gallery-subtitle mb-3">Vidéos</h3>
-        <div class="gallery-videos row g-3">
-          ${event.galleryVideos.map(video => `
-  <div class="col-12 col-lg-8 mx-auto">
-    <video
-      src="${video}"
-      controls
-      preload="metadata"
-      class="w-100 rounded shadow-sm">
-      Votre navigateur ne supporte pas la lecture vidéo.
-    </video>
-  </div>
-`).join('')}
+          <!-- Liens cachés pour les autres médias (pour GLightbox navigation) -->
+          <div class="gallery-hidden-links">
+            ${images.slice(1).map(img => `
+              <a href="${img}" class="glightbox" data-gallery="gallery-${event.id}" data-glightbox="title: ${event.title}"></a>
+            `).join('')}
+            ${(firstImage ? videos : videos.slice(1)).map(video => `
+              <a href="${video}" class="glightbox" data-gallery="gallery-${event.id}" data-glightbox="title: ${event.title}"></a>
+            `).join('')}
+          </div>
         </div>
-        ` : ''}
-
-        ${(!event.galleryImages || event.galleryImages.length === 0) && (!event.galleryVideos || event.galleryVideos.length === 0) ? '<p class="text-center text-muted py-4"><i class="fa-solid fa-camera me-2"></i>Photos et vidéos arrivent bientôt !</p>' : ''}
+        ` : '<p class="text-center text-muted py-4"><i class="fa-solid fa-camera me-2"></i>Photos et vidéos arrivent bientôt !</p>'}
       `;
       container.appendChild(section);
+    });
+
+    // Initialiser GLightbox après avoir ajouté tous les éléments
+    GLightbox({
+      selector: '.glightbox',
+      touchNavigation: true,
+      loop: true,
+      closeButton: true,
+      svg: {
+        close: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>',
+        next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>',
+        prev: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>'
+      }
     });
   }
 </script>
