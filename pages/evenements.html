@@ -33,10 +33,10 @@
                     <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous?</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="evenements.html">Événements</a>
+                    <a class="nav-link" href="evenements.html">Évènements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="gallerie.html">Gallérie</a>
+                    <a class="nav-link" href="gallerie.html">Galerie</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="prevention-sante.html">Prévention / Santé</a>
@@ -82,8 +82,8 @@
                 <h6>Liens rapides</h6>
                 <ul>
                     <li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>
-                    <li><a href="evenements.html">Événements</a></li>
-                    <li><a href="gallerie.html">Gallérie</a></li>
+                    <li><a href="evenements.html">Évènements</a></li>
+                    <li><a href="gallerie.html">Galerie</a></li>
                     <li><a href="prevention-sante.html">Prévention / Santé</a></li>
                     <li><a href="contact.html">Contactez-nous</a></li>
                 </ul>
@@ -116,9 +116,22 @@
   import { eventsData } from '../data/events.js';
 
   const container = document.querySelector('.events-container');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Minuit pour comparer juste la date
 
-  // Filtre seulement les événements futurs
-  const futureEvents = eventsData.filter(event => event.status === "future");
+  // Fonction pour déterminer si un événement est futur
+  function isFuture(event) {
+    // Si status est défini, il a priorité
+    if (event.status === "future") return true;
+    if (event.status === "past") return false;
+    // Sinon, on compare avec endDate
+    if (!event.endDate) return false;
+    const eventDate = new Date(event.endDate);
+    return eventDate >= today;
+  }
+
+  // Filtre les événements futurs (automatique ou forcé)
+  const futureEvents = eventsData.filter(isFuture);
 
   if (futureEvents.length === 0) {
     container.innerHTML = `
