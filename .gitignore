@@ -1,0 +1,16 @@
+# Claude Code
+.claude/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Dependencies (si tu ajoutes npm plus tard)
+node_modules/
+
+# Logs
+*.log
