@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prévention santé</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
      <!--Bootstrap-->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
      <!--CSS-->
@@ -31,6 +33,16 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous?</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="../index.html" id="activitesDropdown">
+                        Activités
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="activitesDropdown">
+                        <li><a class="dropdown-item" href="activites-enfants.html">Enfants</a></li>
+                        <li><a class="dropdown-item" href="activites-adultes.html">Adultes</a></li>
+                        <li><a class="dropdown-item" href="activites-seniors.html">Seniors</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cours-planing.html">Cours & Horaires</a>
@@ -84,9 +96,9 @@
             <!-- Colonne 1 : Contact -->
             <div class="col-md-4">
                 <h6>Moov'Ensemble</h6>
-                <p>📍 Adresse à compléter</p>
-                <p>📧 contact@moovensemble.ch</p>
-                <p>📱 +41 XX XXX XX XX</p>
+                <p><strong>Adresse:</strong> Rue François Durafour 14</p>
+                <p><strong>E-mail:</strong> moovensemble@gmail.com</p>
+                <p><strong>Tel:</strong> +41 79 926 27 82</p>
             </div>
             
             <!-- Colonne 2 : Liens rapides -->
@@ -94,6 +106,7 @@
                 <h6>Liens rapides</h6>
                 <ul>
                     <li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>
+                    <li><a href="../index.html">Activités</a></li>
                     <li><a href="cours-planing.html">Cours & Horaires</a></li>
                     <li><a href="evenements.html">Évènements</a></li>
                     <li><a href="gallerie.html">Galerie</a></li>
@@ -114,13 +127,22 @@
         <!-- Copyright -->
         <div class="row mt-4">
             <div class="col-12 text-center">
-                <p class="copyright">© 2025 Moov'Ensemble - Tous droits réservés</p>
+                <p class="copyright">© 2026 Moov'Ensemble - Tous droits réservés</p>
             </div>
         </div>
     </div>
 </footer>
 
+<!-- Bouton retour en haut -->
+<button class="scroll-to-top" id="scrollToTop" title="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
 <script src="../js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <!-- Script retour en haut -->
+    <script src="../js/scroll-top.js"></script>
+    <!-- Bannière Cookies -->
+    <script src="../js/cookies.js"></script>
 </body>
 </html>

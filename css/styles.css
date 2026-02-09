@@ -196,7 +196,7 @@ body {
         .cards-wrapper {
         min-height: auto;
         margin-top: 20px;
-        margin-bottom: 50px; /* Espace avant le footer */
+        margin-bottom: 80px; /* Espace avant le footer */
         }
     
 
@@ -253,7 +253,7 @@ body {
 
     .cards-wrapper {
         margin-top: 0;
-        margin-bottom: 30px; /* Espace avant footer */
+        margin-bottom: 80px; /* Espace avant footer */
     }
 
     .footer-section {
@@ -268,6 +268,162 @@ body {
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Menu déroulant Activités */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.dropdown-menu {
+    background-color: #0C2C55;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    min-width: 180px;
+}
+
+.dropdown-item {
+    color: white;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.dropdown-toggle::after {
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* Mobile : dropdown s'ouvre au clic */
+@media (max-width: 991px) {
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: none; /* Désactive hover sur mobile */
+    }
+
+    .dropdown-menu.show {
+        display: block !important;
+        position: static;
+        width: 100%;
+        margin-top: 0;
+        background-color: rgba(12, 44, 85, 0.9);
+    }
+}
+
+/* Bouton retour en haut */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: #0C2C55;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 9998;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
+    background: #1a4a8a;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive scroll-to-top */
+@media (max-width: 576px) {
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+}
+
+/* Boutons navigation entre activités */
+.activites-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 40px 20px 80px 20px; /* Espacement uniforme avant footer */
+    background-color: transparent;
+}
+
+/* Fond gris uniquement pour la page enfants */
+.activites-navigation.nav-bg-gray {
+    background-color: #f8f9fa;
+    margin-top: -40px;
+    margin-bottom: 0;
+    padding: 40px 20px 130px 20px;
+}
+
+.activites-navigation .btn-activite {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: #0C2C55;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(12, 44, 85, 0.2);
+}
+
+.activites-navigation .btn-activite:hover {
+    background: #1a4a8a;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(12, 44, 85, 0.3);
+    color: white;
+}
+
+.activites-navigation .btn-activite i {
+    font-size: 1.1rem;
+}
+
+/* Responsive navigation activités */
+@media (max-width: 576px) {
+    .activites-navigation {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 15px;
+        margin-bottom: 0;
+        padding: 30px 15px 60px 15px; /* Espacement uniforme mobile */
+    }
+
+    .activites-navigation.nav-bg-gray {
+        margin-top: -30px;
+        padding: 30px 15px 80px 15px;
+    }
+
+    .activites-navigation .btn-activite {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        padding: 12px 25px;
+    }
 }
 
 
@@ -322,18 +478,25 @@ body {
 }
 
 .social-link {
-    color: #cccccc;
+    color: #E1306C !important; /* Rose Instagram */
     text-decoration: none;
     font-size: 16px;
+    transition: all 0.3s ease;
+    -webkit-text-fill-color: #E1306C; /* Force la couleur du texte */
 }
 
 .social-link:hover {
-    color: white;
+    color: #ff6b9d !important; /* Rose plus clair au survol */
+    -webkit-text-fill-color: #ff6b9d;
 }
 
 .social-link i {
-    font-size: 20px;
-    margin-right: 8px;
+    font-size: 24px;
+    margin-right: 10px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .copyright {
@@ -355,6 +518,7 @@ body {
 }
 main h1{
     color: #0C2C55;
+    text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
 }
 .main h2{
     color: #0C2C55;
@@ -414,7 +578,7 @@ main a{
   transition: all 0.35s;
 }
 .tab input:checked ~ .tab__content {
-  max-height: 10rem;
+  max-height: 50rem; /* Augmenté pour afficher tout le contenu */
 }
 
 /* Visual styles */
@@ -448,7 +612,17 @@ main a{
 }
 .tab__content p {
   margin: 0;
-  padding: 1rem;
+  padding: 1.2rem 1rem 1rem 1rem; /* Plus d'espace en haut */
+}
+
+/* Listes dans l'accordéon - même espacement */
+.tab__content ul {
+  margin: 0;
+  padding: 1.2rem 1rem 1rem 2.5rem; /* top right bottom left */
+}
+
+.tab__content ul li {
+  margin-bottom: 0.5rem;
 }
 .tab__close {
   justify-content: flex-end;
@@ -552,6 +726,26 @@ main a{
     color: #0d6efd;
 }
 
+/* LinkedIn - couleur bleue officielle */
+.social-link-linkedin {
+    color: #0077B5 !important;
+    -webkit-text-fill-color: #0077B5 !important;
+    font-weight: 500;
+}
+
+.social-link-linkedin:hover {
+    color: #005885 !important;
+    -webkit-text-fill-color: #005885 !important;
+}
+
+/* Mobile/Tablette : afficher les liens sociaux sans hover */
+@media (max-width: 991px) {
+    .member-social {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /*Carousel images*/
 .carousel-item img {
     height: 350px !important;
@@ -652,6 +846,7 @@ main a{
     font-weight: 700;
     margin-bottom: 40px;
     font-size: 2.2rem;
+    text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
 }
 
 /* Champ caché anti-spam */
@@ -848,6 +1043,7 @@ main a{
   font-weight: 700;
   margin: 0 0 1.2rem;
   color: #0C2C55;
+  text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
 }
 
 .section-construction__text {
@@ -899,15 +1095,17 @@ main a{
    Événements 
    ========================================================================== */
 .events-section {
-  padding: 4rem 1.5rem;
+  padding: 0 1.5rem 4rem 1.5rem;
   max-width: 1100px;
-  margin: 0 auto;
+  margin: -75px auto 0 auto; /* rapproche du logo */
 }
 
 .events-section h1 {
   color: #0C2C55;
   text-align: center;
+  margin-top: 0;
   margin-bottom: 1.5rem;
+  text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
 }
 
 .intro {
@@ -971,10 +1169,17 @@ main a{
   background: #0a2549;
 }
 
-/* Responsive */
+/* Responsive événements */
 @media (min-width: 768px) {
   .events-section {
     padding: 6rem 2rem;
+  }
+}
+
+/* Mobile - réduire la marge négative pour éviter le chevauchement avec le logo */
+@media (max-width: 768px) {
+  .events-section {
+    margin-top: -20px; /* Réduit sur mobile */
   }
 }
 
@@ -983,7 +1188,7 @@ main a{
    ========================================================================== */
 
 .gallery-section {
-  padding: 4rem 1.5rem;
+  padding: 0 1.5rem 4rem 1.5rem; /* top à 0 car déjà dans .main */
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -993,6 +1198,7 @@ main a{
   text-align: center;
   margin-bottom: 1rem;
   font-size: 2.8rem;
+  text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
 }
 
 .intro {
@@ -1087,13 +1293,23 @@ main a{
   background: rgba(12, 44, 85, 0.92);
 }
 
-/* Responsive */
+/* Responsive galerie */
 @media (max-width: 768px) {
   .gallery-section {
-    padding: 3rem 1rem;
+    padding: 1rem 1rem 3rem 1rem;
+  }
+  .gallery-section h1 {
+    font-size: 2rem; /* Réduit sur mobile */
+    margin-bottom: 0.5rem;
   }
   .event-gallery h2 {
     font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-section h1 {
+    font-size: 1.7rem; /* Encore plus petit sur très petit écran */
   }
 }
 
@@ -1346,6 +1562,48 @@ main a{
   z-index: 100;
 }
 
+/* Planning style Outlook */
+.schedule-event-outlook {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.schedule-event-outlook:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(12,44,85,0.4);
+  z-index: 500 !important;
+}
+
+.schedule-event-outlook:hover .details-tooltip {
+  display: block;
+}
+
+/* Permettre au tooltip de dépasser les cellules */
+.table-responsive {
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+}
+
+#planningTable {
+  overflow: visible !important;
+}
+
+#planningTable tbody {
+  overflow: visible !important;
+}
+
+#planningTable td {
+  position: relative;
+  min-width: 100px;
+  overflow: visible !important;
+}
+
+#planningTable tbody tr {
+  height: 60px;
+  overflow: visible !important;
+}
+
 .details-tooltip {
   display: none;
   position: absolute;
@@ -1453,9 +1711,300 @@ main a{
   box-shadow: 0 4px 12px rgba(12, 44, 85, 0.25) !important;
 }
 
-@media (max-width: 576px) {
-  .salle-btn {
-    padding: 8px 16px !important;
-    font-size: 0.9rem !important;
+/* ==========================================================================
+   Planning Mobile - Vue par jour avec onglets
+   ========================================================================== */
+
+/* Par défaut : cacher la vue mobile, montrer desktop */
+.planning-mobile {
+  display: none;
+}
+
+.planning-desktop {
+  display: block;
+}
+
+/* Sur tablette et mobile : inverser */
+@media (max-width: 991px) {
+  .planning-desktop {
+    display: none !important;
+  }
+
+  .planning-mobile {
+    display: block !important;
+  }
+}
+
+/* Conteneur des onglets jours */
+.jours-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 10px;
+  background: #0C2C55;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* Bouton onglet jour */
+.jour-tab {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.jour-tab:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.jour-tab.active {
+  background: white;
+  color: #0C2C55;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.15);
+}
+
+/* Titre du jour */
+.jour-titre {
+  color: #0C2C55;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Liste des cours */
+.cours-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Carte de cours */
+.cours-card {
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cours-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Barre de couleur à gauche */
+.cours-card-color {
+  width: 6px;
+  flex-shrink: 0;
+}
+
+/* Contenu de la carte */
+.cours-card-content {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cours-card-info {
+  flex: 1;
+}
+
+.cours-card-nom {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+}
+
+.cours-card-details {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cours-card-details i {
+  width: 18px;
+  color: #94a3b8;
+}
+
+/* Horaire à droite */
+.cours-card-horaire {
+  text-align: right;
+  padding-left: 15px;
+}
+
+.cours-card-heure-debut {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0C2C55;
+}
+
+.cours-card-heure-fin {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* Message aucun cours */
+.aucun-cours {
+  text-align: center;
+  padding: 40px 20px;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.aucun-cours i {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+/* Responsive mobile petit */
+@media (max-width: 480px) {
+  .jours-tabs {
+    gap: 6px;
+    padding: 12px 8px;
+  }
+
+  .jour-tab {
+    width: 38px;
+    height: 38px;
+    font-size: 0.8rem;
+  }
+
+  .jour-titre {
+    font-size: 1.5rem;
+  }
+
+  .cours-card-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cours-card-horaire {
+    text-align: left;
+    padding-left: 0;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+}
+
+/* ==========================================================================
+   Bannière Cookies
+   ========================================================================== */
+
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #0C2C55;
+  color: white;
+  padding: 20px;
+  z-index: 9999;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+#cookie-banner.show {
+  transform: translateY(0);
+}
+
+#cookie-banner.hide {
+  transform: translateY(100%);
+}
+
+.cookie-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cookie-content p {
+  margin: 0;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.cookie-btn {
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+}
+
+.cookie-btn-refuse {
+  background: transparent;
+  color: white;
+}
+
+.cookie-btn-refuse:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.cookie-btn-accept {
+  background: white;
+  color: #0C2C55;
+  border-color: white;
+}
+
+.cookie-btn-accept:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive mobile */
+@media (max-width: 600px) {
+  #cookie-banner {
+    padding: 15px;
+  }
+
+  .cookie-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cookie-content p {
+    font-size: 0.9rem;
+  }
+
+  .cookie-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cookie-btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
   }
 }

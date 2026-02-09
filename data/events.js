@@ -14,8 +14,8 @@ export const eventsData = [
   {
     id: "capoeira-pass-vacances-2025",
     title: "Moov'Capoeira – Pass Vacances",
-    date: "15–20 février 2025",           // Texte affiché
-    endDate: "2025-02-20",                // Pour calcul auto (YYYY-MM-DD)
+    date: "15–20 février 2025", // Texte affiché
+    endDate: "2025-02-20", // Pour calcul auto (YYYY-MM-DD)
     location: "Genève",
     description:
       "Sensibilisation à l'inclusion sociale à travers la capoeira. Ouvert aux enfants et ados.",
@@ -31,26 +31,31 @@ export const eventsData = [
   },
   {
     id: "kids-journee-decouverte-2024",
-    title: "Moov'Kids – Journée Découverte",
-    date: "12 octobre 2024",
-    endDate: "2024-10-12",
-    location: "Lausanne",
+    title: "Moov'Capoeira – Journée Découverte",
+    date: "04 fevrier 2026",
+    endDate: "2026-02-04",
+    location: "Genève",
     description:
       "Activités ludiques et sportives pour les 6-12 ans. Places limitées !",
     link: "contact.html#inscription",
     galleryImages: [
-      // Ajoute tes photos ici quand tu les as
+      "../assets/images/contenu/2026/Capoeira/journee-decouverte-fev26/Capoeira-1.jpeg",
+    ],
+    galleryVideos: [
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-01.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-02.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-03.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-04.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-05.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-06.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-07.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-08.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-09.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-10.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-11.mp4",
+      "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-12.mp4",
     ],
   },
-  {
-    id: "seniors-atelier-2024",
-    title: "Moov'Seniors – Atelier Équilibre",
-    date: "5 novembre 2024",
-    endDate: "2026-02-05",
-    location: "Genève",
-    description: "Exercices doux pour améliorer l'équilibre et la mobilité.",
-    link: "contact.html#inscription",
-    galleryImages: [],
-  },
+
   // ← Ajoute ici d'autres événements (copie-colle un bloc ci-dessus)
 ];

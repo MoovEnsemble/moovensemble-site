@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planning des Cours - Moov'Ensemble</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Ton CSS principal -->
@@ -26,6 +28,16 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="qui-sommes-nous.html">Qui sommes-nous?</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="../index.html" id="activitesDropdown">
+                        Activités
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="activitesDropdown">
+                        <li><a class="dropdown-item" href="activites-enfants.html">Enfants</a></li>
+                        <li><a class="dropdown-item" href="activites-adultes.html">Adultes</a></li>
+                        <li><a class="dropdown-item" href="activites-seniors.html">Seniors</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cours-planing.html">Cours & Horaires</a>
@@ -53,9 +65,9 @@
 </div>
 
 <!-- Contenu principal -->
-<section class="planning-section py-5 bg-light">
+<section class="planning-section pt-3 pb-5 bg-light">
     <div class="container">
-        <h1 class="text-center mb-4" style="color: #0C2C55; text-shadow: none;">Planning des Cours Moov'Ensemble</h1>
+        <h1 class="text-center mb-4" style="color: #0C2C55; text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);">Planning des Cours Moov'Ensemble</h1>
 
         <!-- Filtre par salle avec boutons modernes -->
         <div class="text-center mb-5">
@@ -72,8 +84,8 @@
             </div>
         </div>
 
-        <!-- Tableau dynamique -->
-        <div class="table-responsive">
+        <!-- VUE DESKTOP : Tableau (visible sur grands écrans) -->
+        <div class="table-responsive planning-desktop">
             <table class="table table-bordered text-center" id="planningTable">
                 <thead class="table-dark">
                     <tr>
@@ -91,6 +103,28 @@
             </table>
         </div>
 
+        <!-- VUE MOBILE : Onglets par jour (visible sur petits écrans) -->
+        <div class="planning-mobile">
+            <!-- Onglets jours -->
+            <div class="jours-tabs">
+                <button class="jour-tab active" data-jour="Lundi">Lu</button>
+                <button class="jour-tab" data-jour="Mardi">Ma</button>
+                <button class="jour-tab" data-jour="Mercredi">Me</button>
+                <button class="jour-tab" data-jour="Jeudi">Je</button>
+                <button class="jour-tab" data-jour="Vendredi">Ve</button>
+                <button class="jour-tab" data-jour="Samedi">Sa</button>
+                <button class="jour-tab" data-jour="Dimanche">Di</button>
+            </div>
+
+            <!-- Titre du jour sélectionné -->
+            <h3 class="jour-titre text-center my-3">Lundi</h3>
+
+            <!-- Liste des cours du jour -->
+            <div class="cours-liste" id="coursListe">
+                <!-- Les cours seront ajoutés ici par JavaScript -->
+            </div>
+        </div>
+
         <!-- Infos -->
         <div class="text-center mt-5">
             <p class="lead"><strong>Abonnement : 60.– CHF / mois</strong></p>
@@ -106,14 +140,15 @@
         <div class="row">
             <div class="col-md-4">
                 <h6>Moov'Ensemble</h6>
-                <p>📍 Adresse à compléter</p>
-                <p>📧 contact@moovensemble.ch</p>
-                <p>📱 +41 XX XXX XX XX</p>
+                <p><strong>Adresse:</strong> Rue François Durafour 14</p>
+                <p><strong>E-mail:</strong> moovensemble@gmail.com</p>
+                <p><strong>Tel:</strong> +41 79 926 27 82</p>
             </div>
             <div class="col-md-4">
                 <h6>Liens rapides</h6>
                 <ul>
                     <li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>
+                    <li><a href="../index.html">Activités</a></li>
                     <li><a href="cours-planing.html">Cours & Horaires</a></li>
                     <li><a href="evenements.html">Évènements</a></li>
                     <li><a href="gallerie.html">Galerie</a></li>
@@ -130,77 +165,233 @@
         </div>
         <div class="row mt-4">
             <div class="col-12 text-center">
-                <p class="copyright">© 2025 Moov'Ensemble - Tous droits réservés</p>
+                <p class="copyright">© 2026 Moov'Ensemble - Tous droits réservés</p>
             </div>
         </div>
     </div>
 </footer>
 
+<!-- Bouton retour en haut -->
+<button class="scroll-to-top" id="scrollToTop" title="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
 <!-- Scripts -->
 <script src="../js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- Script retour en haut -->
+<script src="../js/scroll-top.js"></script>
 
 <!-- Script dynamique -->
 <script type="module">
   import { coursData } from '../data/cours.js';
 
   const jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-  const horaires = ["08h00", "09h00", "10h00", "11h00", "12h00", "13h00", "14h00", "15h00", "16h00", "17h00", "18h00", "19h00", "20h00"];
+  // Créneaux horaires standards (comme Outlook)
+  const horaires = ["08h00", "09h00", "10h00", "11h00", "12h00", "13h00", "14h00", "15h00", "16h00", "17h00", "18h00", "19h00", "20h00", "21h00"];
+
+  const HEURE_DEBUT = 8; // Planning commence à 8h
+  const HAUTEUR_HEURE = 60; // 60px par heure
+
+  // Convertir "08h30" en minutes depuis minuit
+  function parseTime(timeStr) {
+    const match = timeStr.match(/(\d{2})h(\d{2})/);
+    if (match) {
+      return parseInt(match[1]) * 60 + parseInt(match[2]);
+    }
+    return 0;
+  }
+
+  // Extraire début et fin de "08h30-10h00"
+  function parseHoraire(horaire) {
+    const parts = horaire.split('-');
+    return {
+      debut: parseTime(parts[0]),
+      fin: parseTime(parts[1])
+    };
+  }
 
   function renderTable(salle = "all") {
     const tbody = document.querySelector('#planningTable tbody');
     tbody.innerHTML = '';
 
+    // Créer les lignes d'heures
     horaires.forEach(h => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td class="fw-bold bg-light">${h}</td>`;
+      tr.style.height = HAUTEUR_HEURE + 'px';
+      tr.innerHTML = `<td class="fw-bold bg-light align-top" style="width: 60px;">${h}</td>`;
 
       jours.forEach(j => {
         const td = document.createElement('td');
-        const coursDuCreneau = coursData.filter(c => {
-          return c.jour === j && 
-                 c.horaire.startsWith(h) && 
-                 (salle === "all" || c.salle === salle);
-        });
-
-        if (coursDuCreneau.length > 0) {
-          coursDuCreneau.forEach(c => {
-            const div = document.createElement('div');
-            div.className = 'p-2 rounded text-white mb-1 position-relative schedule-event';
-            div.style.background = c.couleur || '#0C2C55';
-            div.style.position = 'relative';
-            div.style.overflow = 'visible';
-            div.innerHTML = `
-              ${c.nom}<br><small>${c.age}</small>
-              <div class="details-tooltip">
-                ${c.details || 'Aucun détail supplémentaire'}
-              </div>
-            `;
-            td.appendChild(div);
-          });
-        }
+        td.style.position = 'relative';
+        td.style.padding = '0';
+        td.style.verticalAlign = 'top';
+        td.setAttribute('data-jour', j);
+        td.setAttribute('data-heure', h);
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
     });
+
+    // Placer les cours avec positionnement absolu
+    const filteredCours = coursData.filter(c => salle === "all" || c.salle === salle);
+
+    filteredCours.forEach(c => {
+      const { debut, fin } = parseHoraire(c.horaire);
+      const dureeMinutes = fin - debut;
+
+      // Heure de début (ex: 08h30 → 8)
+      const heureDebut = Math.floor(debut / 60);
+      // Minutes dans l'heure (ex: 08h30 → 30)
+      const minutesDansHeure = debut % 60;
+
+      // Position top dans la cellule (30 min = 30px si 60px/heure)
+      const topPx = (minutesDansHeure / 60) * HAUTEUR_HEURE;
+      // Hauteur basée sur la durée
+      const heightPx = (dureeMinutes / 60) * HAUTEUR_HEURE;
+
+      // Trouver la cellule du jour correspondant à l'heure de début
+      const selector = `td[data-jour="${c.jour}"][data-heure="${String(heureDebut).padStart(2, '0')}h00"]`;
+      const targetCell = tbody.querySelector(selector);
+
+      if (targetCell) {
+        const div = document.createElement('div');
+        div.className = 'schedule-event-outlook';
+        div.style.cssText = `
+          position: absolute;
+          top: ${topPx}px;
+          left: 2px;
+          right: 2px;
+          height: ${Math.max(heightPx - 4, 25)}px;
+          background: ${c.couleur || '#0C2C55'};
+          border-radius: 4px;
+          color: white;
+          padding: 4px 6px;
+          font-size: 0.75rem;
+          overflow: visible;
+          cursor: pointer;
+          z-index: 10;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+          line-height: 1.2;
+        `;
+        div.innerHTML = `
+          <strong>${c.nom}</strong><br>
+          <small>${c.age}</small>
+          <div class="details-tooltip">
+            <strong>${c.horaire}</strong><br>
+            ${c.details || 'Aucun détail supplémentaire'}
+          </div>
+        `;
+        targetCell.appendChild(div);
+      }
+    });
   }
+
+  // ============================================================
+  // VUE MOBILE : Affichage par jour
+  // ============================================================
+
+  let currentJour = "Lundi";
+  let currentSalle = "all";
+
+  function renderMobileView(jour = currentJour, salle = currentSalle) {
+    const coursListe = document.getElementById('coursListe');
+    const jourTitre = document.querySelector('.jour-titre');
+
+    if (!coursListe) return;
+
+    // Mettre à jour le titre
+    if (jourTitre) {
+      jourTitre.textContent = jour;
+    }
+
+    // Filtrer les cours par jour et salle
+    const coursDuJour = coursData
+      .filter(c => c.jour === jour && (salle === "all" || c.salle === salle))
+      .sort((a, b) => {
+        // Trier par heure de début
+        const heureA = parseTime(a.horaire.split('-')[0]);
+        const heureB = parseTime(b.horaire.split('-')[0]);
+        return heureA - heureB;
+      });
+
+    // Afficher les cours ou un message si aucun cours
+    if (coursDuJour.length === 0) {
+      coursListe.innerHTML = `
+        <div class="aucun-cours">
+          <i class="fas fa-calendar-xmark"></i>
+          Aucun cours ce jour
+        </div>
+      `;
+      return;
+    }
+
+    // Générer les cartes de cours
+    coursListe.innerHTML = coursDuJour.map(c => {
+      const { debut, fin } = parseHoraire(c.horaire);
+      const heureDebut = c.horaire.split('-')[0];
+      const heureFin = c.horaire.split('-')[1];
+      const salleNom = c.salle === 'avanchets' ? 'Avanchets Jura' : 'Petit-Saconnex';
+
+      return `
+        <div class="cours-card">
+          <div class="cours-card-color" style="background: ${c.couleur || '#0C2C55'};"></div>
+          <div class="cours-card-content">
+            <div class="cours-card-info">
+              <h4 class="cours-card-nom">${c.nom}</h4>
+              <p class="cours-card-details">
+                <i class="fas fa-users"></i> ${c.age}<br>
+                <i class="fas fa-location-dot"></i> ${salleNom}
+              </p>
+            </div>
+            <div class="cours-card-horaire">
+              <div class="cours-card-heure-debut">${heureDebut}</div>
+              <div class="cours-card-heure-fin">${heureFin}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Gestion des onglets de jours
+  document.querySelectorAll('.jour-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Retirer active de tous les onglets
+      document.querySelectorAll('.jour-tab').forEach(t => t.classList.remove('active'));
+      // Ajouter active à l'onglet cliqué
+      tab.classList.add('active');
+      // Mettre à jour le jour courant
+      currentJour = tab.getAttribute('data-jour');
+      // Rafraîchir la vue mobile
+      renderMobileView(currentJour, currentSalle);
+    });
+  });
+
+  // ============================================================
+  // VUE DESKTOP : Tableau style Outlook
+  // ============================================================
 
   // Affichage initial
   renderTable();
+  renderMobileView();
 
-  // Filtre par bouton salle
+  // Filtre par bouton salle (affecte les deux vues)
   document.querySelectorAll('.salle-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.salle-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const salle = btn.getAttribute('data-salle');
-      renderTable(salle);
+      currentSalle = btn.getAttribute('data-salle');
+      renderTable(currentSalle);
+      renderMobileView(currentJour, currentSalle);
     });
   });
 
   // Initial active state
   document.querySelector('.salle-btn.active')?.click();
 </script>
+<!-- Bannière Cookies -->
+<script src="../js/cookies.js"></script>
 
 </body>
 </html>

@@ -174,7 +174,7 @@ export const coursData = [
   },
   {
     jour: "Mercredi",
-    horaire: "16h30-18h20",
+    horaire: "16h30-17h20",
     nom: "Capoeira",
     age: "7-10 ans (garçons)",
     salle: "saconnex",
