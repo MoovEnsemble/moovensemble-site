@@ -182,5 +182,19 @@
     <script src="../js/scroll-top.js"></script>
     <!-- Bannière Cookies -->
     <script src="../js/cookies.js"></script>
+
+    <!-- Script pré-remplissage formulaire depuis planning -->
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const cours = params.get('cours');
+        const age = params.get('age');
+
+        if (cours) {
+            document.querySelector('input[name="subject"]').value =
+                `Inscription / Information - ${cours}`;
+            document.querySelector('textarea[name="message"]').value =
+                `Bonjour,\n\nJe souhaite m'inscrire ou recevoir plus d'informations sur les cours de ${cours}${age ? ` (${age})` : ''}.\n\nMerci !`;
+        }
+    </script>
 </body>
 </html>

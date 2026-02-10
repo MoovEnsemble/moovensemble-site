@@ -279,7 +279,8 @@
           <small>${c.age}</small>
           <div class="details-tooltip">
             <strong>${c.horaire}</strong><br>
-            ${c.details || 'Aucun détail supplémentaire'}
+            ${c.details || 'Aucun détail supplémentaire'}<br>
+            <a href="contact.html?cours=${encodeURIComponent(c.nom)}&age=${encodeURIComponent(c.age)}" class="btn-info-cours">Plus d'infos / S'inscrire</a>
           </div>
         `;
         targetCell.appendChild(div);
@@ -334,7 +335,7 @@
       const salleNom = c.salle === 'avanchets' ? 'Avanchets Jura' : 'Petit-Saconnex';
 
       return `
-        <div class="cours-card">
+        <div class="cours-card" data-expandable>
           <div class="cours-card-color" style="background: ${c.couleur || '#0C2C55'};"></div>
           <div class="cours-card-content">
             <div class="cours-card-info">
@@ -349,9 +350,41 @@
               <div class="cours-card-heure-fin">${heureFin}</div>
             </div>
           </div>
+          <div class="cours-card-expanded">
+            <div class="cours-card-expanded-content">
+              ${c.details || ''}
+            </div>
+            <a href="contact.html?cours=${encodeURIComponent(c.nom)}&age=${encodeURIComponent(c.age)}" class="btn-info-cours-mobile">Plus d'infos / S'inscrire</a>
+          </div>
+          <div class="cours-card-tap-hint">
+            <i class="fas fa-chevron-down"></i>
+          </div>
         </div>
       `;
     }).join('');
+
+    // Ajouter les événements de clic pour expansion
+    addExpandListeners();
+  }
+
+  // Fonction pour ajouter les événements d'expansion sur les cartes
+  function addExpandListeners() {
+    document.querySelectorAll('.cours-card[data-expandable]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Ne pas fermer si on clique sur le bouton
+        if (e.target.closest('.btn-info-cours-mobile')) return;
+
+        // Fermer les autres cartes
+        document.querySelectorAll('.cours-card.expanded').forEach(openCard => {
+          if (openCard !== card) {
+            openCard.classList.remove('expanded');
+          }
+        });
+
+        // Toggle la carte cliquée
+        card.classList.toggle('expanded');
+      });
+    });
   }
 
   // Gestion des onglets de jours

@@ -9,7 +9,7 @@ export const coursData = [
     salle: "avanchets",
     couleur: "#198754", // vert pour Vital
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois<br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   {
     jour: "Vendredi",
@@ -19,7 +19,7 @@ export const coursData = [
     salle: "avanchets",
     couleur: "#d63384", // rose pour Ladies
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois<br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   {
     jour: "Mardi",
@@ -29,7 +29,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#d63384",
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois<br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   {
     jour: "Dimanche",
@@ -39,7 +39,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#d63384",
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois<br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   {
     jour: "Dimanche",
@@ -49,7 +49,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#198754",
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois<br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   {
     jour: "Dimanche",
@@ -59,7 +59,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#0d6efd", // bleu pour Teens
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois<br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   {
     jour: "Dimanche",
@@ -69,7 +69,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#6f42c1", // violet pour Generation
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois<br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   // Capoeira
   {
@@ -80,7 +80,7 @@ export const coursData = [
     salle: "avanchets",
     couleur: "#fd7e14", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Vendredi",
@@ -90,7 +90,7 @@ export const coursData = [
     salle: "avanchets",
     couleur: "#fd7e14", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mardi",
@@ -100,7 +100,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#ff9f40", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -110,7 +110,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#ff9f40", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -120,7 +120,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#e67e22", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -130,7 +130,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#ff9f40", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -140,7 +140,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#e67e22", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -150,7 +150,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#ff9f40", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -160,7 +160,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#e67e22", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -170,7 +170,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#ff9f40", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Mercredi",
@@ -180,7 +180,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#e67e22", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   {
     jour: "Jeudi",
@@ -190,7 +190,7 @@ export const coursData = [
     salle: "saconnex",
     couleur: "#e67e22", // orange pour Capoeira
     details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong><br><a href='contact.html' class='text-white fw-bold'>S'inscrire ou demander des infos</a>",
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
   // Ajoute les autres créneaux du mercredi ici (copie-colle et change horaire/âge)
 ];

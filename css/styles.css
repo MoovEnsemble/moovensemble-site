@@ -1796,22 +1796,24 @@ main a{
 .cours-liste {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
 /* Carte de cours */
 .cours-card {
   display: flex;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   background: white;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
-.cours-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+/* Hover seulement sur desktop */
+@media (hover: hover) {
+  .cours-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
 }
 
 /* Barre de couleur à gauche */
@@ -1823,7 +1825,7 @@ main a{
 /* Contenu de la carte */
 .cours-card-content {
   flex: 1;
-  padding: 16px 20px;
+  padding: 12px 15px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -1834,17 +1836,17 @@ main a{
 }
 
 .cours-card-nom {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #1e293b;
-  margin: 0 0 6px 0;
+  margin: 0 0 4px 0;
 }
 
 .cours-card-details {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #64748b;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .cours-card-details i {
@@ -1855,18 +1857,132 @@ main a{
 /* Horaire à droite */
 .cours-card-horaire {
   text-align: right;
-  padding-left: 15px;
+  padding-left: 10px;
 }
 
 .cours-card-heure-debut {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #0C2C55;
 }
 
 .cours-card-heure-fin {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #94a3b8;
+}
+
+/* Horaire en ligne pour mobile */
+.cours-card[data-expandable] .cours-card-horaire {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+/* Carte extensible mobile */
+.cours-card[data-expandable] {
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+}
+
+.cours-card[data-expandable] .cours-card-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 6px;
+}
+
+.cours-card[data-expandable] .cours-card-content {
+  padding: 12px 15px 6px 20px;
+}
+
+/* Section cachée par défaut */
+.cours-card-expanded {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 15px 0 20px;
+  opacity: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.cours-card-expanded-content {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* Indicateur de tap - plus discret */
+.cours-card-tap-hint {
+  text-align: center;
+  padding: 2px;
+  color: #cbd5e1;
+  transition: transform 0.3s ease;
+}
+
+.cours-card-tap-hint i {
+  font-size: 0.6rem;
+}
+
+/* État étendu */
+.cours-card.expanded {
+  box-shadow: 0 6px 20px rgba(12, 44, 85, 0.15);
+}
+
+.cours-card.expanded .cours-card-expanded {
+  max-height: 180px;
+  padding: 0 15px 10px 20px;
+  opacity: 1;
+}
+
+.cours-card.expanded .cours-card-tap-hint {
+  transform: rotate(180deg);
+}
+
+.cours-card.expanded .cours-card-tap-hint i {
+  color: #0C2C55;
+}
+
+/* Boutons info cours */
+.btn-info-cours {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white !important;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn-info-cours:hover {
+  background: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+}
+
+.btn-info-cours-mobile {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #0C2C55;
+  color: white !important;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-info-cours-mobile:active {
+  transform: scale(0.98);
+}
+
+.btn-info-cours-mobile:hover {
+  background: #1a4a7a;
+  text-decoration: none;
 }
 
 /* Message aucun cours */
