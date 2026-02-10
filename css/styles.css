@@ -36,6 +36,17 @@ body {
     height: auto;
 }
 
+/* Description accueil */
+.site-description {
+    text-align: center;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: #0C2C55;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px;
+    line-height: 1.6;
+}
+
 /*MENU AVEC PHOTOS*/
 * {
             box-sizing: border-box;

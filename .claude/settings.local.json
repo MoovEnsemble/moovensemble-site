@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.udemy.com)"
+      "WebFetch(domain:www.udemy.com)",
+      "Bash(git push:*)"
     ]
   }
 }
