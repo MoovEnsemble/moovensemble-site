@@ -545,6 +545,13 @@ main h1{
 .main p{
     text-align: justify;
 }
+
+/* Texte aligné à gauche sur mobile (évite les grands espaces) */
+@media (max-width: 768px) {
+    .main p {
+        text-align: left;
+    }
+}
 main a{
     font-weight: bold;
 }
@@ -624,6 +631,7 @@ main a{
 .tab__content p {
   margin: 0;
   padding: 1.2rem 1rem 1rem 1rem; /* Plus d'espace en haut */
+  text-align: left; /* Évite les grands espaces sur mobile */
 }
 
 /* Listes dans l'accordéon - même espacement */
@@ -816,6 +824,12 @@ main a{
 
 .col-md-6 p {
     text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .col-md-6 p {
+        text-align: left;
+    }
 }
 
 .col-md-6 .carousel {
