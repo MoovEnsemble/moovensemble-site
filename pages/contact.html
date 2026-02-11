@@ -183,17 +183,24 @@
     <!-- Bannière Cookies -->
     <script src="../js/cookies.js"></script>
 
-    <!-- Script pré-remplissage formulaire depuis planning -->
+    <!-- Script pré-remplissage formulaire depuis planning ou événements -->
     <script>
         const params = new URLSearchParams(window.location.search);
         const cours = params.get('cours');
         const age = params.get('age');
+        const event = params.get('event');
+        const date = params.get('date');
 
         if (cours) {
             document.querySelector('input[name="subject"]').value =
                 `Inscription / Information - ${cours}`;
             document.querySelector('textarea[name="message"]').value =
                 `Bonjour,\n\nJe souhaite m'inscrire ou recevoir plus d'informations sur les cours de ${cours}${age ? ` (${age})` : ''}.\n\nMerci !`;
+        } else if (event) {
+            document.querySelector('input[name="subject"]').value =
+                `Inscription / Information - ${event}`;
+            document.querySelector('textarea[name="message"]').value =
+                `Bonjour,\n\nJe souhaite m'inscrire ou recevoir plus d'informations sur l'événement "${event}"${date ? ` (${date})` : ''}.\n\nMerci !`;
         }
     </script>
 </body>

@@ -176,7 +176,7 @@
             <span class="event-location">📍 ${event.location}</span>
           </div>
           <p class="mb-4">${event.description}</p>
-          <a href="${event.link}" class="btn-primary d-inline-block px-4 py-2">S'inscrire / Plus d'infos</a>
+          <a href="contact.html?event=${encodeURIComponent(event.title)}&date=${encodeURIComponent(event.date)}" class="btn-primary d-inline-block px-4 py-2">S'inscrire / Plus d'infos</a>
         </div>
       `;
       container.appendChild(card);
