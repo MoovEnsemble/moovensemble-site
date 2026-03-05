@@ -86,62 +86,13 @@ export const coursData = [
     jour: "Vendredi",
     horaire: "18h00-19h00",
     nom: "Capoeira",
-    age: "11-15 ans (mixte)",
+    age: "4-6 ans (mixte)",
     salle: "avanchets",
     couleur: "#fd7e14", // orange pour Capoeira
     details:
       "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
-  {
-    jour: "Mardi",
-    horaire: "18h00-19h00",
-    nom: "Capoeira",
-    age: "11-15 ans (filles)",
-    salle: "saconnex",
-    couleur: "#ff9f40", // orange pour Capoeira
-    details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
-  },
-  {
-    jour: "Mercredi",
-    horaire: "09h00-09h50",
-    nom: "Capoeira",
-    age: "4-6 ans (filles)",
-    salle: "saconnex",
-    couleur: "#ff9f40", // orange pour Capoeira
-    details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
-  },
-  {
-    jour: "Mercredi",
-    horaire: "10h00-10h50",
-    nom: "Capoeira",
-    age: "4-6 ans (garçons)",
-    salle: "saconnex",
-    couleur: "#e67e22", // orange pour Capoeira
-    details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
-  },
-  {
-    jour: "Mercredi",
-    horaire: "11h00-11h50",
-    nom: "Capoeira",
-    age: "7-10 ans (filles)",
-    salle: "saconnex",
-    couleur: "#ff9f40", // orange pour Capoeira
-    details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
-  },
-  {
-    jour: "Mercredi",
-    horaire: "12h00-12h50",
-    nom: "Capoeira",
-    age: "7-10 ans (garçons)",
-    salle: "saconnex",
-    couleur: "#e67e22", // orange pour Capoeira
-    details:
-      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
-  },
+
   {
     jour: "Mercredi",
     horaire: "13h30-14h20",
@@ -178,6 +129,16 @@ export const coursData = [
     nom: "Capoeira",
     age: "7-10 ans (garçons)",
     salle: "saconnex",
+    couleur: "#ff9f40", // orange pour Capoeira
+    details:
+      "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
+  },
+  {
+    jour: "Jeudi",
+    horaire: "17h00-18h00",
+    nom: "Capoeira",
+    age: "11-15 ans (fille)",
+    salle: "saconnex",
     couleur: "#e67e22", // orange pour Capoeira
     details:
       "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
@@ -192,5 +153,6 @@ export const coursData = [
     details:
       "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
+
   // Ajoute les autres créneaux du mercredi ici (copie-colle et change horaire/âge)
 ];
