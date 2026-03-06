@@ -153,6 +153,7 @@ export const coursData = [
     details:
       "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
+ 
 
   // Ajoute les autres créneaux du mercredi ici (copie-colle et change horaire/âge)
 ];
