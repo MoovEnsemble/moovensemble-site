@@ -3,7 +3,7 @@
 export const coursData = [
   {
     jour: "Vendredi",
-    horaire: "19h00-20h00",
+    horaire: "20h00-21h00",
     nom: "Moov'Vital",
     age: "+ 55 ans",
     salle: "avanchets",
@@ -13,7 +13,7 @@ export const coursData = [
   },
   {
     jour: "Vendredi",
-    horaire: "20h00-21h00",
+    horaire: "19h00-20h00",
     nom: "Moov'Ladies",
     age: "21 - 54 ans",
     salle: "avanchets",
@@ -25,7 +25,7 @@ export const coursData = [
     jour: "Mardi",
     horaire: "19h15-20h30",
     nom: "Moov'Ladies",
-    age: "21 - 54 ans",
+    age: "16 - 54 ans",
     salle: "saconnex",
     couleur: "#d63384",
     details:
@@ -35,7 +35,7 @@ export const coursData = [
     jour: "Dimanche",
     horaire: "08h30-10h00",
     nom: "Moov'Ladies",
-    age: "21 - 54 ans",
+    age: "16 - 54 ans",
     salle: "saconnex",
     couleur: "#d63384",
     details:
@@ -51,26 +51,31 @@ export const coursData = [
     details:
       "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
-  {
-    jour: "Dimanche",
-    horaire: "11h45-12h30",
-    nom: "Moov'Teens",
-    age: "12 - 15 ans",
-    salle: "saconnex",
-    couleur: "#0d6efd", // bleu pour Teens
-    details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
-  },
-  {
-    jour: "Dimanche",
-    horaire: "13h00-14h00",
-    nom: "Moov'Generation",
-    age: "16 - 20 ans",
-    salle: "saconnex",
-    couleur: "#6f42c1", // violet pour Generation
-    details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
-  },
+
+  // A ver si se agregan nuevamente despues
+  //{
+  //  jour: "Dimanche",
+  //  horaire: "11h45-12h30",
+  //  nom: "Moov'Teens",
+  //  age: "12 - 15 ans",
+  //  salle: "saconnex",
+  //  couleur: "#0d6efd", // bleu pour Teens
+  //  details:
+  //    "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
+  //},
+  
+  // A ver si se agregan nuevamente despues
+  //{
+  //  jour: "Dimanche",
+  //  horaire: "13h00-14h00",
+  //  nom: "Moov'Generation",
+  //  age: "16 - 20 ans",
+  //  salle: "saconnex",
+  //  couleur: "#6f42c1", // violet pour Generation
+  //  details:
+  //    "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
+  //},
+
   // Capoeira
   {
     jour: "Mercredi",
@@ -153,7 +158,6 @@ export const coursData = [
     details:
       "Sensibilisation à l'inclusion sociale par la capoeira.<br><strong>Places limitées !</strong>",
   },
- 
 
   // Ajoute les autres créneaux du mercredi ici (copie-colle et change horaire/âge)
 ];
