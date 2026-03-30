@@ -2149,3 +2149,60 @@ main a{
     font-size: 0.85rem;
   }
 }
+
+
+/*SPONSORS*/
+
+.sponsors {
+    padding: 60px 0 70px;
+    text-align: center;
+    background-color: #f5f5f5;   /* Fond grisé — séparation visuelle avant le footer */
+}
+
+.sponsors-titre {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaaaaa;
+    margin-bottom: 24px;
+}
+
+/* Fenêtre qui masque le débordement — seule cette zone est visible */
+.sponsors-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+/* La piste qui se déplace vers la gauche en boucle */
+.sponsors-track {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: max-content;          /* S'étend autant que nécessaire */
+    animation: scroll-sponsors 18s linear infinite;
+}
+
+/* Pause au survol (confort utilisateur) */
+.sponsors-track:hover {
+    animation-play-state: paused;
+}
+
+.sponsors-track img {
+    height: 40px;
+    width: auto;
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+}
+
+/* Au survol : opacité pleine */
+.sponsors-track img:hover {
+    opacity: 1;
+}
+
+/* Défilement : la piste glisse de la moitié de sa largeur (= un jeu de logos),
+   puis repart du début sans saut visible grâce à la copie identique */
+@keyframes scroll-sponsors {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}

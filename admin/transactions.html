@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions — Moov'Ensemble Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2>Moov'Ensemble</h2>
+            <span>Administration</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="membres.html" class="nav-item">
+                <span class="icon">👥</span> Membres
+            </a>
+            <a href="transactions.html" class="nav-item active">
+                <span class="icon">💰</span> Transactions
+            </a>
+            <a href="factures.html" class="nav-item">
+                <span class="icon">🧾</span> Factures
+            </a>
+            <a href="cours.html" class="nav-item">
+                <span class="icon">🏃</span> Cours
+            </a>
+        </nav>
+        <button class="btn-logout" id="logoutBtn">Se déconnecter</button>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Transactions</h1>
+            <button class="btn-primary" id="btnAjouter">+ Ajouter une transaction</button>
+        </header>
+
+        <!-- Résumé calculs automatiques -->
+        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
+            <div class="stat-card">
+                <div class="stat-label">Total crédits</div>
+                <div class="stat-value credit-value" id="totalCredits">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total débits</div>
+                <div class="stat-value debit-value" id="totalDebits">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Solde actuel</div>
+                <div class="stat-value" id="soldeActuel">—</div>
+            </div>
+        </div>
+
+        <!-- Filtres -->
+        <div class="filters-bar">
+            <input type="text" id="recherche" placeholder="Rechercher..." class="search-input">
+            <select id="filtreCategorie" class="filter-select">
+                <option value="">Toutes les catégories</option>
+                <optgroup label="— Produits / Recettes">
+                    <option value="ABONNEMENTS CAPOEIRA">Abonnements Capoeira</option>
+                    <option value="ABONNEMENTS MOOV">Abonnements Moov</option>
+                    <option value="COTISATION ANNUELLE ASSO.">Cotisation Annuelle</option>
+                    <option value="VENTE - HABITS">Vente Habits</option>
+                    <option value="VENTE - MATERIEL SPORTIF">Vente Matériel Sportif</option>
+                    <option value="VENTE - INSTRUMENTS">Vente Instruments</option>
+                    <option value="SUBVENTIONS">Subventions</option>
+                    <option value="DONS">Dons</option>
+                    <option value="REPRESENTATION - GAIN">Représentation - Gain</option>
+                    <option value="AUTRE - GAIN / REMBOURSEMENT">Autre Gain / Remboursement</option>
+                    <option value="PRODUITS ENCAISSÉS D'AVANCE">Produits Encaissés d'Avance</option>
+                </optgroup>
+                <optgroup label="— Achats / Stocks">
+                    <option value="ACHAT - HABITS">Achat Habits</option>
+                    <option value="ACHAT - MATERIEL SPORTIF">Achat Matériel Sportif</option>
+                    <option value="ACHAT - INSTRUMENTS">Achat Instruments</option>
+                </optgroup>
+                <optgroup label="— Charges de fonctionnement">
+                    <option value="LOCATION SALLE">Location Salle</option>
+                    <option value="ELECTRICITÉ / EAU / CHARGES">Electricité / Eau / Charges</option>
+                    <option value="ASSURANCE">Assurance</option>
+                    <option value="SITE INTERNET">Site Internet</option>
+                    <option value="INTERNET / TELEPHONE">Internet / Téléphone</option>
+                    <option value="RÉNOVATION / AMÉNAGEMENT / APPAREILS">Rénovation / Aménagement</option>
+                    <option value="DEPENSE FESTIVAL">Dépense Festival</option>
+                </optgroup>
+                <optgroup label="— Charges administratives">
+                    <option value="COMPTA - FRAIS BANCAIRES">Frais Bancaires</option>
+                    <option value="FOURNITURES ADMINISTRATIVES">Fournitures Administratives</option>
+                    <option value="HONORAIRES">Honoraires</option>
+                    <option value="IMPRESSIONS / COPIES">Impressions / Copies</option>
+                    <option value="IMPRESSIONS / T-SHIRTS">Impressions / T-Shirts</option>
+                </optgroup>
+                <optgroup label="— Charges RH">
+                    <option value="FORMATIONS">Formations</option>
+                    <option value="SALAIRES / CACHETS PROF">Salaires / Cachets Prof</option>
+                    <option value="PMT CACHET AUTRE PROF">Pmt Cachet Autre Prof</option>
+                </optgroup>
+                <optgroup label="— Communication">
+                    <option value="RESEAUX SOCIAUX">Réseaux Sociaux</option>
+                    <option value="COMMUNICATION / MARKETING">Communication / Marketing</option>
+                </optgroup>
+                <optgroup label="— Divers">
+                    <option value="CAISSE">Caisse</option>
+                    <option value="AVANCE À MEMBRE / À JUSTIFIER">Avance à Membre / À Justifier</option>
+                    <option value="AUTRE">Autre</option>
+                </optgroup>
+            </select>
+            <input type="date" id="filtreDateDebut" class="filter-select" title="Date début">
+            <input type="date" id="filtreDateFin" class="filter-select" title="Date fin">
+        </div>
+
+        <!-- Table transactions -->
+        <div class="section-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Catégorie</th>
+                        <th>Mode</th>
+                        <th>Crédit (CHF)</th>
+                        <th>Débit (CHF)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableTransactions">
+                    <tr><td colspan="7">Chargement...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitre">Ajouter une transaction</h2>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <form id="transactionForm" class="modal-form">
+                <input type="hidden" id="transactionId">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" id="fDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mode de paiement</label>
+                        <select id="fMode">
+                            <option value="virement">Virement</option>
+                            <option value="cash">Cash</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Description *</label>
+                    <input type="text" id="fTexte" required placeholder="Description de la transaction">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Commentaire</label>
+                    <input type="text" id="fCommentaire" placeholder="Commentaire optionnel">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Catégorie *</label>
+                    <select id="fCategorie" required>
+                        <option value="">-- Choisir une catégorie --</option>
+                        <optgroup label="— Produits / Recettes">
+                            <option value="ABONNEMENTS CAPOEIRA">Abonnements Capoeira</option>
+                            <option value="ABONNEMENTS MOOV">Abonnements Moov</option>
+                            <option value="COTISATION ANNUELLE ASSO.">Cotisation Annuelle</option>
+                            <option value="VENTE - HABITS">Vente Habits</option>
+                            <option value="VENTE - MATERIEL SPORTIF">Vente Matériel Sportif</option>
+                            <option value="VENTE - INSTRUMENTS">Vente Instruments</option>
+                            <option value="SUBVENTIONS">Subventions</option>
+                            <option value="DONS">Dons</option>
+                            <option value="REPRESENTATION - GAIN">Représentation - Gain</option>
+                            <option value="AUTRE - GAIN / REMBOURSEMENT">Autre Gain / Remboursement</option>
+                            <option value="PRODUITS ENCAISSÉS D'AVANCE">Produits Encaissés d'Avance</option>
+                        </optgroup>
+                        <optgroup label="— Achats / Stocks">
+                            <option value="ACHAT - HABITS">Achat Habits</option>
+                            <option value="ACHAT - MATERIEL SPORTIF">Achat Matériel Sportif</option>
+                            <option value="ACHAT - INSTRUMENTS">Achat Instruments</option>
+                        </optgroup>
+                        <optgroup label="— Charges de fonctionnement">
+                            <option value="LOCATION SALLE">Location Salle</option>
+                            <option value="ELECTRICITÉ / EAU / CHARGES">Electricité / Eau / Charges</option>
+                            <option value="ASSURANCE">Assurance</option>
+                            <option value="SITE INTERNET">Site Internet</option>
+                            <option value="INTERNET / TELEPHONE">Internet / Téléphone</option>
+                            <option value="RÉNOVATION / AMÉNAGEMENT / APPAREILS">Rénovation / Aménagement</option>
+                            <option value="DEPENSE FESTIVAL">Dépense Festival</option>
+                        </optgroup>
+                        <optgroup label="— Charges administratives">
+                            <option value="COMPTA - FRAIS BANCAIRES">Frais Bancaires</option>
+                            <option value="FOURNITURES ADMINISTRATIVES">Fournitures Administratives</option>
+                            <option value="HONORAIRES">Honoraires</option>
+                            <option value="IMPRESSIONS / COPIES">Impressions / Copies</option>
+                            <option value="IMPRESSIONS / T-SHIRTS">Impressions / T-Shirts</option>
+                        </optgroup>
+                        <optgroup label="— Charges RH">
+                            <option value="FORMATIONS">Formations</option>
+                            <option value="SALAIRES / CACHETS PROF">Salaires / Cachets Prof</option>
+                            <option value="PMT CACHET AUTRE PROF">Pmt Cachet Autre Prof</option>
+                        </optgroup>
+                        <optgroup label="— Communication">
+                            <option value="RESEAUX SOCIAUX">Réseaux Sociaux</option>
+                            <option value="COMMUNICATION / MARKETING">Communication / Marketing</option>
+                        </optgroup>
+                        <optgroup label="— Divers">
+                            <option value="CAISSE">Caisse</option>
+                            <option value="AVANCE À MEMBRE / À JUSTIFIER">Avance à Membre / À Justifier</option>
+                            <option value="AUTRE">Autre</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Crédit (CHF)</label>
+                        <input type="number" id="fCredit" min="0" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Débit (CHF)</label>
+                        <input type="number" id="fDebit" min="0" step="0.01" placeholder="0.00">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Projet (optionnel)</label>
+                    <input type="text" id="fProjet" placeholder="ex: Portugal 2025">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="btnAnnuler">Annuler</button>
+                    <button type="submit" class="btn-primary" id="btnSauvegarder">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from './js/config.js'
+
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) window.location.href = 'index.html'
+
+        let transactions = []
+
+        async function chargerTransactions() {
+            const { data } = await supabase
+                .from('transactions')
+                .select('*')
+                .order('date', { ascending: false })
+            transactions = data || []
+            calculerTotaux(transactions)
+            afficherTransactions(transactions)
+        }
+
+        function calculerTotaux(liste) {
+            const totalCredits = liste.reduce((sum, t) => sum + (parseFloat(t.credit) || 0), 0)
+            const totalDebits = liste.reduce((sum, t) => sum + (parseFloat(t.debit) || 0), 0)
+            const solde = totalCredits - totalDebits
+
+            document.getElementById('totalCredits').textContent = `${totalCredits.toFixed(2)} CHF`
+            document.getElementById('totalDebits').textContent = `${totalDebits.toFixed(2)} CHF`
+
+            const soldeEl = document.getElementById('soldeActuel')
+            soldeEl.textContent = `${solde.toFixed(2)} CHF`
+            soldeEl.style.color = solde >= 0 ? '#065f46' : '#dc2626'
+        }
+
+        function afficherTransactions(liste) {
+            const tbody = document.getElementById('tableTransactions')
+            if (liste.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7">Aucune transaction</td></tr>'
+                return
+            }
+            tbody.innerHTML = liste.map(t => `
+                <tr>
+                    <td>${t.date ?? '—'}</td>
+                    <td>${t.texte ?? '—'}</td>
+                    <td><span class="badge-categorie">${t.categorie ?? '—'}</span></td>
+                    <td>${t.mode_paiement ?? '—'}</td>
+                    <td class="credit-cell">${t.credit ? `+${parseFloat(t.credit).toFixed(2)}` : '—'}</td>
+                    <td class="debit-cell">${t.debit ? `-${parseFloat(t.debit).toFixed(2)}` : '—'}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editerTransaction(${t.id})">Modifier</button>
+                    </td>
+                </tr>
+            `).join('')
+        }
+
+        // Filtres
+        function filtrer() {
+            const recherche = document.getElementById('recherche').value.toLowerCase()
+            const categorie = document.getElementById('filtreCategorie').value
+            const dateDebut = document.getElementById('filtreDateDebut').value
+            const dateFin = document.getElementById('filtreDateFin').value
+
+            const filtre = transactions.filter(t => {
+                const texte = `${t.texte} ${t.commentaire} ${t.categorie}`.toLowerCase()
+                const matchTexte = texte.includes(recherche)
+                const matchCat = categorie === '' || t.categorie === categorie
+                const matchDebut = !dateDebut || t.date >= dateDebut
+                const matchFin = !dateFin || t.date <= dateFin
+                return matchTexte && matchCat && matchDebut && matchFin
+            })
+
+            calculerTotaux(filtre)
+            afficherTransactions(filtre)
+        }
+
+        document.getElementById('recherche').addEventListener('input', filtrer)
+        document.getElementById('filtreCategorie').addEventListener('change', filtrer)
+        document.getElementById('filtreDateDebut').addEventListener('change', filtrer)
+        document.getElementById('filtreDateFin').addEventListener('change', filtrer)
+
+        // Modal
+        const modal = document.getElementById('modalOverlay')
+        function ouvrirModal() { modal.classList.add('visible') }
+        function fermerModal() {
+            modal.classList.remove('visible')
+            document.getElementById('transactionForm').reset()
+            document.getElementById('transactionId').value = ''
+            document.getElementById('modalTitre').textContent = 'Ajouter une transaction'
+        }
+
+        document.getElementById('btnAjouter').addEventListener('click', ouvrirModal)
+        document.getElementById('modalClose').addEventListener('click', fermerModal)
+        document.getElementById('btnAnnuler').addEventListener('click', fermerModal)
+
+        window.editerTransaction = function(id) {
+            const t = transactions.find(x => x.id === id)
+            if (!t) return
+            document.getElementById('modalTitre').textContent = 'Modifier la transaction'
+            document.getElementById('transactionId').value = t.id
+            document.getElementById('fDate').value = t.date ?? ''
+            document.getElementById('fTexte').value = t.texte ?? ''
+            document.getElementById('fCommentaire').value = t.commentaire ?? ''
+            document.getElementById('fCategorie').value = t.categorie ?? ''
+            document.getElementById('fMode').value = t.mode_paiement ?? 'virement'
+            document.getElementById('fCredit').value = t.credit ?? ''
+            document.getElementById('fDebit').value = t.debit ?? ''
+            document.getElementById('fProjet').value = t.projet ?? ''
+            ouvrirModal()
+        }
+
+        document.getElementById('transactionForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const btn = document.getElementById('btnSauvegarder')
+            btn.disabled = true
+            btn.textContent = 'Sauvegarde...'
+
+            const data = {
+                date: document.getElementById('fDate').value,
+                texte: document.getElementById('fTexte').value,
+                commentaire: document.getElementById('fCommentaire').value || null,
+                categorie: document.getElementById('fCategorie').value,
+                mode_paiement: document.getElementById('fMode').value,
+                credit: parseFloat(document.getElementById('fCredit').value) || null,
+                debit: parseFloat(document.getElementById('fDebit').value) || null,
+                projet: document.getElementById('fProjet').value || null
+            }
+
+            const id = document.getElementById('transactionId').value
+            if (id) {
+                await supabase.from('transactions').update(data).eq('id', id)
+            } else {
+                await supabase.from('transactions').insert(data)
+            }
+
+            btn.disabled = false
+            btn.textContent = 'Sauvegarder'
+            fermerModal()
+            chargerTransactions()
+        })
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut()
+            window.location.href = 'index.html'
+        })
+
+        chargerTransactions()
+    </script>
+
+</body>
+</html>

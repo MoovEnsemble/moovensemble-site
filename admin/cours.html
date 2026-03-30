@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours — Moov'Ensemble Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2>Moov'Ensemble</h2>
+            <span>Administration</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="membres.html" class="nav-item">
+                <span class="icon">👥</span> Membres
+            </a>
+            <a href="transactions.html" class="nav-item">
+                <span class="icon">💰</span> Transactions
+            </a>
+            <a href="factures.html" class="nav-item">
+                <span class="icon">🧾</span> Factures
+            </a>
+            <a href="cours.html" class="nav-item active">
+                <span class="icon">🏃</span> Cours
+            </a>
+        </nav>
+        <button class="btn-logout" id="logoutBtn">Se déconnecter</button>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Cours</h1>
+            <button class="btn-primary" id="btnAjouter">+ Ajouter un cours</button>
+        </header>
+
+        <div class="section-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nom du cours</th>
+                        <th>Tarif mensuel (CHF)</th>
+                        <th>Nb membres actifs</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableCours">
+                    <tr><td colspan="4">Chargement...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h2 id="modalTitre">Ajouter un cours</h2>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <form id="coursForm" class="modal-form">
+                <input type="hidden" id="coursId">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Nom du cours *</label>
+                    <input type="text" id="fNom" required placeholder="ex: CAPOEIRA">
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Tarif mensuel (CHF) *</label>
+                    <input type="number" id="fTarif" required min="0" step="0.01" placeholder="60">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="btnAnnuler">Annuler</button>
+                    <button type="submit" class="btn-primary" id="btnSauvegarder">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from './js/config.js'
+
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) window.location.href = 'index.html'
+
+        let cours = []
+
+        async function chargerCours() {
+            const { data } = await supabase.from('cours').select('*').order('nom')
+            cours = data || []
+
+            // Compter les membres actifs par cours
+            const { data: membreCours } = await supabase
+                .from('membre_cours')
+                .select('cours_id')
+                .is('date_fin', null)
+
+            const compteur = {}
+            membreCours?.forEach(mc => {
+                compteur[mc.cours_id] = (compteur[mc.cours_id] || 0) + 1
+            })
+
+            const tbody = document.getElementById('tableCours')
+            if (cours.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4">Aucun cours</td></tr>'
+                return
+            }
+            tbody.innerHTML = cours.map(c => `
+                <tr>
+                    <td><strong>${c.nom}</strong></td>
+                    <td>${c.tarif_mensuel ?? '—'} CHF</td>
+                    <td>${compteur[c.id] || 0} membre(s)</td>
+                    <td class="actions-cell">
+                        <button class="btn-edit" onclick="editerCours(${c.id})">Modifier</button>
+                    </td>
+                </tr>
+            `).join('')
+        }
+
+        // Modal
+        const modal = document.getElementById('modalOverlay')
+        function ouvrirModal() { modal.classList.add('visible') }
+        function fermerModal() {
+            modal.classList.remove('visible')
+            document.getElementById('coursForm').reset()
+            document.getElementById('coursId').value = ''
+            document.getElementById('modalTitre').textContent = 'Ajouter un cours'
+        }
+
+        document.getElementById('btnAjouter').addEventListener('click', ouvrirModal)
+        document.getElementById('modalClose').addEventListener('click', fermerModal)
+        document.getElementById('btnAnnuler').addEventListener('click', fermerModal)
+
+        window.editerCours = function(id) {
+            const c = cours.find(x => x.id === id)
+            if (!c) return
+            document.getElementById('modalTitre').textContent = 'Modifier le cours'
+            document.getElementById('coursId').value = c.id
+            document.getElementById('fNom').value = c.nom
+            document.getElementById('fTarif').value = c.tarif_mensuel
+            ouvrirModal()
+        }
+
+        document.getElementById('coursForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const btn = document.getElementById('btnSauvegarder')
+            btn.disabled = true
+            btn.textContent = 'Sauvegarde...'
+
+            const data = {
+                nom: document.getElementById('fNom').value,
+                tarif_mensuel: parseFloat(document.getElementById('fTarif').value)
+            }
+
+            const id = document.getElementById('coursId').value
+            if (id) {
+                await supabase.from('cours').update(data).eq('id', id)
+            } else {
+                await supabase.from('cours').insert(data)
+            }
+
+            btn.disabled = false
+            btn.textContent = 'Sauvegarder'
+            fermerModal()
+            chargerCours()
+        })
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut()
+            window.location.href = 'index.html'
+        })
+
+        chargerCours()
+    </script>
+
+</body>
+</html>

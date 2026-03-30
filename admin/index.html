@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Moov'Ensemble</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            <h1>Moov'Ensemble</h1>
+            <p>Espace administrateur</p>
+        </div>
+
+        <div class="error-msg" id="errorMsg">
+            Email ou mot de passe incorrect.
+        </div>
+
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="admin@moovensemble.ch"
+                required
+                autocomplete="email"
+            >
+
+            <label for="password">Mot de passe</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+            >
+
+            <button type="submit" class="btn-login" id="loginBtn">
+                Se connecter
+            </button>
+        </form>
+
+    </div>
+
+    <script type="module">
+        import { supabase } from './js/config.js'
+
+        const form = document.getElementById('loginForm')
+        const loginBtn = document.getElementById('loginBtn')
+        const errorMsg = document.getElementById('errorMsg')
+
+        // Si déjà connecté, rediriger vers dashboard
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) window.location.href = 'dashboard.html'
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+
+            loginBtn.disabled = true
+            loginBtn.textContent = 'Connexion...'
+            errorMsg.classList.remove('visible')
+
+            const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+            if (error) {
+                errorMsg.classList.add('visible')
+                loginBtn.disabled = false
+                loginBtn.textContent = 'Se connecter'
+            } else {
+                window.location.href = 'dashboard.html'
+            }
+        })
+    </script>
+
+</body>
+</html>

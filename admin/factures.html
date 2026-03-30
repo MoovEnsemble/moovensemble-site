@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factures — Moov'Ensemble Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        /* Style impression facture */
+        @media print {
+            body * { visibility: hidden; }
+            #factureImpression, #factureImpression * { visibility: visible; }
+            #factureImpression {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%;
+                padding: 40px;
+            }
+        }
+        #factureImpression { display: none; }
+
+        .facture-print {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Filigrane logo */
+        .facture-print::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 380px;
+            height: 380px;
+            background-image: url('../assets/images/logo/logo_sans_fond.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .facture-print > * { position: relative; z-index: 1; }
+
+        /* Bloc titre avec bordure */
+        .facture-titre {
+            border: 1.5px solid #333;
+            text-align: center;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 28px;
+        }
+
+        .facture-print .facture-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            gap: 24px;
+        }
+
+        /* Bloc adresse avec bordure */
+        .facture-print .facture-membre {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            border: 1.5px solid #333;
+            padding: 12px 16px;
+            min-width: 240px;
+            min-height: 80px;
+        }
+
+        /* Bloc date/numéro */
+        .facture-print .facture-meta {
+            text-align: left;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .facture-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .facture-meta-row label {
+            font-weight: bold;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .facture-meta-row span {
+            border: 1px solid #333;
+            padding: 4px 12px;
+            min-width: 160px;
+            font-size: 0.85rem;
+        }
+
+        /* Motif facturation */
+        .motif-section {
+            margin-bottom: 20px;
+        }
+
+        .motif-section label {
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .motif-section .motif-box {
+            border: 1.5px solid #333;
+            padding: 10px 14px;
+            min-height: 40px;
+            font-size: 0.875rem;
+        }
+
+        /* Tableau facture */
+        .facture-print table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+
+        .facture-print table th {
+            border: 1px solid #333;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.85rem;
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .facture-print table th.col-nb,
+        .facture-print table td.col-nb { width: 80px; text-align: center; }
+
+        .facture-print table th.col-cout,
+        .facture-print table td.col-cout { width: 120px; text-align: right; }
+
+        .facture-print table td {
+            border: 1px solid #ccc;
+            padding: 10px 12px;
+            font-size: 0.875rem;
+            min-height: 32px;
+        }
+
+        .facture-print .total-row td {
+            font-weight: bold;
+            border: 1px solid #333;
+            background-color: #f5f5f5;
+        }
+
+        .note-cotisation {
+            font-size: 0.75rem;
+            color: #555;
+            margin: 6px 0 20px;
+            font-style: italic;
+        }
+
+        /* IBAN */
+        .facture-print .iban {
+            margin-top: 24px;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .facture-print .iban strong:first-child {
+            text-decoration: underline;
+        }
+
+        .facture-print .footer-print {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        .note-cotisation {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body class="admin-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2>Moov'Ensemble</h2>
+            <span>Administration</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="membres.html" class="nav-item">
+                <span class="icon">👥</span> Membres
+            </a>
+            <a href="transactions.html" class="nav-item">
+                <span class="icon">💰</span> Transactions
+            </a>
+            <a href="factures.html" class="nav-item active">
+                <span class="icon">🧾</span> Factures
+            </a>
+            <a href="cours.html" class="nav-item">
+                <span class="icon">🏃</span> Cours
+            </a>
+        </nav>
+        <button class="btn-logout" id="logoutBtn">Se déconnecter</button>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Factures</h1>
+            <button class="btn-primary" id="btnAjouter">+ Créer une facture</button>
+        </header>
+
+        <!-- Table factures -->
+        <div class="section-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>N° Facture</th>
+                        <th>Membre</th>
+                        <th>Date</th>
+                        <th>Abonnement</th>
+                        <th>Cotisation</th>
+                        <th>Tenue / Matériel</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableFactures">
+                    <tr><td colspan="8">Chargement...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Zone impression (cachée à l'écran, visible à l'impression) -->
+    <div id="factureImpression"></div>
+
+    <!-- Modal création facture -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Créer une facture</h2>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <form id="factureForm" class="modal-form">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Membre *</label>
+                        <select id="fMembre" required>
+                            <option value="">-- Sélectionner un membre --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" id="fDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Motif de facturation</label>
+                    <input type="text" id="fMotif" placeholder="ex: Abonnement mensuel mars 2026">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Abonnement (CHF)</label>
+                        <input type="number" id="fAbonnement" min="0" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Cotisation annuelle (CHF)</label>
+                        <input type="number" id="fCotisation" min="0" step="0.01" placeholder="0.00">
+                    </div>
+                </div>
+                <p class="note-cotisation">* Cotisation facturée une fois par an et par famille</p>
+
+                <div class="form-row" style="margin-top: 16px;">
+                    <div class="form-group">
+                        <label>Tenue / Matériel (CHF)</label>
+                        <input type="number" id="fTenue" min="0" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Total calculé</label>
+                        <input type="text" id="fTotal" readonly style="background:#f0f4f8; font-weight:bold;">
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="btnAnnuler">Annuler</button>
+                    <button type="submit" class="btn-primary">Créer la facture</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from './js/config.js'
+
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) window.location.href = 'index.html'
+
+        let factures = []
+        let membres = []
+
+        // Charger membres pour le dropdown
+        async function chargerMembres() {
+            const { data } = await supabase
+                .from('membres')
+                .select('id, nom, prenom, adresse, code_postal, ville, email')
+                .eq('statu', 'actif')
+                .order('nom')
+            membres = data || []
+            const select = document.getElementById('fMembre')
+            membres.forEach(m => {
+                const opt = document.createElement('option')
+                opt.value = m.id
+                opt.textContent = `${m.nom} ${m.prenom}`
+                select.appendChild(opt)
+            })
+        }
+
+        // Charger factures
+        async function chargerFactures() {
+            const { data } = await supabase
+                .from('factures')
+                .select('*')
+                .order('date', { ascending: false })
+            factures = data || []
+
+            const tbody = document.getElementById('tableFactures')
+            if (factures.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8">Aucune facture</td></tr>'
+                return
+            }
+
+            tbody.innerHTML = factures.map(f => {
+                const membre = membres.find(m => m.id === f.membre_id)
+                const nomMembre = membre ? `${membre.nom} ${membre.prenom}` : '—'
+                return `
+                    <tr>
+                        <td><strong>${f.numero ?? '—'}</strong></td>
+                        <td>${nomMembre}</td>
+                        <td>${f.date ?? '—'}</td>
+                        <td>${f.montant_abonnement ? f.montant_abonnement + ' CHF' : '—'}</td>
+                        <td>${f.montant_cotisation ? f.montant_cotisation + ' CHF' : '—'}</td>
+                        <td>${f.montant_tenue ? f.montant_tenue + ' CHF' : '—'}</td>
+                        <td><strong>${f.total ? f.total + ' CHF' : '—'}</strong></td>
+                        <td class="actions-cell">
+                            <button class="btn-edit" onclick="imprimerFacture(${f.id})">🖨️ Imprimer</button>
+                        </td>
+                    </tr>
+                `
+            }).join('')
+        }
+
+        // Calcul automatique du total
+        function calculerTotal() {
+            const abo = parseFloat(document.getElementById('fAbonnement').value) || 0
+            const cot = parseFloat(document.getElementById('fCotisation').value) || 0
+            const tenue = parseFloat(document.getElementById('fTenue').value) || 0
+            document.getElementById('fTotal').value = (abo + cot + tenue).toFixed(2) + ' CHF'
+        }
+
+        document.getElementById('fAbonnement').addEventListener('input', calculerTotal)
+        document.getElementById('fCotisation').addEventListener('input', calculerTotal)
+        document.getElementById('fTenue').addEventListener('input', calculerTotal)
+
+        // Générer numéro facture : 3 premières lettres du nom + séquence
+        async function genererNumero(membreId) {
+            const membre = membres.find(m => m.id === parseInt(membreId))
+            if (!membre) return 'FAC-01'
+            const prefix = membre.nom.substring(0, 3).toUpperCase()
+            const { data } = await supabase
+                .from('factures')
+                .select('numero')
+                .like('numero', `${prefix}-%`)
+            const num = (data?.length || 0) + 1
+            return `${prefix}-${String(num).padStart(2, '0')}`
+        }
+
+        // Modal
+        const modal = document.getElementById('modalOverlay')
+        function ouvrirModal() { modal.classList.add('visible') }
+        function fermerModal() {
+            modal.classList.remove('visible')
+            document.getElementById('factureForm').reset()
+            document.getElementById('fTotal').value = ''
+        }
+
+        document.getElementById('btnAjouter').addEventListener('click', ouvrirModal)
+        document.getElementById('modalClose').addEventListener('click', fermerModal)
+        document.getElementById('btnAnnuler').addEventListener('click', fermerModal)
+
+        // Créer facture
+        document.getElementById('factureForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const btn = e.target.querySelector('[type="submit"]')
+            btn.disabled = true
+            btn.textContent = 'Création...'
+
+            const membreId = parseInt(document.getElementById('fMembre').value)
+            const numero = await genererNumero(membreId)
+            const abo = parseFloat(document.getElementById('fAbonnement').value) || 0
+            const cot = parseFloat(document.getElementById('fCotisation').value) || 0
+            const tenue = parseFloat(document.getElementById('fTenue').value) || 0
+
+            await supabase.from('factures').insert({
+                numero,
+                membre_id: membreId,
+                date: document.getElementById('fDate').value,
+                motif: document.getElementById('fMotif').value || null,
+                montant_abonnement: abo || null,
+                montant_cotisation: cot || null,
+                montant_tenue: tenue || null,
+                total: abo + cot + tenue
+            })
+
+            btn.disabled = false
+            btn.textContent = 'Créer la facture'
+            fermerModal()
+            chargerFactures()
+        })
+
+        // Imprimer une facture
+        window.imprimerFacture = function(id) {
+            const f = factures.find(x => x.id === id)
+            if (!f) return
+            const membre = membres.find(m => m.id === f.membre_id)
+
+            document.getElementById('factureImpression').innerHTML = `
+                <div class="facture-print">
+
+                    <div class="facture-titre">Association Moov'Ensemble</div>
+
+                    <div class="facture-header">
+                        <div class="facture-membre">
+                            <strong>${membre ? membre.nom + ' ' + membre.prenom : ''}</strong><br>
+                            ${membre?.adresse ?? ''}<br>
+                            ${membre?.code_postal ?? ''} ${membre?.ville ?? ''}
+                        </div>
+                        <div class="facture-meta">
+                            <div class="facture-meta-row">
+                                <label>DATE :</label>
+                                <span>${f.date ?? ''}</span>
+                            </div>
+                            <div class="facture-meta-row">
+                                <label>N° DE FACTURE :</label>
+                                <span>${f.numero ?? ''}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="motif-section">
+                        <label>MOTIF DE FACTURATION :</label>
+                        <div class="motif-box">${f.motif ?? ''}</div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>DETAIL</th>
+                                <th class="col-nb">NB</th>
+                                <th class="col-cout">COÛT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ABONNEMENT</td>
+                                <td class="col-nb"></td>
+                                <td class="col-cout">${f.montant_abonnement ? f.montant_abonnement + ' CHF' : ''}</td>
+                            </tr>
+                            <tr>
+                                <td>FRAIS INSCRIPTION / COTISATION *</td>
+                                <td class="col-nb"></td>
+                                <td class="col-cout">${f.montant_cotisation ? f.montant_cotisation + ' CHF' : ''}</td>
+                            </tr>
+                            <tr>
+                                <td>TENUE / MATÉRIEL</td>
+                                <td class="col-nb"></td>
+                                <td class="col-cout">${f.montant_tenue ? f.montant_tenue + ' CHF' : ''}</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>TOTAL EN NOTRE FAVEUR</td>
+                                <td class="col-nb">CHF</td>
+                                <td class="col-cout">${f.total ?? '-'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="note-cotisation">* FACTURÉS UNE FOIS PAR AN ET PAR FAMILLE</p>
+
+                    <div class="iban">
+                        <strong>Coordonnées bancaires pour le paiement :</strong><br>
+                        Association Moov'Ensemble<br>
+                        Compte Raiffeisen<br>
+                        <strong>IBAN CH71 8080 8003 0140 8535 5</strong>
+                    </div>
+
+                    <div class="footer-print">
+                        Association Moov'Ensemble<br>
+                        C/o Ana Almeida - Rue François-Durafour 14, 1220 Les Avanchets<br>
+                        www.moovensemble.ch / moovensemble@gmail.com
+                    </div>
+                </div>
+            `
+            document.getElementById('factureImpression').style.display = 'block'
+            window.print()
+            document.getElementById('factureImpression').style.display = 'none'
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut()
+            window.location.href = 'index.html'
+        })
+
+        await chargerMembres()
+        chargerFactures()
+    </script>
+
+</body>
+</html>

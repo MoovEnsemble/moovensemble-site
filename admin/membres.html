@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membres — Moov'Ensemble Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2>Moov'Ensemble</h2>
+            <span>Administration</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="membres.html" class="nav-item active">
+                <span class="icon">👥</span> Membres
+            </a>
+            <a href="transactions.html" class="nav-item">
+                <span class="icon">💰</span> Transactions
+            </a>
+            <a href="factures.html" class="nav-item">
+                <span class="icon">🧾</span> Factures
+            </a>
+            <a href="cours.html" class="nav-item">
+                <span class="icon">🏃</span> Cours
+            </a>
+        </nav>
+        <button class="btn-logout" id="logoutBtn">Se déconnecter</button>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Membres</h1>
+            <button class="btn-primary" id="btnAjouter">+ Ajouter un membre</button>
+        </header>
+
+        <!-- Filtres -->
+        <div class="filters-bar">
+            <input type="text" id="recherche" placeholder="Rechercher par nom, prénom ou email..." class="search-input">
+            <select id="filtreStatut" class="filter-select">
+                <option value="">Tous les statuts</option>
+                <option value="actif">Actif</option>
+                <option value="inactif">Inactif</option>
+            </select>
+        </div>
+
+        <!-- Table membres -->
+        <div class="section-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nom complet</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Cours</th>
+                        <th>Date début</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableMembres">
+                    <tr><td colspan="7">Chargement...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Modal ajout/édition membre -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitre">Ajouter un membre</h2>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <form id="membreForm" class="modal-form">
+                <input type="hidden" id="membreId">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom *</label>
+                        <input type="text" id="fNom" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Prénom *</label>
+                        <input type="text" id="fPrenom" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="fEmail">
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="text" id="fTelephone">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date de naissance</label>
+                        <input type="date" id="fDateNaissance">
+                    </div>
+                    <div class="form-group">
+                        <label>Date de début</label>
+                        <input type="date" id="fDateDebut">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" id="fAdresse">
+                    </div>
+                    <div class="form-group">
+                        <label>Code postal</label>
+                        <input type="text" id="fCodePostal">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ville</label>
+                        <input type="text" id="fVille">
+                    </div>
+                    <div class="form-group">
+                        <label>Langue</label>
+                        <select id="fLangue">
+                            <option value="Français">Français</option>
+                            <option value="Portugais">Portugais</option>
+                            <option value="Anglais">Anglais</option>
+                            <option value="Espagnol">Espagnol</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom du parent</label>
+                        <input type="text" id="fNomParent">
+                    </div>
+                    <div class="form-group">
+                        <label>Email du parent</label>
+                        <input type="email" id="fEmailParent">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Téléphone du parent</label>
+                        <input type="text" id="fTelParent">
+                    </div>
+                    <div class="form-group">
+                        <label>Statut *</label>
+                        <select id="fStatut" required>
+                            <option value="actif">Actif</option>
+                            <option value="inactif">Inactif</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="fNotes" rows="3"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="btnAnnuler">Annuler</button>
+                    <button type="submit" class="btn-primary" id="btnSauvegarder">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from './js/config.js'
+
+        // Vérifier si connecté
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) window.location.href = 'index.html'
+
+        let membres = []
+
+        // Charger les membres
+        async function chargerMembres() {
+            const { data } = await supabase
+                .from('membres')
+                .select('*')
+                .order('nom')
+            membres = data || []
+            afficherMembres(membres)
+        }
+
+        // Afficher les membres
+        function afficherMembres(liste) {
+            const tbody = document.getElementById('tableMembres')
+            if (liste.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7">Aucun membre trouvé</td></tr>'
+                return
+            }
+            tbody.innerHTML = liste.map(m => `
+                <tr>
+                    <td><strong>${m.nom ?? ''} ${m.prenom ?? ''}</strong></td>
+                    <td>${m.email ?? '—'}</td>
+                    <td>${m.telephone ?? '—'}</td>
+                    <td>—</td>
+                    <td>${m.date_debut ?? '—'}</td>
+                    <td><span class="badge ${m.statu === 'actif' ? 'badge-actif' : 'badge-inactif'}">${m.statu ?? '—'}</span></td>
+                    <td class="actions-cell">
+                        <button class="btn-edit" onclick="editerMembre(${m.id})">Modifier</button>
+                        ${m.statu === 'actif'
+                            ? `<button class="btn-desactiver" onclick="desactiverMembre(${m.id}, '${m.nom} ${m.prenom}')">Désactiver</button>`
+                            : `<button class="btn-reactiver" onclick="reactiverMembre(${m.id}, '${m.nom} ${m.prenom}')">Réactiver</button>`
+                        }
+                    </td>
+                </tr>
+            `).join('')
+        }
+
+        // Recherche et filtres
+        function filtrer() {
+            const recherche = document.getElementById('recherche').value.toLowerCase()
+            const statut = document.getElementById('filtreStatut').value
+            const filtre = membres.filter(m => {
+                const texte = `${m.nom} ${m.prenom} ${m.email}`.toLowerCase()
+                const matchTexte = texte.includes(recherche)
+                const matchStatut = statut === '' || m.statu === statut
+                return matchTexte && matchStatut
+            })
+            afficherMembres(filtre)
+        }
+
+        document.getElementById('recherche').addEventListener('input', filtrer)
+        document.getElementById('filtreStatut').addEventListener('change', filtrer)
+
+        // Modal
+        const modal = document.getElementById('modalOverlay')
+
+        function ouvrirModal() { modal.classList.add('visible') }
+        function fermerModal() {
+            modal.classList.remove('visible')
+            document.getElementById('membreForm').reset()
+            document.getElementById('membreId').value = ''
+            document.getElementById('modalTitre').textContent = 'Ajouter un membre'
+        }
+
+        document.getElementById('btnAjouter').addEventListener('click', ouvrirModal)
+        document.getElementById('modalClose').addEventListener('click', fermerModal)
+        document.getElementById('btnAnnuler').addEventListener('click', fermerModal)
+
+        // Éditer un membre
+        window.editerMembre = function(id) {
+            const m = membres.find(x => x.id === id)
+            if (!m) return
+            document.getElementById('modalTitre').textContent = 'Modifier le membre'
+            document.getElementById('membreId').value = m.id
+            document.getElementById('fNom').value = m.nom ?? ''
+            document.getElementById('fPrenom').value = m.prenom ?? ''
+            document.getElementById('fEmail').value = m.email ?? ''
+            document.getElementById('fTelephone').value = m.telephone ?? ''
+            document.getElementById('fDateNaissance').value = m.date_naissance ?? ''
+            document.getElementById('fDateDebut').value = m.date_debut ?? ''
+            document.getElementById('fAdresse').value = m.adresse ?? ''
+            document.getElementById('fCodePostal').value = m.code_postal ?? ''
+            document.getElementById('fVille').value = m.ville ?? ''
+            document.getElementById('fLangue').value = m.langue ?? 'Français'
+            document.getElementById('fNomParent').value = m.nom_parent ?? ''
+            document.getElementById('fEmailParent').value = m.email_parent ?? ''
+            document.getElementById('fTelParent').value = m.telephone_parent ?? ''
+            document.getElementById('fStatut').value = m.statu ?? 'actif'
+            document.getElementById('fNotes').value = m.notes ?? ''
+            ouvrirModal()
+        }
+
+        // Sauvegarder
+        document.getElementById('membreForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const btn = document.getElementById('btnSauvegarder')
+            btn.disabled = true
+            btn.textContent = 'Sauvegarde...'
+
+            const data = {
+                nom: document.getElementById('fNom').value,
+                prenom: document.getElementById('fPrenom').value,
+                email: document.getElementById('fEmail').value,
+                telephone: document.getElementById('fTelephone').value,
+                date_naissance: document.getElementById('fDateNaissance').value || null,
+                date_debut: document.getElementById('fDateDebut').value || null,
+                adresse: document.getElementById('fAdresse').value,
+                code_postal: document.getElementById('fCodePostal').value,
+                ville: document.getElementById('fVille').value,
+                langue: document.getElementById('fLangue').value,
+                nom_parent: document.getElementById('fNomParent').value,
+                email_parent: document.getElementById('fEmailParent').value,
+                telephone_parent: document.getElementById('fTelParent').value,
+                statu: document.getElementById('fStatut').value,
+                notes: document.getElementById('fNotes').value
+            }
+
+            const id = document.getElementById('membreId').value
+            if (id) {
+                await supabase.from('membres').update(data).eq('id', id)
+            } else {
+                await supabase.from('membres').insert(data)
+            }
+
+            btn.disabled = false
+            btn.textContent = 'Sauvegarder'
+            fermerModal()
+            chargerMembres()
+        })
+
+        // Désactiver un membre
+        window.desactiverMembre = async function(id, nom) {
+            if (!confirm(`Voulez-vous vraiment désactiver ${nom} ?`)) return
+            await supabase.from('membres').update({ statu: 'inactif' }).eq('id', id)
+            chargerMembres()
+        }
+
+        // Réactiver un membre
+        window.reactiverMembre = async function(id, nom) {
+            if (!confirm(`Voulez-vous réactiver ${nom} ?`)) return
+            await supabase.from('membres').update({ statu: 'actif' }).eq('id', id)
+            chargerMembres()
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut()
+            window.location.href = 'index.html'
+        })
+
+        chargerMembres()
+    </script>
+
+</body>
+</html>

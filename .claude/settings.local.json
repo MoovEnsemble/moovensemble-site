@@ -3,7 +3,9 @@
     "allow": [
       "WebFetch(domain:www.udemy.com)",
       "Bash(git push:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(mkdir -p \"c:/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/MoovEnsemble/MoovEnsemble-V2/admin/css\")",
+      "Bash(mkdir -p \"c:/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/MoovEnsemble/MoovEnsemble-V2/admin/js\")"
     ]
   }
 }

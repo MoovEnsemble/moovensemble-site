@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Moov'Ensemble Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2>Moov'Ensemble</h2>
+            <span>Administration</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="membres.html" class="nav-item">
+                <span class="icon">👥</span> Membres
+            </a>
+            <a href="transactions.html" class="nav-item">
+                <span class="icon">💰</span> Transactions
+            </a>
+            <a href="factures.html" class="nav-item">
+                <span class="icon">🧾</span> Factures
+            </a>
+            <a href="cours.html" class="nav-item">
+                <span class="icon">🏃</span> Cours
+            </a>
+        </nav>
+        <button class="btn-logout" id="logoutBtn">Se déconnecter</button>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Vue générale</h1>
+            <span id="dateAujourdhui"></span>
+        </header>
+
+        <!-- Cartes statistiques -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Membres actifs</div>
+                <div class="stat-value" id="totalMembres">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Cours disponibles</div>
+                <div class="stat-value" id="totalCours">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Transactions</div>
+                <div class="stat-value" id="totalTransactions">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Factures émises</div>
+                <div class="stat-value" id="totalFactures">—</div>
+            </div>
+        </div>
+
+        <!-- Derniers membres -->
+        <div class="section-card">
+            <h2>Derniers membres ajoutés</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Statut</th>
+                        <th>Date début</th>
+                    </tr>
+                </thead>
+                <tbody id="derniersMembres">
+                    <tr><td colspan="5">Chargement...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import { supabase } from './js/config.js'
+
+        // Vérifier si connecté
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) window.location.href = 'index.html'
+
+        // Date du jour
+        document.getElementById('dateAujourdhui').textContent =
+            new Date().toLocaleDateString('fr-CH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+        // Charger les stats
+        const [membres, cours, transactions, factures] = await Promise.all([
+            supabase.from('membres').select('*', { count: 'exact' }).eq('statu', 'actif'),
+            supabase.from('cours').select('*', { count: 'exact' }),
+            supabase.from('transactions').select('*', { count: 'exact' }),
+            supabase.from('factures').select('*', { count: 'exact' })
+        ])
+
+        document.getElementById('totalMembres').textContent = membres.count ?? 0
+        document.getElementById('totalCours').textContent = cours.count ?? 0
+        document.getElementById('totalTransactions').textContent = transactions.count ?? 0
+        document.getElementById('totalFactures').textContent = factures.count ?? 0
+
+        // Derniers membres
+        const { data: derniers } = await supabase
+            .from('membres')
+            .select('nom, prenom, email, statu, date_debut')
+            .order('id', { ascending: false })
+            .limit(5)
+
+        const tbody = document.getElementById('derniersMembres')
+        if (derniers && derniers.length > 0) {
+            tbody.innerHTML = derniers.map(m => `
+                <tr>
+                    <td>${m.nom ?? '—'}</td>
+                    <td>${m.prenom ?? '—'}</td>
+                    <td>${m.email ?? '—'}</td>
+                    <td><span class="badge ${m.statu === 'actif' ? 'badge-actif' : 'badge-inactif'}">${m.statu ?? '—'}</span></td>
+                    <td>${m.date_debut ?? '—'}</td>
+                </tr>
+            `).join('')
+        } else {
+            tbody.innerHTML = '<tr><td colspan="5">Aucun membre pour l\'instant</td></tr>'
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut()
+            window.location.href = 'index.html'
+        })
+    </script>
+
+</body>
+</html>
