@@ -2179,9 +2179,9 @@ main a{
 .sponsors-track {
     display: flex;
     align-items: center;
-    gap: 80px;
+    gap: 60px;
     width: max-content;          /* S'étend autant que nécessaire */
-    animation: scroll-sponsors 18s linear infinite;
+    animation: scroll-sponsors 25s linear infinite;
 }
 
 /* Pause au survol (confort utilisateur) */
