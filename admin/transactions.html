@@ -6,6 +6,7 @@
     <title>Transactions — Moov'Ensemble Admin</title>
     <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 <body class="admin-page">
 
@@ -40,7 +41,10 @@
 
         <header class="page-header">
             <h1>Transactions</h1>
-            <button class="btn-primary" id="btnAjouter">+ Ajouter une transaction</button>
+            <div style="display:flex; gap:12px;">
+                <button class="btn-secondary" id="btnExporter">⬇ Exporter Excel</button>
+                <button class="btn-primary" id="btnAjouter">+ Ajouter une transaction</button>
+            </div>
         </header>
 
         <!-- Résumé calculs automatiques -->
@@ -387,6 +391,27 @@
             btn.textContent = 'Sauvegarder'
             fermerModal()
             chargerTransactions()
+        })
+
+        // Export Excel
+        document.getElementById('btnExporter').addEventListener('click', () => {
+            const data = transactions.map(t => ({
+                'Date': t.date ?? '',
+                'Description': t.texte ?? '',
+                'Commentaire': t.commentaire ?? '',
+                'Catégorie': t.categorie ?? '',
+                'Mode paiement': t.mode_paiement ?? '',
+                'Crédit (CHF)': t.credit ?? '',
+                'Débit (CHF)': t.debit ?? '',
+                'Projet': t.projet ?? ''
+            }))
+
+            const ws = XLSX.utils.json_to_sheet(data)
+            const wb = XLSX.utils.book_new()
+            XLSX.utils.book_append_sheet(wb, ws, 'Transactions')
+
+            const date = new Date().toISOString().split('T')[0]
+            XLSX.writeFile(wb, `transactions_${date}.xlsx`)
         })
 
         document.getElementById('logoutBtn').addEventListener('click', async () => {

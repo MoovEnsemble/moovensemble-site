@@ -6,6 +6,7 @@
     <title>Membres — Moov'Ensemble Admin</title>
     <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 <body class="admin-page">
 
@@ -40,7 +41,10 @@
 
         <header class="page-header">
             <h1>Membres</h1>
-            <button class="btn-primary" id="btnAjouter">+ Ajouter un membre</button>
+            <div style="display:flex; gap:12px;">
+                <button class="btn-secondary" id="btnExporter">⬇ Exporter Excel</button>
+                <button class="btn-primary" id="btnAjouter">+ Ajouter un membre</button>
+            </div>
         </header>
 
         <!-- Filtres -->
@@ -335,6 +339,34 @@
             await supabase.from('membres').update({ statu: 'actif' }).eq('id', id)
             chargerMembres()
         }
+
+        // Export Excel
+        document.getElementById('btnExporter').addEventListener('click', () => {
+            const data = membres.map(m => ({
+                'Nom': m.nom ?? '',
+                'Prénom': m.prenom ?? '',
+                'Email': m.email ?? '',
+                'Téléphone': m.telephone ?? '',
+                'Date naissance': m.date_naissance ?? '',
+                'Date début': m.date_debut ?? '',
+                'Adresse': m.adresse ?? '',
+                'Code postal': m.code_postal ?? '',
+                'Ville': m.ville ?? '',
+                'Langue': m.langue ?? '',
+                'Nom parent': m.nom_parent ?? '',
+                'Email parent': m.email_parent ?? '',
+                'Tél parent': m.telephone_parent ?? '',
+                'Statut': m.statu ?? '',
+                'Notes': m.notes ?? ''
+            }))
+
+            const ws = XLSX.utils.json_to_sheet(data)
+            const wb = XLSX.utils.book_new()
+            XLSX.utils.book_append_sheet(wb, ws, 'Membres')
+
+            const date = new Date().toISOString().split('T')[0]
+            XLSX.writeFile(wb, `membres_${date}.xlsx`)
+        })
 
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', async () => {
