@@ -43,7 +43,7 @@ body {
     color: #0C2C55;
     max-width: 700px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 20px 30px; /* padding-bottom : espace entre texte et cartes */
     line-height: 1.6;
 }
 
@@ -67,8 +67,8 @@ body {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 500px;
-            margin-top: -100px;  /* Rapproche du logo */
+            min-height: 380px;
+            margin-top: -50px;  /* Réduit : ne chevauche plus la description */
         }
 
         /* Conteneur des cartes - Effet éventail */
@@ -207,7 +207,7 @@ body {
         .cards-wrapper {
         min-height: auto;
         margin-top: 20px;
-        margin-bottom: 80px; /* Espace avant le footer */
+        margin-bottom: 20px;
         }
     
 
@@ -264,7 +264,7 @@ body {
 
     .cards-wrapper {
         margin-top: 0;
-        margin-bottom: 80px; /* Espace avant footer */
+        margin-bottom: 20px;
     }
 
     .footer-section {
@@ -2154,7 +2154,7 @@ main a{
 /*SPONSORS*/
 
 .sponsors {
-    padding: 60px 0 70px;
+    padding: 40px 0 60px;
     text-align: center;
     background-color: #ffffff;
     overflow: hidden;            /* Contient les logos — empêche tout débordement */
