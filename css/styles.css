@@ -2190,8 +2190,11 @@ main a{
 }
 
 .sponsors-track img {
-    height: 30px;       /* Taille sobre — logo lisible sans dominer */
+    max-height: 50px;   /* Logos compacts (carrés/ronds) : hauteur de référence */
+    max-width: 120px;   /* Logos larges (Balexert) : largeur plafonnée */
     width: auto;
+    height: auto;
+    object-fit: contain;
     opacity: 0.75;
     transition: opacity 0.3s ease;
 }
