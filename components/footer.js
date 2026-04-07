@@ -39,6 +39,7 @@ class MoovFooter extends HTMLElement {
         <div class="row mt-4">
             <div class="col-12 text-center">
                 <p class="copyright">© 2026 Moov'Ensemble - Tous droits réservés</p>
+                <p class="copyright">Developed by <a href="https://arzabe-studio.ch" target="_blank" class="dev-credit">Arzabe Studio</a></p>
             </div>
         </div>
     </div>

@@ -518,6 +518,21 @@ body {
     margin-bottom: 0;
 }
 
+.copyright + .copyright {
+    border-top: none;
+    padding-top: 4px;
+}
+
+.dev-credit {
+    color: #aaaaaa;
+    text-decoration: none;
+}
+
+.dev-credit:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
 
 /*Qui sommes nous?*/
 
@@ -1166,8 +1181,8 @@ main a{
 
 .event-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 0.4rem;
   margin-bottom: 1.2rem;
   font-size: 1.1rem;
   color: #64748b;
@@ -1177,6 +1192,10 @@ main a{
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.event-card p {
+  text-align: left;
 }
 
 .btn-primary {

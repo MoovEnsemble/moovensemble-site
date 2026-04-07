@@ -86,8 +86,8 @@
         <div class="event-card__content p-4 bg-white rounded shadow-sm">
           <h2 class="event-card__title h4 mb-3">${event.title}</h2>
           <div class="event-meta mb-3 text-muted">
-            <span class="event-date">📅 ${event.date}</span><br>
-            <span class="event-location">📍 ${event.location}</span>
+            <span class="event-date"><i class="fas fa-calendar-alt"></i> ${event.date}</span>
+            <span class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
           </div>
           <p class="mb-4">${event.description}</p>
           <a href="contact.html?event=${encodeURIComponent(event.title)}&date=${encodeURIComponent(event.date)}" class="btn-primary d-inline-block px-4 py-2">S'inscrire / Plus d'infos</a>

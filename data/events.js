@@ -56,6 +56,16 @@ export const eventsData = [
       "../assets/videos/2026/capoeira-fev26/video-journee-decouverte-12.mp4",
     ],
   },
+  {
+    id: "kids-journee-decouverte-2024",
+    title: "Journée Découverte ",
+    date: "30 mai 2026",
+    endDate: "2026-05-30",
+    location: "Parc Châtelaine-Balexert, Genève",
+    description:
+      "Démonstration à la fête des contrats de quartier de la ville de Vernier",
+    link: "contact.html#inscription",
+  }
 
   // ← Ajoute ici d'autres événements (copie-colle un bloc ci-dessus)
 ];
