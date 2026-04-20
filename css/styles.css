@@ -181,7 +181,7 @@ body {
 
         /* Couleurs de fond pour chaque carte */
        .card:nth-child(1) .card-wrap {
-         background-image: url('../assets/images/Activites_enfants.png');
+         background-image: url('../assets/images/Activites_seniors.jpg');
          background-size: cover;
         background-position: top center;
         }
@@ -193,7 +193,7 @@ body {
         }
 
         .card:nth-child(3) .card-wrap {
-         background-image: url('../assets/images/Activites_seniors.jpg');
+         background-image: url('../assets/images/Activites_enfants.png');
          background-size: cover;
          background-position: top center;
         }          

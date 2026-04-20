@@ -5,7 +5,11 @@
       "Bash(git push:*)",
       "Bash(git config:*)",
       "Bash(mkdir -p \"c:/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/MoovEnsemble/MoovEnsemble-V2/admin/css\")",
-      "Bash(mkdir -p \"c:/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/MoovEnsemble/MoovEnsemble-V2/admin/js\")"
+      "Bash(mkdir -p \"c:/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/MoovEnsemble/MoovEnsemble-V2/admin/js\")",
+      "WebFetch(domain:atipik-sa.jobs.personio.com)",
+      "Read(//c/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/GBN/Absence/**)",
+      "Read(//c/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/InternView/**)",
+      "Read(//c/Users/Maintenant Prêt/Desktop/Full Stack/Personal Projects/Lost At The Airport/**)"
     ]
   }
 }
