@@ -91,18 +91,46 @@
   } else {
     futureEvents.forEach(event => {
       const card = document.createElement('div');
-      card.className = 'event-card col-md-6 col-lg-4'; // Bootstrap : 2 sur tablette, 3 sur desktop
-      card.innerHTML = `
-        <div class="event-card__content p-4 bg-white rounded shadow-sm">
-          <h2 class="event-card__title h4 mb-3">${event.title}</h2>
-          <div class="event-meta mb-3 text-muted">
-            <span class="event-date"><i class="fas fa-calendar-alt"></i> ${event.date}</span>
-            <span class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+
+      if (event.badge) {
+        card.className = 'event-card event-card--featured col-12';
+
+        const tagsHTML = event.tags && event.tags.length
+          ? event.tags.map(t => `<span class="event-tag">${t}</span>`).join('')
+          : '';
+
+        card.innerHTML = `
+          <div class="event-card__content event-card__content--featured p-4 bg-white rounded shadow-sm">
+            <div class="featured-left">
+              <div class="event-card__badge mb-2">${event.badge}</div>
+              <h2 class="event-card__title h4 mb-3">${event.title}</h2>
+              <div class="event-meta mb-3 text-muted">
+                <span class="event-date"><i class="fas fa-calendar-alt"></i> ${event.date}</span>
+                <span class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+              </div>
+              <p class="mb-0">${event.description}</p>
+            </div>
+            <div class="featured-right">
+              <div class="event-card__tags mb-4">${tagsHTML}</div>
+              <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="btn-primary d-inline-block px-4 py-2">S'inscrire via Passeport Vacances <i class="fas fa-external-link-alt ms-1"></i></a>
+            </div>
           </div>
-          <p class="mb-4">${event.description}</p>
-          <a href="contact.html?event=${encodeURIComponent(event.title)}&date=${encodeURIComponent(event.date)}" class="btn-primary d-inline-block px-4 py-2">S'inscrire / Plus d'infos</a>
-        </div>
-      `;
+        `;
+      } else {
+        card.className = 'event-card col-md-6 col-lg-4';
+        card.innerHTML = `
+          <div class="event-card__content h-100 p-4 bg-white rounded shadow-sm">
+            <h2 class="event-card__title h4 mb-3">${event.title}</h2>
+            <div class="event-meta mb-3 text-muted">
+              <span class="event-date"><i class="fas fa-calendar-alt"></i> ${event.date}</span>
+              <span class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+            </div>
+            <p class="mb-4">${event.description}</p>
+            <a href="contact.html?event=${encodeURIComponent(event.title)}&date=${encodeURIComponent(event.date)}" class="btn-primary d-inline-block px-4 py-2">S'inscrire / Plus d'infos</a>
+          </div>
+        `;
+      }
+
       container.appendChild(card);
     });
   }

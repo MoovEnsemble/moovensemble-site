@@ -19,7 +19,7 @@ class MoovFooter extends HTMLElement {
                     <li><a href="/pages/qui-sommes-nous.html">Qui sommes-nous</a></li>
                     <li><a href="/index.html">Activités</a></li>
                     <li><a href="/pages/cours-planing.html">Cours & Horaires</a></li>
-                    <li><a href="/pages/evenements.html">Évènements</a></li>
+                    <li><a href="/pages/evenements.html">Événements</a></li>
                     <li><a href="/pages/gallerie.html">Galerie</a></li>
                     <li><a href="/pages/prevention-sante.html">Prévention / Santé</a></li>
                     <li><a href="/pages/contact.html">Contactez-nous</a></li>

@@ -33,7 +33,7 @@ class MoovNavbar extends HTMLElement {
                     <a class="nav-link" href="/pages/cours-planing.html">Cours & Horaires</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/evenements.html">Évènements</a>
+                    <a class="nav-link" href="/pages/evenements.html">Événements</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/pages/gallerie.html">Galerie</a>

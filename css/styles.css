@@ -1198,6 +1198,63 @@ main a{
   text-align: left;
 }
 
+.event-card__content--featured {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.featured-left {
+  flex: 1 1 0;
+}
+
+.featured-right {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 220px;
+}
+
+@media (max-width: 767px) {
+  .event-card__content--featured {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .featured-right {
+    width: 100%;
+  }
+}
+
+.event-card__badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #e8a020, #f5c842);
+  color: #1a1a1a;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+
+.event-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.event-tag {
+  background: #f0f4f8;
+  color: #0C2C55;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid #d1dce8;
+}
+
 .btn-primary {
   background: #0C2C55;
   color: white;

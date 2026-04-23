@@ -67,5 +67,18 @@ export const eventsData = [
     link: "contact.html#inscription",
   }
 
+  ,{
+    id: "passeport-vacances-self-defense-juillet-2026",
+    title: "Self-Défense – Passeport Vacances",
+    date: "Tous les lundis de juillet 2026",
+    endDate: "2026-07-27",
+    location: "Genève",
+    description: "Rejoins nos séances de self-défense organisées dans le cadre du Passeport Vacances. Un programme dynamique réservé aux jeunes de 10 à 15 ans.",
+    link: "https://geneve.reseauvacances.projuventute.ch/activity/self-defense",
+    externalLink: true,
+    badge: "Partenariat",
+    tags: ["10–15 ans", "80 CHF / 15 activités", "Inscription via Passeport Vacances"],
+  }
+
   // ← Ajoute ici d'autres événements (copie-colle un bloc ci-dessus)
 ];
