@@ -22,34 +22,44 @@ export const coursData = [
       "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
   {
+    jour: "Dimanche",
+    horaire: "09h00-10h00",
+    nom: "Moov'Ladies",
+    age: "16 - 54 ans",
+    salle: "saconnex",
+    couleur: "#d63384",
+    details:
+      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
+  },
+  {
+    jour: "Dimanche",
+    horaire: "10h15-11h15",
+    nom: "Moov'Defense",
+    age: "18 ans et +",
+    salle: "saconnex",
+    couleur: "#0C2C55", // bleu marine pour Defense
+    details:
+      "Cours de self-défense pour adultes, tous niveaux.<br>Prix : 60.– CHF / mois",
+  },
+  {
     jour: "Mardi",
-    horaire: "19h15-20h30",
-    nom: "Moov'Ladies",
-    age: "16 - 54 ans",
+    horaire: "19h15-20h15",
+    nom: "Moov'Defense",
+    age: "10 - 17 ans",
     salle: "saconnex",
-    couleur: "#d63384",
+    couleur: "#0C2C55", // bleu marine pour Defense
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
+      "Cours de self-défense adapté aux adolescents.<br>Prix : 60.– CHF / mois",
   },
   {
-    jour: "Dimanche",
-    horaire: "08h30-10h00",
-    nom: "Moov'Ladies",
-    age: "16 - 54 ans",
+    jour: "Samedi",
+    horaire: "09h00-10h00",
+    nom: "Moov'Defense",
+    age: "Sur mesure (agences de sécurité)",
     salle: "saconnex",
-    couleur: "#d63384",
+    couleur: "#000000", // noir pour Defense privé
     details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
-  },
-  {
-    jour: "Dimanche",
-    horaire: "10h15-11h30",
-    nom: "Moov'Vital",
-    age: "+ 55 ans",
-    salle: "saconnex",
-    couleur: "#198754",
-    details:
-      "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
+      "Cours de self-défense privé, sur mesure pour les agences de sécurité privée.<br>Prix : 60.– CHF / mois",
   },
 
   // A ver si se agregan nuevamente despues
