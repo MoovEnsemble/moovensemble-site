@@ -9,7 +9,7 @@ body {
 }
 .size{
     width: 100%;
-    background-color: #0C2C55;
+    background-color: #111111;
     color: white;
 }
 .size .nav-link {
@@ -19,6 +19,108 @@ body {
     font-weight: bold;
     font-size: 1.5rem;
     color: white !important;
+}
+
+/* ---- Navbar sticky (split uniquement) ---- */
+#main-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Ombre subtile après 20px de scroll */
+#main-navbar.navbar-scrolled {
+    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Mobile bar (logo + hamburger) : visible sur mobile uniquement */
+.navbar-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 8px;
+}
+
+/* Mobile menu : caché sur desktop.
+   On utilise #main-navbar (ID) pour battre la spécificité de Bootstrap
+   .navbar-expand-lg .navbar-collapse { display: flex !important } */
+@media (min-width: 992px) {
+    #main-navbar .navbar-mobile-bar,
+    #main-navbar .navbar-mobile-menu {
+        display: none !important;
+    }
+}
+
+/* Split layout : visible sur desktop uniquement */
+.navbar-split {
+    display: none;
+    width: 100%;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+    #main-navbar .navbar-split {
+        display: flex !important;
+    }
+}
+
+/* Colonnes gauche/droite */
+.nav-split-left,
+.nav-split-right {
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 2px;
+}
+
+.nav-split-left {
+    justify-content: flex-end;
+}
+
+.nav-split-right {
+    justify-content: flex-start;
+}
+
+/* Logo centré */
+.nav-logo-split {
+    padding: 4px 20px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Crop carré : masque le texte sous le cercle du logo */
+.nav-logo-split-crop {
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.nav-logo-split-crop img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease, opacity 0.15s ease;
+}
+
+.nav-logo-split:hover .nav-logo-split-crop img {
+    transform: scale(1.07);
+}
+
+/* ---- Hero section (logo + description) : fondu doux au scroll ---- */
+#hero-header {
+    transition: opacity 0.4s ease;
+}
+
+#hero-header.hero-collapsed {
+    opacity: 0;
 }
 
 /*LOGO*/
@@ -36,11 +138,35 @@ body {
     height: auto;
 }
 
+/* Logo principal interactif — 4 versions empilées, une seule visible */
+.logo-hover-container {
+    position: relative;
+    width: clamp(120px, 18vw, 200px);
+    aspect-ratio: 1;   /* carré = affiche uniquement le cercle, coupe le texte sous les logos d'activité */
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.logo-version {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.55s ease;
+}
+
+.logo-version.active {
+    opacity: 1;
+}
+
 /* Description accueil */
 .site-description {
     text-align: center;
     font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-    color: #0C2C55;
+    color: #111111;
     max-width: 700px;
     margin: 0 auto;
     padding: 0 20px 30px; /* padding-bottom : espace entre texte et cartes */
@@ -288,7 +414,7 @@ body {
 }
 
 .dropdown-menu {
-    background-color: #0C2C55;
+    background-color: #111111;
     border: none;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -322,7 +448,7 @@ body {
         position: static;
         width: 100%;
         margin-top: 0;
-        background-color: rgba(12, 44, 85, 0.9);
+        background-color: rgba(17, 17, 17, 0.9);
     }
 }
 
@@ -333,7 +459,7 @@ body {
     right: 30px;
     width: 50px;
     height: 50px;
-    background: #0C2C55;
+    background: #111111;
     color: white;
     border: none;
     border-radius: 50%;
@@ -352,7 +478,7 @@ body {
 }
 
 .scroll-to-top:hover {
-    background: #1a4a8a;
+    background: #333333;
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
@@ -393,19 +519,19 @@ body {
     align-items: center;
     gap: 10px;
     padding: 15px 30px;
-    background: #0C2C55;
+    background: #111111;
     color: white;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(12, 44, 85, 0.2);
+    box-shadow: 0 4px 12px rgba(17, 17, 17, 0.2);
 }
 
 .activites-navigation .btn-activite:hover {
-    background: #1a4a8a;
+    background: #333333;
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(12, 44, 85, 0.3);
+    box-shadow: 0 6px 16px rgba(17, 17, 17, 0.3);
     color: white;
 }
 
@@ -440,7 +566,7 @@ body {
 
  /*FOOTER*/
 .footer-section {
-    background-color: #0C2C55;
+    background-color: #111111;
     color: white;
     padding: 50px 30px 20px 30px;
     margin-top: -50px;
@@ -543,17 +669,17 @@ body {
   text-align: left;
 }
 main h1{
-    color: #0C2C55;
-    text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
+    color: #111111;
+    text-shadow: 0 2px 6px rgba(17, 17, 17, 0.15);
 }
 .main h2{
-    color: #0C2C55;
+    color: #111111;
 }
 .main h3{
-    color: #0C2C55;
+    color: #111111;
 }
 .main h4{
-    color: #0C2C55;
+    color: #111111;
     margin-top: 40px;
     margin-bottom: 10px;
 }
@@ -574,7 +700,7 @@ main a{
 /*Accordion*/
 :root{
   --primary: #227093;
-  --secondary: #0C2C55/*#ff5252 ancienne couleur*/;
+  --secondary: #111111/*#ff5252 ancienne couleur*/;
   --background: #eee;
   --highlight: #ffda79;
   /* Theme color */
@@ -855,7 +981,7 @@ main a{
     text-align: center;
     margin-bottom: 75px;
     margin-top: -50px;
-    color: #0C2C55;
+    color: #111111;
 }*/
 
 /*===========================================
@@ -882,11 +1008,11 @@ main a{
 
 .contact-card h1 {
     text-align: center;
-    color: #0C2C55;
+    color: #111111;
     font-weight: 700;
     margin-bottom: 40px;
     font-size: 2.2rem;
-    text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
+    text-shadow: 0 2px 6px rgba(17, 17, 17, 0.15);
 }
 
 /* Champ caché anti-spam */
@@ -922,9 +1048,9 @@ main a{
 .form-field input:focus,
 .form-field textarea:focus {
     outline: none;
-    border-color: #0C2C55;
+    border-color: #111111;
     background-color: white;
-    box-shadow: 0 0 0 3px rgba(12, 44, 85, 0.08);
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
 }
 
 .form-field input::placeholder,
@@ -951,7 +1077,7 @@ main a{
 .btn-submit-simple {
     width: 100%;
     padding: 18px 30px;
-    background: #0C2C55;
+    background: #111111;
     color: white;
     border: none;
     border-radius: 10px;
@@ -967,7 +1093,7 @@ main a{
 }
 
 .btn-submit-simple:hover {
-    background: #0C2C55;
+    background: #111111;
     transform: translateY(-2px);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
 }
@@ -1015,7 +1141,7 @@ main a{
 
 .download-info-box h4 {
     margin: 0 0 10px 0;
-    color: #0C2C55;
+    color: #111111;
     font-size: 18px;
 }
 
@@ -1028,7 +1154,7 @@ main a{
 .btn-download-box {
     display: inline-block;
     padding: 12px 25px;
-    background-color: #0C2C55;
+    background-color: #111111;
     color: white;
     border-radius: 25px;
     text-decoration: none;
@@ -1037,7 +1163,7 @@ main a{
 }
 
 .btn-download-box:hover {
-    background-color: #1a4a8a;
+    background-color: #333333;
     color: white;
 }
 
@@ -1082,8 +1208,8 @@ main a{
   font-size: 2.4rem;
   font-weight: 700;
   margin: 0 0 1.2rem;
-  color: #0C2C55;
-  text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
+  color: #111111;
+  text-shadow: 0 2px 6px rgba(17, 17, 17, 0.15);
 }
 
 .section-construction__text {
@@ -1097,20 +1223,20 @@ main a{
 .section-construction__btn {
   display: inline-block;
   padding: 1rem 2.4rem;
-  background-color: #0C2C55;
+  background-color: #111111;
   color: white;
   font-size: 1.15rem;
   font-weight: 500;
   text-decoration: none;
   border-radius: 999px;
   transition: all 0.22s ease;
-  box-shadow: 0 4px 12px rgba(12, 44, 85, 0.20);
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.20);
 }
 
 .section-construction__btn:hover {
-  background-color: #0a2549;
+  background-color: #000000;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(12, 44, 85, 0.28);
+  box-shadow: 0 8px 20px rgba(17, 17, 17, 0.28);
 }
 
 /* Responsive */
@@ -1127,7 +1253,7 @@ main a{
 }
 
 /* ==========================================================================
-   FIN Bloc "Section en construction" – Moov'Ensemble style (couleur #0C2C55)
+   FIN Bloc "Section en construction" – Moov'Ensemble style (couleur #111111)
    ========================================================================== */
 
 
@@ -1141,11 +1267,11 @@ main a{
 }
 
 .events-section h1 {
-  color: #0C2C55;
+  color: #111111;
   text-align: center;
   margin-top: 0;
   margin-bottom: 1.5rem;
-  text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
+  text-shadow: 0 2px 6px rgba(17, 17, 17, 0.15);
 }
 
 .intro {
@@ -1158,7 +1284,7 @@ main a{
 .event-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(12, 44, 85, 0.12);
+  box-shadow: 0 4px 16px rgba(17, 17, 17, 0.12);
   margin-bottom: 2rem;
   overflow: hidden;
   transition: transform 0.2s;
@@ -1166,7 +1292,7 @@ main a{
 
 .event-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(12, 44, 85, 0.18);
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.18);
 }
 
 .event-card__content {
@@ -1174,7 +1300,7 @@ main a{
 }
 
 .event-card__title {
-  color: #0C2C55;
+  color: #111111;
   margin: 0 0 1rem;
   font-size: 1.9rem;
 }
@@ -1247,7 +1373,7 @@ main a{
 
 .event-tag {
   background: #f0f4f8;
-  color: #0C2C55;
+  color: #111111;
   font-size: 0.78rem;
   font-weight: 600;
   padding: 0.25rem 0.65rem;
@@ -1256,7 +1382,7 @@ main a{
 }
 
 .btn-primary {
-  background: #0C2C55;
+  background: #111111;
   color: white;
   padding: 0.9rem 2rem;
   border-radius: 999px;
@@ -1267,7 +1393,7 @@ main a{
 }
 
 .btn-primary:hover {
-  background: #0a2549;
+  background: #000000;
 }
 
 /* Responsive événements */
@@ -1295,11 +1421,11 @@ main a{
 }
 
 .gallery-section h1 {
-  color: #0C2C55;
+  color: #111111;
   text-align: center;
   margin-bottom: 1rem;
   font-size: 2.8rem;
-  text-shadow: 0 2px 6px rgba(12, 44, 85, 0.15);
+  text-shadow: 0 2px 6px rgba(17, 17, 17, 0.15);
 }
 
 .intro {
@@ -1317,7 +1443,7 @@ main a{
 }
 
 .event-gallery h2 {
-  color: #0C2C55;
+  color: #111111;
   font-size: 2.2rem;
   margin-bottom: 0.8rem;
 }
@@ -1379,7 +1505,7 @@ main a{
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(12, 44, 85, 0.85) !important; /* plus opaque */
+  background: rgba(17, 17, 17, 0.85) !important; /* plus opaque */
   color: white;
   padding: 12px 10px;
   font-size: 1rem;
@@ -1391,7 +1517,7 @@ main a{
 }
 
 .gallery-item:hover .gallery-caption {
-  background: rgba(12, 44, 85, 0.92);
+  background: rgba(17, 17, 17, 0.92);
 }
 
 /* Responsive galerie */
@@ -1428,7 +1554,7 @@ main a{
   transform: translate(-50%, -50%);
   width: 70px;
   height: 70px;
-  background: rgba(12, 44, 85, 0.85);
+  background: rgba(17, 17, 17, 0.85);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1443,7 +1569,7 @@ main a{
 }
 
 .gallery-videos .col-12 > a:hover .video-play-overlay {
-  background: rgba(12, 44, 85, 1);
+  background: rgba(17, 17, 17, 1);
   transform: translate(-50%, -50%) scale(1.1);
 }
 
@@ -1496,7 +1622,7 @@ main a{
 }
 
 .gallery-media-count span {
-  background: rgba(12, 44, 85, 0.9);
+  background: rgba(17, 17, 17, 0.9);
   color: white;
   padding: 6px 12px;
   border-radius: 20px;
@@ -1513,7 +1639,7 @@ main a{
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(12, 44, 85, 0.9));
+  background: linear-gradient(transparent, rgba(17, 17, 17, 0.9));
   padding: 40px 20px 20px;
   text-align: center;
   opacity: 0;
@@ -1543,7 +1669,7 @@ main a{
   transform: translate(-50%, -50%);
   width: 80px;
   height: 80px;
-  background: rgba(12, 44, 85, 0.85);
+  background: rgba(17, 17, 17, 0.85);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1558,7 +1684,7 @@ main a{
 }
 
 .gallery-cover-link:hover .video-play-overlay {
-  background: rgba(12, 44, 85, 1);
+  background: rgba(17, 17, 17, 1);
   transform: translate(-50%, -50%) scale(1.1);
 }
 
@@ -1595,7 +1721,7 @@ main a{
 }
 
 .tooltip-inner {
-  background-color: #0C2C55 !important;
+  background-color: #111111 !important;
   color: white !important;
   max-width: 320px !important;
   padding: 12px 16px !important;
@@ -1623,22 +1749,22 @@ main a{
   padding: 10px 24px !important;
   font-weight: 500 !important;
   transition: all 0.3s ease !important;
-  border: 2px solid #0C2C55 !important;
-  color: #0C2C55 !important;
+  border: 2px solid #111111 !important;
+  color: #111111 !important;
   background: transparent !important;
 }
 
 .salle-btn:hover {
-  background: rgba(12, 44, 85, 0.1) !important;
+  background: rgba(17, 17, 17, 0.1) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(12, 44, 85, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.15) !important;
 }
 
 .salle-btn.active {
-  background: #0C2C55 !important;
+  background: #111111 !important;
   color: white !important;
-  border-color: #0C2C55 !important;
-  box-shadow: 0 4px 12px rgba(12, 44, 85, 0.25) !important;
+  border-color: #111111 !important;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.25) !important;
 }
 
 /* Responsive : boutons plus petits sur mobile */
@@ -1712,7 +1838,7 @@ main a{
   bottom: calc(100% + 8px); /* au-dessus de l'élément */
   left: 50%;
   transform: translateX(-50%);
-  background: #0C2C55;
+  background: #111111;
   color: white;
   padding: 14px 18px;
   border-radius: 10px;
@@ -1747,7 +1873,7 @@ main a{
   transform: translateX(-50%);
   border-width: 8px;
   border-style: solid;
-  border-color: #0C2C55 transparent transparent transparent;
+  border-color: #111111 transparent transparent transparent;
 }
 
 /* Survol */
@@ -1794,22 +1920,22 @@ main a{
   padding: 10px 24px !important;
   font-weight: 500 !important;
   transition: all 0.3s ease !important;
-  border: 2px solid #0C2C55 !important;
-  color: #0C2C55 !important;
+  border: 2px solid #111111 !important;
+  color: #111111 !important;
   background: transparent !important;
 }
 
 .salle-btn:hover {
-  background: rgba(12, 44, 85, 0.1) !important;
+  background: rgba(17, 17, 17, 0.1) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(12, 44, 85, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.15) !important;
 }
 
 .salle-btn.active {
-  background: #0C2C55 !important;
+  background: #111111 !important;
   color: white !important;
-  border-color: #0C2C55 !important;
-  box-shadow: 0 4px 12px rgba(12, 44, 85, 0.25) !important;
+  border-color: #111111 !important;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.25) !important;
 }
 
 /* ==========================================================================
@@ -1842,7 +1968,7 @@ main a{
   justify-content: center;
   gap: 8px;
   padding: 15px 10px;
-  background: #0C2C55;
+  background: #111111;
   border-radius: 12px;
   margin-bottom: 20px;
   flex-wrap: wrap;
@@ -1869,14 +1995,14 @@ main a{
 
 .jour-tab.active {
   background: white;
-  color: #0C2C55;
+  color: #111111;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transform: scale(1.15);
 }
 
 /* Titre du jour */
 .jour-titre {
-  color: #0C2C55;
+  color: #111111;
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 20px;
@@ -1953,7 +2079,7 @@ main a{
 .cours-card-heure-debut {
   font-size: 1rem;
   font-weight: 700;
-  color: #0C2C55;
+  color: #111111;
 }
 
 .cours-card-heure-fin {
@@ -2017,7 +2143,7 @@ main a{
 
 /* État étendu */
 .cours-card.expanded {
-  box-shadow: 0 6px 20px rgba(12, 44, 85, 0.15);
+  box-shadow: 0 6px 20px rgba(17, 17, 17, 0.15);
 }
 
 .cours-card.expanded .cours-card-expanded {
@@ -2031,7 +2157,7 @@ main a{
 }
 
 .cours-card.expanded .cours-card-tap-hint i {
-  color: #0C2C55;
+  color: #111111;
 }
 
 /* Boutons info cours */
@@ -2057,7 +2183,7 @@ main a{
   display: inline-block;
   margin-top: 10px;
   padding: 10px 20px;
-  background: #0C2C55;
+  background: #111111;
   color: white !important;
   text-decoration: none;
   border-radius: 8px;
@@ -2130,7 +2256,7 @@ main a{
   bottom: 0;
   left: 0;
   right: 0;
-  background: #0C2C55;
+  background: #111111;
   color: white;
   padding: 20px;
   z-index: 9999;
@@ -2190,7 +2316,7 @@ main a{
 
 .cookie-btn-accept {
   background: white;
-  color: #0C2C55;
+  color: #111111;
   border-color: white;
 }
 
