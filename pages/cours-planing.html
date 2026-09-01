@@ -103,6 +103,76 @@
     </div>
 </section>
 
+<!-- Prochaines séances : inscription en ligne -->
+<section class="seances-section">
+    <div class="container">
+        <h2 class="text-center mb-2" style="color: #111111;">Prochaines séances</h2>
+        <p class="text-center text-muted mb-4">
+            Réservez votre place pour un <strong>cours d'essai</strong> ou pour votre cours habituel.<br>
+            Séances des 4 prochaines semaines.
+        </p>
+        <div id="seancesListe" class="seances-liste"></div>
+        <p id="seancesVide" class="text-center text-muted" hidden>
+            Aucune séance à réserver pour le moment.
+        </p>
+    </div>
+</section>
+
+<!-- Modal d'inscription à une séance -->
+<div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="inscriptionModalTitre" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inscriptionModalTitre">Inscription à une séance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <p class="inscription-recap" id="inscriptionRecap"></p>
+
+                <form name="inscription-cours" method="POST" action="/pages/merci-inscription.html"
+                      data-netlify="true" netlify-honeypot="bot-field" id="inscriptionForm">
+                    <input type="hidden" name="form-name" value="inscription-cours">
+                    <p class="hidden-field">
+                        <label>Ne pas remplir : <input name="bot-field"></label>
+                    </p>
+
+                    <!-- Renseignés automatiquement au clic sur une séance -->
+                    <input type="hidden" name="cours" id="f-cours">
+                    <input type="hidden" name="date" id="f-date">
+                    <input type="hidden" name="horaire" id="f-horaire">
+                    <input type="hidden" name="salle" id="f-salle">
+
+                    <div class="form-field">
+                        <label>Prénom et nom *</label>
+                        <input type="text" name="nom" placeholder="Votre nom complet" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Email *</label>
+                        <input type="email" name="email" placeholder="Votre email" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Téléphone *</label>
+                        <input type="tel" name="telephone" placeholder="Votre numéro" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Type d'inscription *</label>
+                        <select name="type" required>
+                            <option value="">Choisir…</option>
+                            <option value="Cours d'essai">Cours d'essai</option>
+                            <option value="Cours habituel (déjà inscrit·e)">Je suis déjà inscrit·e à ce cours</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" id="inscriptionSubmit">
+                        Confirmer mon inscription
+                    </button>
+                    <p class="inscription-feedback" id="inscriptionFeedback" role="status" hidden></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../components/footer.js"></script>
 <moov-footer></moov-footer>
 
@@ -358,6 +428,211 @@
   // Initial active state
   document.querySelector('.salle-btn.active')?.click();
 </script>
+
+<!-- Prochaines séances : génération du calendrier + inscription -->
+<script type="module">
+  import { coursData } from '../data/cours.js';
+  import { seancesAnnulees } from '../data/seances-annulees.js';
+
+  const SEMAINES = 4;
+  const JOURS = { "Dimanche": 0, "Lundi": 1, "Mardi": 2, "Mercredi": 3, "Jeudi": 4, "Vendredi": 5, "Samedi": 6 };
+  const SALLES = { avanchets: "Avanchets Jura", saconnex: "Petit-Saconnex" };
+
+  const liste = document.getElementById('seancesListe');
+  const vide = document.getElementById('seancesVide');
+
+  if (liste) {
+    const seances = genererSeances();
+    if (seances.length === 0) {
+      if (vide) vide.hidden = false;
+    } else {
+      liste.innerHTML = renderParSemaine(seances);
+      brancherSemaines();
+      brancherBoutons();
+    }
+  }
+
+  function ymd(d) {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+
+  function estAnnulee(dateStr, cours) {
+    return seancesAnnulees.some(a => {
+      if (a.date !== dateStr) return false;
+      if (!a.nom) return true; // annule toute la journée
+      return a.nom === cours.nom && (!a.salle || a.salle === cours.salle);
+    });
+  }
+
+  function genererSeances() {
+    const aujourdhui = new Date();
+    aujourdhui.setHours(0, 0, 0, 0);
+    const limite = new Date(aujourdhui);
+    limite.setDate(limite.getDate() + SEMAINES * 7);
+
+    const out = [];
+    coursData.filter(c => c.inscription).forEach(c => {
+      const cible = JOURS[c.jour];
+      const d = new Date(aujourdhui);
+      d.setDate(d.getDate() + ((cible - d.getDay() + 7) % 7));
+      for (; d <= limite; d.setDate(d.getDate() + 7)) {
+        const dateStr = ymd(d);
+        if (estAnnulee(dateStr, c)) continue;
+        out.push({ cours: c, date: new Date(d), dateStr });
+      }
+    });
+    return out.sort((a, b) => a.date - b.date || a.cours.horaire.localeCompare(b.cours.horaire));
+  }
+
+  function labelDate(d) {
+    const s = d.toLocaleDateString('fr-CH', { weekday: 'long', day: 'numeric', month: 'long' });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function lundiDeLaSemaine(d) {
+    const x = new Date(d);
+    x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); // 0 = lundi
+    x.setHours(0, 0, 0, 0);
+    return x;
+  }
+
+  function labelSemaine(lundi) {
+    const dimanche = new Date(lundi);
+    dimanche.setDate(dimanche.getDate() + 6);
+    const num = d => (d.getDate() === 1 ? '1er' : d.getDate());
+    const mois = d => d.toLocaleDateString('fr-CH', { month: 'long' });
+    const debut = mois(lundi) === mois(dimanche) ? `${num(lundi)}` : `${num(lundi)} ${mois(lundi)}`;
+    return `Semaine du ${debut} au ${num(dimanche)} ${mois(dimanche)}`;
+  }
+
+  function renderParSemaine(seances) {
+    const groupes = new Map();
+    seances.forEach(s => {
+      const cle = ymd(lundiDeLaSemaine(s.date));
+      if (!groupes.has(cle)) groupes.set(cle, { lundi: lundiDeLaSemaine(s.date), seances: [] });
+      groupes.get(cle).seances.push(s);
+    });
+    return [...groupes.values()].map((g, i) => {
+      const ouvert = i === 0;
+      const n = g.seances.length;
+      return `
+      <div class="seances-semaine" data-ouvert="${ouvert}">
+        <button type="button" class="seances-semaine-titre" aria-expanded="${ouvert}">
+          <span class="seances-semaine-label">${labelSemaine(g.lundi)}</span>
+          <span class="seances-semaine-compte">${n} séance${n > 1 ? 's' : ''}</span>
+          <i class="fas fa-chevron-down seances-semaine-fleche" aria-hidden="true"></i>
+        </button>
+        <div class="seances-semaine-cartes">
+          ${g.seances.map(carteSeance).join('')}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function brancherSemaines() {
+    document.querySelectorAll('.seances-semaine-titre').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const bloc = btn.closest('.seances-semaine');
+        const ouvert = bloc.dataset.ouvert === 'true';
+        bloc.dataset.ouvert = String(!ouvert);
+        btn.setAttribute('aria-expanded', String(!ouvert));
+      });
+    });
+  }
+
+  function carteSeance(s) {
+    const c = s.cours;
+    const salleNom = SALLES[c.salle] || c.salle;
+    return `
+      <div class="seance-card">
+        <div class="seance-card-color" style="background:${c.couleur || '#111111'};"></div>
+        <div class="seance-card-body">
+          <div class="seance-card-date">${labelDate(s.date)}</div>
+          <div class="seance-card-nom">${c.nom} <span class="seance-card-age">${c.age}</span></div>
+          <div class="seance-card-meta">
+            <i class="fas fa-clock"></i> ${c.horaire}
+            &nbsp;·&nbsp;
+            <i class="fas fa-location-dot"></i> ${salleNom}
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary seance-card-btn"
+          data-cours="${encodeURIComponent(c.nom)}"
+          data-age="${encodeURIComponent(c.age)}"
+          data-date="${s.dateStr}"
+          data-date-label="${encodeURIComponent(labelDate(s.date))}"
+          data-horaire="${c.horaire}"
+          data-salle="${encodeURIComponent(salleNom)}">
+          Je m'inscris
+        </button>
+      </div>`;
+  }
+
+  // ---- Modal d'inscription ----
+  const modalEl = document.getElementById('inscriptionModal');
+  const form = document.getElementById('inscriptionForm');
+  const recap = document.getElementById('inscriptionRecap');
+  const feedback = document.getElementById('inscriptionFeedback');
+  const submitBtn = document.getElementById('inscriptionSubmit');
+  const modal = (modalEl && window.bootstrap) ? new bootstrap.Modal(modalEl) : null;
+
+  function brancherBoutons() {
+    document.querySelectorAll('.seance-card-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!modal) return;
+        const d = btn.dataset;
+        const cours = decodeURIComponent(d.cours);
+        const age = decodeURIComponent(d.age);
+        const dateLabel = decodeURIComponent(d.dateLabel);
+        const salle = decodeURIComponent(d.salle);
+
+        form.querySelector('#f-cours').value = `${cours} (${age})`;
+        form.querySelector('#f-date').value = `${dateLabel} (${d.date})`;
+        form.querySelector('#f-horaire').value = d.horaire;
+        form.querySelector('#f-salle').value = salle;
+
+        recap.innerHTML = `<strong>${cours}</strong><br>${dateLabel} · ${d.horaire}<br>${salle}`;
+        resetFormulaire();
+        modal.show();
+      });
+    });
+  }
+
+  function resetFormulaire() {
+    feedback.hidden = true;
+    feedback.textContent = '';
+    feedback.classList.remove('is-error', 'is-success');
+    submitBtn.disabled = false;
+    form.querySelectorAll('.form-field, #inscriptionSubmit').forEach(el => { el.hidden = false; });
+  }
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      feedback.hidden = false;
+      feedback.classList.remove('is-error', 'is-success');
+      feedback.textContent = 'Envoi en cours…';
+
+      try {
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)).toString(),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        form.querySelectorAll('.form-field, #inscriptionSubmit').forEach(el => { el.hidden = true; });
+        feedback.classList.add('is-success');
+        feedback.textContent = 'Merci ! Votre inscription est bien enregistrée. Ana vous recontactera si besoin.';
+        form.reset();
+      } catch (err) {
+        submitBtn.disabled = false;
+        feedback.classList.add('is-error');
+        feedback.textContent = "Oups, l'envoi a échoué. Réessayez, ou écrivez à moovensemble@gmail.com.";
+      }
+    });
+  }
+</script>
+
 <!-- Bannière Cookies -->
 <script src="../js/cookies.js"></script>
 
