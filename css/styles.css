@@ -2419,7 +2419,7 @@ main a{
 .seances-section {
     background: #ffffff;
     border-top: 1px solid #eee;
-    padding-bottom: 5rem;
+    padding: 3rem 0 6.5rem;
 }
 
 .seances-liste {
