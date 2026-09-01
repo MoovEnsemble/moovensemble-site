@@ -1,4 +1,6 @@
 // data/cours.js
+// Ajouter `inscription: true` sur un cours pour qu'il apparaisse dans le
+// calendrier "Prochaines séances" (inscription en ligne) de la page planning.
 //Sport pour les femmes
 export const coursData = [
   {
@@ -8,6 +10,7 @@ export const coursData = [
     age: "+ 55 ans",
     salle: "avanchets",
     couleur: "#198754", // vert pour Vital
+    inscription: true,
     details:
       "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
@@ -18,6 +21,7 @@ export const coursData = [
     age: "21 - 54 ans",
     salle: "avanchets",
     couleur: "#d63384", // rose pour Ladies
+    inscription: true,
     details:
       "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
@@ -28,6 +32,7 @@ export const coursData = [
     age: "16 - 54 ans",
     salle: "saconnex",
     couleur: "#d63384",
+    inscription: true,
     details:
       "Cours dynamique pour femmes.<br><strong>Prof : Ana</strong><br>Prix : 60.– CHF / mois",
   },
@@ -38,6 +43,7 @@ export const coursData = [
     age: "18 ans et +",
     salle: "saconnex",
     couleur: "#0C2C55", // bleu marine pour Defense
+    inscription: true,
     details:
       "Cours de self-défense pour adultes, tous niveaux.<br>Prix : 60.– CHF / mois",
   },
@@ -48,6 +54,7 @@ export const coursData = [
     age: "10 - 17 ans",
     salle: "saconnex",
     couleur: "#0C2C55", // bleu marine pour Defense
+    inscription: true,
     details:
       "Cours de self-défense adapté aux adolescents.<br>Prix : 60.– CHF / mois",
   },
@@ -58,6 +65,7 @@ export const coursData = [
     age: "Sur mesure (agences de sécurité)",
     salle: "saconnex",
     couleur: "#000000", // noir pour Defense privé
+    inscription: true,
     details:
       "Cours de self-défense privé, sur mesure pour les agences de sécurité privée.<br>Prix : 60.– CHF / mois",
   },
