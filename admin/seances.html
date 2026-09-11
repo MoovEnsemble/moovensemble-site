@@ -50,6 +50,21 @@
             </div>
         </div>
 
+        <!-- Bloquer une séance à l'avance, même sans inscription -->
+        <div class="section-card">
+            <h2>Bloquer une séance à l'avance</h2>
+            <p style="color:#6b7280; font-size:0.85rem; margin-bottom:16px;">
+                Tu sais déjà que tu ne pourras pas être présente à une séance précise (même sans
+                inscription pour l'instant) ? Elle apparaîtra « Complet » sur le site, personne ne
+                pourra s'y inscrire. Tu pourras revenir en arrière avec « ✏️ Capacité » plus bas.
+            </p>
+            <div class="filters-bar">
+                <select id="blocageCours" class="filter-select" style="flex:1;"></select>
+                <select id="blocageDate" class="filter-select" style="flex:1;"></select>
+                <button type="button" class="btn-primary" id="blocageValider">Marquer complet</button>
+            </div>
+        </div>
+
         <!-- Filtres -->
         <div class="filters-bar">
             <input type="text" id="recherche" class="search-input" placeholder="Chercher un nom ou un email…">
@@ -86,6 +101,19 @@
         const SALLES = { avanchets: 'Avanchets Jura', saconnex: 'Petit-Saconnex' }
         const aujourdhui = new Date().toISOString().slice(0, 10)
 
+        // Les cours ouverts à l'inscription en ligne — reflète data/cours.js
+        // (flag `inscription: true`) et data/seances-annulees.js. À tenir à
+        // jour si la liste des cours inscriptibles change sur le site.
+        const COURS_RECURRENTS = [
+            { nom: "Moov'Vital",   jour: 5, horaire: '20:00', salle: 'avanchets' }, // vendredi
+            { nom: "Moov'Ladies",  jour: 5, horaire: '19:00', salle: 'avanchets' }, // vendredi
+            { nom: "Moov'Ladies",  jour: 0, horaire: '09:00', salle: 'saconnex' },  // dimanche
+            { nom: "Moov'Defense", jour: 0, horaire: '10:15', salle: 'saconnex' },  // dimanche
+            { nom: "Moov'Defense", jour: 2, horaire: '19:15', salle: 'saconnex' },  // mardi
+            { nom: "Moov'Defense", jour: 6, horaire: '09:00', salle: 'saconnex' },  // samedi
+        ]
+        const NOMS_JOURS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
+
         let toutesLesSeances = []
 
         function labelDate(dateStr) {
@@ -96,6 +124,64 @@
 
         function heure(t) {
             return (t || '').slice(0, 5) // "19:00:00" -> "19:00"
+        }
+
+        function ymd(d) {
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+        }
+
+        function libelleCours(c) {
+            return `${c.nom} — ${NOMS_JOURS[c.jour]} ${c.horaire} (${SALLES[c.salle]})`
+        }
+
+        function prochainesDates(c, n = 8) {
+            const dates = []
+            const d = new Date()
+            d.setHours(0, 0, 0, 0)
+            d.setDate(d.getDate() + ((c.jour - d.getDay() + 7) % 7))
+            for (let i = 0; i < n; i++) {
+                dates.push(new Date(d))
+                d.setDate(d.getDate() + 7)
+            }
+            return dates
+        }
+
+        function peupleBlocage() {
+            const selCours = document.getElementById('blocageCours')
+            selCours.innerHTML = COURS_RECURRENTS.map((c, i) => `<option value="${i}">${libelleCours(c)}</option>`).join('')
+            majDatesBlocage()
+        }
+
+        function majDatesBlocage() {
+            const c = COURS_RECURRENTS[document.getElementById('blocageCours').value]
+            const selDate = document.getElementById('blocageDate')
+            selDate.innerHTML = prochainesDates(c).map(d => {
+                const s = labelDate(ymd(d))
+                return `<option value="${ymd(d)}">${s}</option>`
+            }).join('')
+        }
+
+        async function bloquerSeance() {
+            const c = COURS_RECURRENTS[document.getElementById('blocageCours').value]
+            const date = document.getElementById('blocageDate').value
+            const [hh, mm] = c.horaire.split(':').map(Number)
+            const heureFin = `${String((hh + 1) % 24).padStart(2, '0')}:${String(mm).padStart(2, '0')}`
+
+            if (!confirm(`Marquer "${c.nom}" du ${labelDate(date)} comme complet ? Plus personne ne pourra s'y inscrire tant que tu ne changes pas la capacité.`)) return
+
+            const bouton = document.getElementById('blocageValider')
+            bouton.disabled = true
+            const { error } = await supabase.from('sessions').upsert(
+                { cours: c.nom, salle: c.salle, date, heure_debut: c.horaire, heure_fin: heureFin, capacite: 0 },
+                { onConflict: 'cours,salle,date,heure_debut' }
+            )
+            bouton.disabled = false
+
+            if (error) {
+                alert('Erreur : ' + error.message)
+                return
+            }
+            await chargerSeances()
         }
 
         function badgeStatutSeance(confirmees, capacite) {
@@ -311,6 +397,10 @@
         document.getElementById('recherche').addEventListener('input', afficher)
         document.getElementById('filtreCours').addEventListener('change', afficher)
         document.getElementById('voirHistorique').addEventListener('change', afficher)
+
+        document.getElementById('blocageCours').addEventListener('change', majDatesBlocage)
+        document.getElementById('blocageValider').addEventListener('click', bloquerSeance)
+        peupleBlocage()
 
         await chargerSeances()
 
