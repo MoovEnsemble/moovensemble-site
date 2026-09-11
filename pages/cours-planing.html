@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="../css/styles.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Cloudflare Turnstile (anti-robot pour l'inscription aux séances) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="bg-light">
 
@@ -129,19 +131,7 @@
             <div class="modal-body">
                 <p class="inscription-recap" id="inscriptionRecap"></p>
 
-                <form name="inscription-cours" method="POST" action="/pages/merci-inscription.html"
-                      data-netlify="true" netlify-honeypot="bot-field" id="inscriptionForm">
-                    <input type="hidden" name="form-name" value="inscription-cours">
-                    <p class="hidden-field">
-                        <label>Ne pas remplir : <input name="bot-field"></label>
-                    </p>
-
-                    <!-- Renseignés automatiquement au clic sur une séance -->
-                    <input type="hidden" name="cours" id="f-cours">
-                    <input type="hidden" name="date" id="f-date">
-                    <input type="hidden" name="horaire" id="f-horaire">
-                    <input type="hidden" name="salle" id="f-salle">
-
+                <form id="inscriptionForm">
                     <div class="form-field">
                         <label>Prénom et nom *</label>
                         <input type="text" name="nom" placeholder="Votre nom complet" required>
@@ -158,10 +148,12 @@
                         <label>Type d'inscription *</label>
                         <select name="type" required>
                             <option value="">Choisir…</option>
-                            <option value="Cours d'essai">Cours d'essai</option>
-                            <option value="Cours habituel (déjà inscrit·e)">Je suis déjà inscrit·e à ce cours</option>
+                            <option value="essai">Cours d'essai</option>
+                            <option value="habituel">Je suis déjà inscrit·e à ce cours</option>
                         </select>
                     </div>
+
+                    <div id="turnstileWidget" class="turnstile-wrap"></div>
 
                     <button type="submit" class="btn btn-primary w-100" id="inscriptionSubmit">
                         Confirmer mon inscription
@@ -431,8 +423,16 @@
 
 <!-- Prochaines séances : génération du calendrier + inscription -->
 <script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
   import { coursData } from '../data/cours.js';
   import { seancesAnnulees } from '../data/seances-annulees.js';
+
+  const SUPABASE_URL = 'https://djjaxrlsgulaqawzskbu.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_CPnHYFaVVnrcvhV6nUDeAw_8eDVVlKJ';
+  const RESERVER_URL = `${SUPABASE_URL}/functions/v1/reserver`;
+  const TURNSTILE_SITE_KEY = '0x4AAAAAAEwVEAPszEq-eNg3';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
   const SEMAINES = 4;
   const JOURS = { "Dimanche": 0, "Lundi": 1, "Mardi": 2, "Mercredi": 3, "Jeudi": 4, "Vendredi": 5, "Samedi": 6 };
@@ -446,9 +446,32 @@
     if (seances.length === 0) {
       if (vide) vide.hidden = false;
     } else {
+      const statuts = await chargerDisponibilites(seances);
+      seances.forEach(s => { s.statut = statuts.get(cleSeance(s)) || 'disponible'; });
       liste.innerHTML = renderParSemaine(seances);
       brancherSemaines();
       brancherBoutons();
+    }
+  }
+
+  // Format attendu par la base : "Moov'Ladies|avanchets|2026-09-18|19:00"
+  function heureDebutISO(c) {
+    return c.horaire.split('-')[0].replace('h', ':');
+  }
+
+  function cleSeance(s) {
+    return `${s.cours.nom}|${s.cours.salle}|${s.dateStr}|${heureDebutISO(s.cours)}`;
+  }
+
+  async function chargerDisponibilites(seances) {
+    const cles = seances.map(cleSeance);
+    try {
+      const { data, error } = await supabase.rpc('disponibilites', { p_cles: cles });
+      if (error) throw error;
+      return new Map(data.map(d => [d.cle, d.statut]));
+    } catch (e) {
+      console.error('disponibilites:', e);
+      return new Map(); // pas de statut connu → cartes affichées comme disponibles
     }
   }
 
@@ -543,6 +566,26 @@
   function carteSeance(s) {
     const c = s.cours;
     const salleNom = SALLES[c.salle] || c.salle;
+    const statut = s.statut || 'disponible';
+    const complet = statut === 'complet';
+
+    const statutHtml = statut === 'bientot_complet'
+      ? `<div class="seance-card-statut statut-orange"><span class="statut-dot"></span>Bientôt complet — réservez vite</div>`
+      : complet
+        ? `<div class="seance-card-statut statut-rouge"><span class="statut-dot"></span>Cours complet</div>`
+        : '';
+
+    const boutonHtml = complet
+      ? `<button type="button" class="btn btn-secondary seance-card-btn" disabled>Complet</button>`
+      : `<button type="button" class="btn btn-primary seance-card-btn"
+          data-cle="${encodeURIComponent(cleSeance(s))}"
+          data-cours="${encodeURIComponent(c.nom)}"
+          data-date-label="${encodeURIComponent(labelDate(s.date))}"
+          data-horaire="${c.horaire}"
+          data-salle="${encodeURIComponent(salleNom)}">
+          Je m'inscris
+        </button>`;
+
     return `
       <div class="seance-card">
         <div class="seance-card-color" style="background:${c.couleur || '#111111'};"></div>
@@ -554,16 +597,9 @@
             &nbsp;·&nbsp;
             <i class="fas fa-location-dot"></i> ${salleNom}
           </div>
+          ${statutHtml}
         </div>
-        <button type="button" class="btn btn-primary seance-card-btn"
-          data-cours="${encodeURIComponent(c.nom)}"
-          data-age="${encodeURIComponent(c.age)}"
-          data-date="${s.dateStr}"
-          data-date-label="${encodeURIComponent(labelDate(s.date))}"
-          data-horaire="${c.horaire}"
-          data-salle="${encodeURIComponent(salleNom)}">
-          Je m'inscris
-        </button>
+        ${boutonHtml}
       </div>`;
   }
 
@@ -575,23 +611,37 @@
   const submitBtn = document.getElementById('inscriptionSubmit');
   const modal = (modalEl && window.bootstrap) ? new bootstrap.Modal(modalEl) : null;
 
+  let seanceCourante = null;
+  let turnstileWidgetId = null;
+  let turnstileToken = '';
+
+  function assurerTurnstile() {
+    turnstileToken = '';
+    if (!window.turnstile) return; // le script Turnstile n'a pas encore fini de charger
+    if (turnstileWidgetId === null) {
+      turnstileWidgetId = window.turnstile.render('#turnstileWidget', {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (token) => { turnstileToken = token; },
+        'error-callback': () => { turnstileToken = ''; },
+        'expired-callback': () => { turnstileToken = ''; },
+      });
+    } else {
+      window.turnstile.reset(turnstileWidgetId);
+    }
+  }
+
   function brancherBoutons() {
-    document.querySelectorAll('.seance-card-btn').forEach(btn => {
+    document.querySelectorAll('.seance-card-btn:not([disabled])').forEach(btn => {
       btn.addEventListener('click', () => {
         if (!modal) return;
         const d = btn.dataset;
-        const cours = decodeURIComponent(d.cours);
-        const age = decodeURIComponent(d.age);
+        seanceCourante = { cle: decodeURIComponent(d.cle), cours: decodeURIComponent(d.cours) };
         const dateLabel = decodeURIComponent(d.dateLabel);
         const salle = decodeURIComponent(d.salle);
 
-        form.querySelector('#f-cours').value = `${cours} (${age})`;
-        form.querySelector('#f-date').value = `${dateLabel} (${d.date})`;
-        form.querySelector('#f-horaire').value = d.horaire;
-        form.querySelector('#f-salle').value = salle;
-
-        recap.innerHTML = `<strong>${cours}</strong><br>${dateLabel} · ${d.horaire}<br>${salle}`;
+        recap.innerHTML = `<strong>${seanceCourante.cours}</strong><br>${dateLabel} · ${d.horaire}<br>${salle}`;
         resetFormulaire();
+        assurerTurnstile();
         modal.show();
       });
     });
@@ -602,28 +652,68 @@
     feedback.textContent = '';
     feedback.classList.remove('is-error', 'is-success');
     submitBtn.disabled = false;
-    form.querySelectorAll('.form-field, #inscriptionSubmit').forEach(el => { el.hidden = false; });
+    form.reset();
+    form.querySelectorAll('.form-field, #turnstileWidget, #inscriptionSubmit').forEach(el => { el.hidden = false; });
+  }
+
+  function messageErreur(raison) {
+    switch (raison) {
+      case 'complet': return 'Cette séance vient de se remplir. Inscrivez-vous à la prochaine séance !';
+      case 'seance_annulee': return 'Cette séance a été annulée.';
+      case 'verification_echouee': return 'La vérification de sécurité a échoué. Réessayez dans quelques secondes.';
+      default: return "Oups, quelque chose s'est mal passé. Réessayez, ou écrivez à moovensemble@gmail.com.";
+    }
   }
 
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!seanceCourante) return;
+
+      if (!turnstileToken) {
+        feedback.hidden = false;
+        feedback.classList.remove('is-success');
+        feedback.classList.add('is-error');
+        feedback.textContent = 'Vérification de sécurité en cours, patientez quelques secondes puis réessayez.';
+        return;
+      }
+
       submitBtn.disabled = true;
       feedback.hidden = false;
       feedback.classList.remove('is-error', 'is-success');
       feedback.textContent = 'Envoi en cours…';
 
+      const fd = new FormData(form);
+      const corps = {
+        cle: seanceCourante.cle,
+        nom: fd.get('nom'),
+        email: fd.get('email'),
+        telephone: fd.get('telephone'),
+        type: fd.get('type'),
+        turnstileToken,
+      };
+
       try {
-        const res = await fetch('/', {
+        const res = await fetch(RESERVER_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(new FormData(form)).toString(),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+          },
+          body: JSON.stringify(corps),
         });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        form.querySelectorAll('.form-field, #inscriptionSubmit').forEach(el => { el.hidden = true; });
-        feedback.classList.add('is-success');
-        feedback.textContent = 'Merci ! Votre inscription est bien enregistrée. Ana vous recontactera si besoin.';
-        form.reset();
+        const data = await res.json();
+
+        if (data.ok) {
+          form.querySelectorAll('.form-field, #turnstileWidget, #inscriptionSubmit').forEach(el => { el.hidden = true; });
+          feedback.classList.add('is-success');
+          feedback.textContent = 'Merci ! Votre inscription est bien enregistrée. Un email de confirmation vous a été envoyé.';
+        } else {
+          submitBtn.disabled = false;
+          feedback.classList.add('is-error');
+          feedback.textContent = messageErreur(data.raison);
+          assurerTurnstile();
+        }
       } catch (err) {
         submitBtn.disabled = false;
         feedback.classList.add('is-error');

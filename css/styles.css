@@ -2605,3 +2605,33 @@ main a{
     background: #fdecea;
     color: #b3261e;
 }
+
+/* Pastille de disponibilité (vert = rien à afficher, orange/rouge visibles) */
+.seance-card-statut {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.seance-card-statut .statut-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.seance-card-statut.statut-orange { color: #b0650f; }
+.seance-card-statut.statut-orange .statut-dot { background: #f0ad4e; }
+
+.seance-card-statut.statut-rouge { color: #b23225; }
+.seance-card-statut.statut-rouge .statut-dot { background: #dc3545; }
+
+.turnstile-wrap {
+    margin: 4px 0 16px;
+    display: flex;
+    justify-content: center;
+}
