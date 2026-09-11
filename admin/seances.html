@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séances — Moov'Ensemble Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo/petit-logo_sans_fond.png">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2>Moov'Ensemble</h2>
+            <span>Administration</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="membres.html" class="nav-item">
+                <span class="icon">👥</span> Membres
+            </a>
+            <a href="transactions.html" class="nav-item">
+                <span class="icon">💰</span> Transactions
+            </a>
+            <a href="factures.html" class="nav-item">
+                <span class="icon">🧾</span> Factures
+            </a>
+            <a href="cours.html" class="nav-item">
+                <span class="icon">🏃</span> Cours
+            </a>
+            <a href="seances.html" class="nav-item active">
+                <span class="icon">📅</span> Séances
+            </a>
+        </nav>
+        <button class="btn-logout" id="logoutBtn">Se déconnecter</button>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+
+        <header class="page-header">
+            <h1>Séances & réservations</h1>
+            <span id="dateAujourdhui"></span>
+        </header>
+
+        <!-- Cartes statistiques -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Séances avec inscriptions</div>
+                <div class="stat-value" id="totalSeances">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Inscriptions confirmées</div>
+                <div class="stat-value" id="totalConfirmees">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Séances complètes</div>
+                <div class="stat-value" id="totalCompletes">—</div>
+            </div>
+        </div>
+
+        <p style="color:#6b7280; font-size:0.85rem; margin-bottom:20px;">
+            Une séance n'apparaît ici qu'à partir de sa première inscription. Les annulations restent
+            visibles (grisées, barrées) pour garder l'historique.
+        </p>
+
+        <div id="listeSeances">
+            <div class="section-card">Chargement…</div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import { supabase } from './js/config.js'
+
+        // Vérifier si connecté
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) window.location.href = 'index.html'
+
+        document.getElementById('dateAujourdhui').textContent =
+            new Date().toLocaleDateString('fr-CH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+        const SALLES = { avanchets: 'Avanchets Jura', saconnex: 'Petit-Saconnex' }
+
+        function labelDate(dateStr) {
+            const d = new Date(dateStr + 'T00:00:00')
+            const s = d.toLocaleDateString('fr-CH', { weekday: 'long', day: 'numeric', month: 'long' })
+            return s.charAt(0).toUpperCase() + s.slice(1)
+        }
+
+        function heure(t) {
+            return (t || '').slice(0, 5) // "19:00:00" -> "19:00"
+        }
+
+        function badgeStatutSeance(confirmees, capacite) {
+            if (confirmees >= capacite) return { classe: 'badge-rouge', texte: `${confirmees} / ${capacite} — complet` }
+            if (confirmees >= 5) return { classe: 'badge-orange', texte: `${confirmees} / ${capacite} — bientôt complet` }
+            return { classe: 'badge-vert', texte: `${confirmees} / ${capacite}` }
+        }
+
+        function ligneReservation(r) {
+            const annulee = r.statut === 'annulee'
+            const statutBadge = annulee
+                ? '<span class="badge badge-inactif">Annulée</span>'
+                : '<span class="badge badge-actif">Confirmée</span>'
+            const typeLabel = r.type === 'essai' ? "Cours d'essai" : 'Habituel'
+            const dateInscription = new Date(r.created_at).toLocaleDateString('fr-CH', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+
+            return `
+                <tr class="${annulee ? 'ligne-annulee' : ''}">
+                    <td>${r.nom}</td>
+                    <td><a href="mailto:${r.email}">${r.email}</a></td>
+                    <td><a href="tel:${r.telephone}">${r.telephone}</a></td>
+                    <td>${typeLabel}</td>
+                    <td>${statutBadge}</td>
+                    <td>${dateInscription}</td>
+                </tr>`
+        }
+
+        function carteSeance(s) {
+            const confirmees = s.reservations.filter(r => r.statut === 'confirmee').length
+            const badge = badgeStatutSeance(confirmees, s.capacite)
+            const salleNom = SALLES[s.salle] || s.salle
+            const lignes = [...s.reservations]
+                .sort((a, b) => (a.statut === b.statut ? 0 : a.statut === 'confirmee' ? -1 : 1))
+                .map(ligneReservation)
+                .join('')
+
+            return `
+                <div class="section-card">
+                    <div class="seance-entete">
+                        <div>
+                            <h2>${s.cours}</h2>
+                            <span class="seance-sous-titre">
+                                ${labelDate(s.date)} · ${heure(s.heure_debut)}-${heure(s.heure_fin)} · ${salleNom}
+                                ${s.annulee ? ' · <strong style="color:#991b1b;">Séance annulée</strong>' : ''}
+                            </span>
+                        </div>
+                        <span class="badge ${badge.classe}">${badge.texte}</span>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Type</th>
+                                <th>Statut</th>
+                                <th>Inscrit le</th>
+                            </tr>
+                        </thead>
+                        <tbody>${lignes}</tbody>
+                    </table>
+                </div>`
+        }
+
+        const aujourdhui = new Date().toISOString().slice(0, 10)
+
+        const { data: sessions, error } = await supabase
+            .from('sessions')
+            .select('id, cours, salle, date, heure_debut, heure_fin, capacite, annulee, reservations(nom, email, telephone, type, statut, created_at)')
+            .gte('date', aujourdhui)
+            .order('date', { ascending: true })
+            .order('heure_debut', { ascending: true })
+
+        const liste = document.getElementById('listeSeances')
+
+        if (error) {
+            console.error(error)
+            liste.innerHTML = '<div class="section-card">Impossible de charger les séances. Réessayez plus tard.</div>'
+        } else if (!sessions || sessions.length === 0) {
+            liste.innerHTML = '<div class="section-card">Aucune inscription pour l\'instant.</div>'
+            document.getElementById('totalSeances').textContent = 0
+            document.getElementById('totalConfirmees').textContent = 0
+            document.getElementById('totalCompletes').textContent = 0
+        } else {
+            liste.innerHTML = sessions.map(carteSeance).join('')
+
+            const totalConfirmees = sessions.reduce(
+                (n, s) => n + s.reservations.filter(r => r.statut === 'confirmee').length, 0
+            )
+            const totalCompletes = sessions.filter(
+                s => s.reservations.filter(r => r.statut === 'confirmee').length >= s.capacite
+            ).length
+
+            document.getElementById('totalSeances').textContent = sessions.length
+            document.getElementById('totalConfirmees').textContent = totalConfirmees
+            document.getElementById('totalCompletes').textContent = totalCompletes
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut()
+            window.location.href = 'index.html'
+        })
+    </script>
+
+</body>
+</html>

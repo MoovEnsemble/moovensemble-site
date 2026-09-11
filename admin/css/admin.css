@@ -313,6 +313,50 @@ body {
     color: #6b7280;
 }
 
+/* Disponibilité des séances (même code couleur que le site public) */
+.badge-vert {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-orange {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge-rouge {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.ligne-annulee {
+    opacity: 0.55;
+}
+
+.ligne-annulee td:first-child {
+    text-decoration: line-through;
+}
+
+.seance-entete {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.seance-entete h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 2px;
+}
+
+.seance-entete .seance-sous-titre {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
 /* ── BOUTONS ── */
 .btn-primary {
     padding: 10px 20px;
