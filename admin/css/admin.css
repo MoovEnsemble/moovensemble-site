@@ -429,6 +429,21 @@ body {
 
 .btn-reactiver:hover { background-color: #dcfce7; }
 
+.btn-annuler-sm {
+    padding: 5px 12px;
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-annuler-sm:hover { background-color: #fee2e2; }
+.btn-annuler-sm:disabled { opacity: 0.5; cursor: not-allowed; }
+
 .actions-cell {
     display: flex;
     gap: 6px;

@@ -34,10 +34,10 @@
             <span id="dateAujourdhui"></span>
         </header>
 
-        <!-- Cartes statistiques -->
+        <!-- Cartes statistiques (séances à venir uniquement) -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-label">Séances avec inscriptions</div>
+                <div class="stat-label">Séances à venir avec inscriptions</div>
                 <div class="stat-value" id="totalSeances">—</div>
             </div>
             <div class="stat-card">
@@ -48,6 +48,18 @@
                 <div class="stat-label">Séances complètes</div>
                 <div class="stat-value" id="totalCompletes">—</div>
             </div>
+        </div>
+
+        <!-- Filtres -->
+        <div class="filters-bar">
+            <input type="text" id="recherche" class="search-input" placeholder="Chercher un nom ou un email…">
+            <select id="filtreCours" class="filter-select">
+                <option value="">Tous les cours</option>
+            </select>
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.875rem; color:#374151; white-space:nowrap;">
+                <input type="checkbox" id="voirHistorique">
+                Voir aussi l'historique
+            </label>
         </div>
 
         <p style="color:#6b7280; font-size:0.85rem; margin-bottom:20px;">
@@ -72,6 +84,9 @@
             new Date().toLocaleDateString('fr-CH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
 
         const SALLES = { avanchets: 'Avanchets Jura', saconnex: 'Petit-Saconnex' }
+        const aujourdhui = new Date().toISOString().slice(0, 10)
+
+        let toutesLesSeances = []
 
         function labelDate(dateStr) {
             const d = new Date(dateStr + 'T00:00:00')
@@ -89,6 +104,63 @@
             return { classe: 'badge-vert', texte: `${confirmees} / ${capacite}` }
         }
 
+        function echapperCSV(valeur) {
+            return `"${String(valeur ?? '').replace(/"/g, '""')}"`
+        }
+
+        function telechargerCSV(s) {
+            const entetes = ['Nom', 'Email', 'Téléphone', 'Type', 'Statut', 'Inscrit le']
+            const lignes = s.reservations.map(r => [
+                r.nom, r.email, r.telephone,
+                r.type === 'essai' ? "Cours d'essai" : 'Habituel',
+                r.statut === 'confirmee' ? 'Confirmée' : 'Annulée',
+                new Date(r.created_at).toLocaleString('fr-CH'),
+            ])
+            const csv = [entetes, ...lignes].map(l => l.map(echapperCSV).join(',')).join('\r\n')
+            const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' })
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = `${s.cours}-${s.date}.csv`.replace(/[^\w.-]+/g, '_')
+            document.body.appendChild(a)
+            a.click()
+            a.remove()
+            URL.revokeObjectURL(url)
+        }
+
+        async function annulerReservation(id, btn) {
+            if (!confirm('Annuler cette inscription ? La personne ne sera pas notifiée automatiquement.')) return
+            btn.disabled = true
+            btn.textContent = '…'
+            const { error } = await supabase
+                .from('reservations')
+                .update({ statut: 'annulee', annule_le: new Date().toISOString() })
+                .eq('id', id)
+            if (error) {
+                alert('Erreur : ' + error.message)
+                btn.disabled = false
+                btn.textContent = 'Annuler'
+                return
+            }
+            await chargerSeances()
+        }
+
+        async function modifierCapacite(s) {
+            const saisie = prompt(`Capacité pour ${s.cours} — ${labelDate(s.date)} :`, s.capacite)
+            if (saisie === null) return
+            const n = parseInt(saisie, 10)
+            if (!Number.isInteger(n) || n < 1) {
+                alert("Merci d'indiquer un nombre entier positif.")
+                return
+            }
+            const { error } = await supabase.from('sessions').update({ capacite: n }).eq('id', s.id)
+            if (error) {
+                alert('Erreur : ' + error.message)
+                return
+            }
+            await chargerSeances()
+        }
+
         function ligneReservation(r) {
             const annulee = r.statut === 'annulee'
             const statutBadge = annulee
@@ -96,6 +168,9 @@
                 : '<span class="badge badge-actif">Confirmée</span>'
             const typeLabel = r.type === 'essai' ? "Cours d'essai" : 'Habituel'
             const dateInscription = new Date(r.created_at).toLocaleDateString('fr-CH', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+            const actionCell = annulee
+                ? ''
+                : `<button type="button" class="btn-annuler-sm" data-id="${r.id}">Annuler</button>`
 
             return `
                 <tr class="${annulee ? 'ligne-annulee' : ''}">
@@ -105,6 +180,7 @@
                     <td>${typeLabel}</td>
                     <td>${statutBadge}</td>
                     <td>${dateInscription}</td>
+                    <td class="actions-cell">${actionCell}</td>
                 </tr>`
         }
 
@@ -118,7 +194,7 @@
                 .join('')
 
             return `
-                <div class="section-card">
+                <div class="section-card" data-session-id="${s.id}">
                     <div class="seance-entete">
                         <div>
                             <h2>${s.cours}</h2>
@@ -127,7 +203,11 @@
                                 ${s.annulee ? ' · <strong style="color:#991b1b;">Séance annulée</strong>' : ''}
                             </span>
                         </div>
-                        <span class="badge ${badge.classe}">${badge.texte}</span>
+                        <div class="actions-cell">
+                            <span class="badge ${badge.classe}">${badge.texte}</span>
+                            <button type="button" class="btn-edit btn-modifier-capacite" title="Modifier la capacité">✏️ Capacité</button>
+                            <button type="button" class="btn-secondary btn-export-csv">⬇ CSV</button>
+                        </div>
                     </div>
                     <table class="admin-table">
                         <thead>
@@ -138,6 +218,7 @@
                                 <th>Type</th>
                                 <th>Statut</th>
                                 <th>Inscrit le</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>${lignes}</tbody>
@@ -145,39 +226,93 @@
                 </div>`
         }
 
-        const aujourdhui = new Date().toISOString().slice(0, 10)
+        function peupleFiltreCours() {
+            const select = document.getElementById('filtreCours')
+            const valeurActuelle = select.value
+            const cours = [...new Set(toutesLesSeances.map(s => s.cours))].sort()
+            select.innerHTML = '<option value="">Tous les cours</option>' +
+                cours.map(c => `<option value="${c}">${c}</option>`).join('')
+            select.value = valeurActuelle
+        }
 
-        const { data: sessions, error } = await supabase
-            .from('sessions')
-            .select('id, cours, salle, date, heure_debut, heure_fin, capacite, annulee, reservations(nom, email, telephone, type, statut, created_at)')
-            .gte('date', aujourdhui)
-            .order('date', { ascending: true })
-            .order('heure_debut', { ascending: true })
+        function afficher() {
+            const recherche = document.getElementById('recherche').value.trim().toLowerCase()
+            const coursFiltre = document.getElementById('filtreCours').value
+            const avecHistorique = document.getElementById('voirHistorique').checked
 
-        const liste = document.getElementById('listeSeances')
+            let seances = toutesLesSeances
+            if (!avecHistorique) seances = seances.filter(s => s.date >= aujourdhui)
+            if (coursFiltre) seances = seances.filter(s => s.cours === coursFiltre)
+            if (recherche) {
+                seances = seances.filter(s =>
+                    s.reservations.some(r =>
+                        r.nom.toLowerCase().includes(recherche) || r.email.toLowerCase().includes(recherche)
+                    )
+                )
+            }
 
-        if (error) {
-            console.error(error)
-            liste.innerHTML = '<div class="section-card">Impossible de charger les séances. Réessayez plus tard.</div>'
-        } else if (!sessions || sessions.length === 0) {
-            liste.innerHTML = '<div class="section-card">Aucune inscription pour l\'instant.</div>'
-            document.getElementById('totalSeances').textContent = 0
-            document.getElementById('totalConfirmees').textContent = 0
-            document.getElementById('totalCompletes').textContent = 0
-        } else {
-            liste.innerHTML = sessions.map(carteSeance).join('')
+            const cle = (s) => s.date + 'T' + s.heure_debut
+            const aVenirTriees = seances.filter(s => s.date >= aujourdhui)
+                .sort((a, b) => cle(a).localeCompare(cle(b))) // plus proche d'abord
+            const passeesTriees = seances.filter(s => s.date < aujourdhui)
+                .sort((a, b) => cle(b).localeCompare(cle(a))) // plus récente d'abord
+            seances = [...aVenirTriees, ...passeesTriees]
 
-            const totalConfirmees = sessions.reduce(
-                (n, s) => n + s.reservations.filter(r => r.statut === 'confirmee').length, 0
-            )
-            const totalCompletes = sessions.filter(
-                s => s.reservations.filter(r => r.statut === 'confirmee').length >= s.capacite
-            ).length
+            const liste = document.getElementById('listeSeances')
+            liste.innerHTML = seances.length
+                ? seances.map(carteSeance).join('')
+                : '<div class="section-card">Aucune séance ne correspond.</div>'
 
-            document.getElementById('totalSeances').textContent = sessions.length
+            // Stats : toujours basées sur "à venir", indépendamment des filtres
+            const aVenir = toutesLesSeances.filter(s => s.date >= aujourdhui)
+            const totalConfirmees = aVenir.reduce((n, s) => n + s.reservations.filter(r => r.statut === 'confirmee').length, 0)
+            const totalCompletes = aVenir.filter(s => s.reservations.filter(r => r.statut === 'confirmee').length >= s.capacite).length
+            document.getElementById('totalSeances').textContent = aVenir.length
             document.getElementById('totalConfirmees').textContent = totalConfirmees
             document.getElementById('totalCompletes').textContent = totalCompletes
+
+            // Actions (déléguées après re-rendu du HTML)
+            liste.querySelectorAll('.btn-annuler-sm').forEach(btn => {
+                btn.addEventListener('click', () => annulerReservation(btn.dataset.id, btn))
+            })
+            liste.querySelectorAll('.btn-modifier-capacite').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.closest('[data-session-id]').dataset.sessionId
+                    const s = toutesLesSeances.find(x => x.id === id)
+                    if (s) modifierCapacite(s)
+                })
+            })
+            liste.querySelectorAll('.btn-export-csv').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.closest('[data-session-id]').dataset.sessionId
+                    const s = toutesLesSeances.find(x => x.id === id)
+                    if (s) telechargerCSV(s)
+                })
+            })
         }
+
+        async function chargerSeances() {
+            const { data, error } = await supabase
+                .from('sessions')
+                .select('id, cours, salle, date, heure_debut, heure_fin, capacite, annulee, reservations(id, nom, email, telephone, type, statut, created_at)')
+
+            if (error) {
+                console.error(error)
+                document.getElementById('listeSeances').innerHTML =
+                    '<div class="section-card">Impossible de charger les séances. Réessayez plus tard.</div>'
+                return
+            }
+
+            toutesLesSeances = data || []
+            peupleFiltreCours()
+            afficher()
+        }
+
+        document.getElementById('recherche').addEventListener('input', afficher)
+        document.getElementById('filtreCours').addEventListener('change', afficher)
+        document.getElementById('voirHistorique').addEventListener('change', afficher)
+
+        await chargerSeances()
 
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', async () => {
