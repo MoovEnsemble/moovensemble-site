@@ -35,7 +35,7 @@ function corsHeaders(origin: string | null) {
     (ORIGINES_FIXES.has(origin) || origin.endsWith("--dashing-quokka-979d06.netlify.app"));
   return {
     "Access-Control-Allow-Origin": autorisee ? origin! : "https://moovensemble.ch",
-    "Access-Control-Allow-Headers": "content-type",
+    "Access-Control-Allow-Headers": "authorization, content-type",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Vary": "Origin",
   };

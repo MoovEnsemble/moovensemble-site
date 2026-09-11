@@ -1,6 +1,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-const SUPABASE_URL = 'https://zbvwfnnygyfcwwnrscoc.supabase.co'
-const SUPABASE_KEY = 'sb_publishable_msqEFDNtv7DbvBkIsT5FZg_WvH7IbMw'
+// Projet Supabase "MoovEnsemble" (réservations aux séances).
+// L'ancien projet "conta" (zbvwfnnygyfcwwnrscoc) est abandonné.
+const SUPABASE_URL = 'https://djjaxrlsgulaqawzskbu.supabase.co'
+const SUPABASE_KEY = 'sb_publishable_CPnHYFaVVnrcvhV6nUDeAw_8eDVVlKJ'
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
