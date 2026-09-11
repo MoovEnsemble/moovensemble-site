@@ -21,3 +21,11 @@ to authenticated
 using (
   (auth.jwt() ->> 'email') in ('moovensemble@gmail.com', 'adrien@arzabe-studio.ch')
 );
+
+-- La policy seule ne suffit pas : la migration 0001 a fait un
+-- `revoke all` sur ces tables, il faut redonner le droit de base au
+-- rôle "authenticated". La policy ci-dessus filtre ensuite les
+-- lignes par email — un compte connecté qui n'est pas admin ne verra
+-- toujours rien.
+grant select on public.sessions to authenticated;
+grant select on public.reservations to authenticated;
