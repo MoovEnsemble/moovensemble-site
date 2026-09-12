@@ -659,6 +659,7 @@
   function messageErreur(raison) {
     switch (raison) {
       case 'complet': return 'Cette séance vient de se remplir. Inscrivez-vous à la prochaine séance !';
+      case 'deja_inscrit': return 'Vous êtes déjà inscrit·e à cette séance avec cet email.';
       case 'seance_annulee': return 'Cette séance a été annulée.';
       case 'verification_echouee': return 'La vérification de sécurité a échoué. Réessayez dans quelques secondes.';
       default: return "Oups, quelque chose s'est mal passé. Réessayez, ou écrivez à moovensemble@gmail.com.";

@@ -295,20 +295,22 @@
                             <button type="button" class="btn-secondary btn-export-csv">⬇ CSV</button>
                         </div>
                     </div>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Téléphone</th>
-                                <th>Type</th>
-                                <th>Statut</th>
-                                <th>Inscrit le</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>${lignes}</tbody>
-                    </table>
+                    <div class="table-scroll">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Téléphone</th>
+                                    <th>Type</th>
+                                    <th>Statut</th>
+                                    <th>Inscrit le</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>${lignes}</tbody>
+                        </table>
+                    </div>
                 </div>`
         }
 
